@@ -1,0 +1,26 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Security: Block direct browser access to hidden files (.env, .git, etc.)
+    RewriteRule ^\.(.*) - [F,L]
+
+    # Security: Prevent directory listing
+    Options -Indexes -MultiViews
+
+    # Pass the Authorization header to PHP (JWT / basic auth APIs)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # If the requested URI exists as a real file or directory, serve it directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Otherwise, route everything through front controller with Query String Append (QSA)
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
