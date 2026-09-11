@@ -1364,19 +1364,19 @@
                         <div><a href="tel:+919871731303" class="hover:underline">+91 9871731303</a></div>
                         <div><a href="tel:+917409767452" class="hover:underline">+91 7409767452</a></div>
                     </div>
-                    <p class="text-[11px] opacity-60">
-                        concierge@gleamrealty.com
+                    <p class="text-[14px] ">
+                        <a href="mailto: contact@gleamrealty.com" class="hover:underline">contact@gleamrealty.com</a>
                     </p>
                 </div>
             </div>
 
             <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] opacity-60 gap-4">
                 <div>&copy; <?= date('Y') ?> GLEAMREALTY PRIVATE LIMITED. All rights reserved. RERA and MVDA compliant.</div>
-                <div class="flex gap-6">
-                    <a href="<?= url('/admin/login') ?>" class="hover:opacity-100 transition-opacity">Executive Portal</a>
-                    <span>&bull;</span>
-                    <a href="<?= url('/about-us') ?>" class="hover:opacity-100 transition-opacity">Privacy &amp; Terms</a>
+                <div>Design & Develop By <a href="https://thrusture.com/" class="hover:opacity-100 transition-opacity" target="_blank">Thrusture Pvt. Ltd.</a> 
+                     Tech Partner <a href="https://digitallogicindia.com/" class="hover:opacity-100 transition-opacity" target="_blank">
+                     @DigitalLogicIndia</a>
                 </div>
+                
             </div>
         </div>
     </footer>

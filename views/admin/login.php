@@ -49,13 +49,13 @@
 
                 <div>
                     <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Email or Username</label>
-                    <input type="text" name="login" required placeholder="admin@gleamrealty.com" value="admin@gleamrealty.com"
+                    <input type="text" name="login" required 
                         class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors">
                 </div>
 
                 <div>
                     <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Password</label>
-                    <input type="password" name="password" required placeholder="••••••••" value="Admin@12345"
+                    <input type="password" name="password" 
                         class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors">
                 </div>
 
@@ -67,7 +67,6 @@
             </form>
 
             <div class="mt-6 pt-5 border-t border-slate-800/80 text-center">
-                <span class="text-xs text-slate-500">Default: <code class="text-slate-400 bg-slate-800/60 px-1.5 py-0.5 rounded">admin@gleamrealty.com</code> / <code class="text-slate-400 bg-slate-800/60 px-1.5 py-0.5 rounded">Admin@12345</code></span>
             </div>
         </div>
 
