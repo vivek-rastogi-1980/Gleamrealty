@@ -22,27 +22,27 @@
 
         <!-- Social Links -->
         <div class="bg-slate-900/90 rounded-xl border border-slate-800 p-6 shadow-xl relative overflow-hidden group">
-            <div class="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <h3 class="font-heading font-semibold text-white text-lg flex items-center gap-2 mb-4">
+            <div class="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <h3 class="font-heading font-semibold text-white text-lg flex items-center gap-2 mb-4 relative z-10">
                 <span class="w-2 h-2 rounded-full bg-gold-400"></span> 
                 Social Links
             </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Facebook URL</label>
-                    <input type="text" name="social_facebook" value="<?= e($sections['social']['facebook'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="social_facebook" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Facebook URL</label>
+                    <input type="text" id="social_facebook" name="social_facebook" value="<?= e($sections['social']['facebook'] ?? '') ?>" placeholder="https://facebook.com/yourpage" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none transition-colors">
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Instagram URL</label>
-                    <input type="text" name="social_instagram" value="<?= e($sections['social']['instagram'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="social_instagram" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Instagram URL</label>
+                    <input type="text" id="social_instagram" name="social_instagram" value="<?= e($sections['social']['instagram'] ?? '') ?>" placeholder="https://instagram.com/yourprofile" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none transition-colors">
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">LinkedIn URL</label>
-                    <input type="text" name="social_linkedin" value="<?= e($sections['social']['linkedin'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="social_linkedin" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">LinkedIn URL</label>
+                    <input type="text" id="social_linkedin" name="social_linkedin" value="<?= e($sections['social']['linkedin'] ?? '') ?>" placeholder="https://linkedin.com/company/yourcompany" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none transition-colors">
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">YouTube URL</label>
-                    <input type="text" name="social_youtube" value="<?= e($sections['social']['youtube'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="social_youtube" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">YouTube URL</label>
+                    <input type="text" id="social_youtube" name="social_youtube" value="<?= e($sections['social']['youtube'] ?? '') ?>" placeholder="https://youtube.com/@yourchannel" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none transition-colors">
                 </div>
             </div>
         </div>
@@ -55,24 +55,24 @@
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="sm:col-span-2">
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Address</label>
-                    <input type="text" name="contact_address" value="<?= e($sections['contact']['address'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="contact_address" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Address</label>
+                    <input type="text" id="contact_address" name="contact_address" value="<?= e($sections['contact']['address'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
                 <div class="sm:col-span-2">
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Map Directions URL</label>
-                    <input type="text" name="contact_map_url" value="<?= e($sections['contact']['map_url'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="contact_map_url" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Map Directions URL</label>
+                    <input type="text" id="contact_map_url" name="contact_map_url" value="<?= e($sections['contact']['map_url'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Phone 1</label>
-                    <input type="text" name="contact_phone1" value="<?= e($sections['contact']['phone1'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="contact_phone1" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Phone 1</label>
+                    <input type="text" id="contact_phone1" name="contact_phone1" value="<?= e($sections['contact']['phone1'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Phone 2</label>
-                    <input type="text" name="contact_phone2" value="<?= e($sections['contact']['phone2'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="contact_phone2" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Phone 2</label>
+                    <input type="text" id="contact_phone2" name="contact_phone2" value="<?= e($sections['contact']['phone2'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
                 <div class="sm:col-span-2">
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email</label>
-                    <input type="email" name="contact_email" value="<?= e($sections['contact']['email'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="contact_email" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Email</label>
+                    <input type="email" id="contact_email" name="contact_email" value="<?= e($sections['contact']['email'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
             </div>
         </div>
@@ -131,12 +131,12 @@
             </h3>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Copyright Text</label>
-                    <input type="text" name="bottom_copyright" value="<?= e($sections['bottom']['copyright_text'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="bottom_copyright" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Copyright Text</label>
+                    <input type="text" id="bottom_copyright" name="bottom_copyright" value="<?= e($sections['bottom']['copyright_text'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Script Tagline (e.g., "Building Better")</label>
-                    <input type="text" name="bottom_script" value="<?= e($sections['bottom']['script_text'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
+                    <label for="bottom_script" class="block text-xs uppercase tracking-wider text-slate-400 mb-1 cursor-pointer">Script Tagline (e.g., "Building Better")</label>
+                    <input type="text" id="bottom_script" name="bottom_script" value="<?= e($sections['bottom']['script_text'] ?? '') ?>" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-white focus:border-gold-400 focus:outline-none">
                 </div>
             </div>
         </div>

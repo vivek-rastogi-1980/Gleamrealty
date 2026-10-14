@@ -234,7 +234,9 @@
             <div>
                 <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Video Tour Embed URL (YouTube / Vimeo)</label>
                 <input type="text" name="hero_video_url" value="<?= e($project['hero_video_url'] ?? '') ?>"
+                    placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..."
                     class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
+                <span class="text-[11px] text-slate-500 block mt-1">Accepts any YouTube link (watch, share, shorts) or Vimeo link. It will automatically convert to the proper embed player.</span>
             </div>
 
             <div>

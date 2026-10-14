@@ -62,7 +62,7 @@ class MediaController extends Controller
 
         // Video embed URL submission
         if ($mediaType === 'video') {
-            $videoUrl = (string) $request->input('video_url', '');
+            $videoUrl = format_embed_url((string) $request->input('video_url', ''));
             if (!empty($videoUrl)) {
                 ProjectMedia::create($id, $videoUrl, 'video', $caption ?: 'Project Video Tour', 0);
                 $this->flash('success', 'Video embed link added successfully.');

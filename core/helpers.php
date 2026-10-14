@@ -179,4 +179,41 @@ if (!function_exists('company_email')) {
     }
 }
 
+if (!function_exists('format_embed_url')) {
+    /**
+     * Convert YouTube or Vimeo URLs (watch, short, live, shorts, share, or full iframe)
+     * into a clean, embeddable iframe URL.
+     */
+    function format_embed_url(?string $url): string
+    {
+        if (empty($url)) {
+            return '';
+        }
+
+        $url = trim($url);
+
+        // If user pasted an iframe tag, extract the src attribute
+        if (preg_match('/<iframe\b[^>]*\bsrc=["\']([^"\']+)["\']/i', $url, $iframeMatch)) {
+            $url = trim($iframeMatch[1]);
+        }
+
+        // YouTube embed URL (already formatted)
+        if (preg_match('~^https?://(?:www\.)?youtube(?:-nocookie)?\.com/embed/([a-zA-Z0-9_-]{11})~i', $url, $ytEmbedMatch)) {
+            return 'https://www.youtube.com/embed/' . $ytEmbedMatch[1];
+        }
+
+        // YouTube standard watch, short URL, shorts, live, or mobile
+        if (preg_match('~(?:youtube(?:-nocookie)?\.com/(?:watch\?(?:.*&)?v=|v/|shorts/|live/)|youtu\.be/)([a-zA-Z0-9_-]{11})~i', $url, $ytMatch)) {
+            return 'https://www.youtube.com/embed/' . $ytMatch[1];
+        }
+
+        // Vimeo: player.vimeo.com/video/ID or vimeo.com/ID
+        if (preg_match('~(?:player\.)?vimeo\.com/(?:video/)?([0-9]+)~i', $url, $vimeoMatch)) {
+            return 'https://player.vimeo.com/video/' . $vimeoMatch[1];
+        }
+
+        return $url;
+    }
+}
+
 

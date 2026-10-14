@@ -277,15 +277,34 @@
                 </div>
 
                 <!-- Video Tour Embed if available -->
-                <?php if (!empty($project['hero_video_url'])): ?>
+                <?php 
+                $embedVideoUrl = !empty($project['hero_video_url']) ? format_embed_url($project['hero_video_url']) : '';
+                if (!empty($embedVideoUrl)): 
+                ?>
                     <div class="p-8 rounded-2xl border space-y-4 transition-colors duration-300"
                          :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)', boxShadow: 'var(--theme-card-shadow)' }">
                         <span class="text-[11px] font-semibold uppercase tracking-[0.24em] block" :style="{ color: 'var(--theme-accent)' }">Cinematic Tour</span>
                         <h3 class="font-editorial text-2xl font-normal" :style="{ color: 'var(--theme-title)' }">Video Walkthrough</h3>
                         <div class="aspect-video rounded-xl overflow-hidden bg-black border" :style="{ borderColor: 'var(--theme-border-subtle)' }">
-                            <iframe src="<?= e($project['hero_video_url']) ?>" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="<?= e($embedVideoUrl) ?>" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </div>
+                <?php endif; ?>
+
+                <?php if (!empty($videos)): ?>
+                    <?php foreach ($videos as $vd): 
+                        $vUrl = format_embed_url($vd['file_path'] ?? '');
+                        if (empty($vUrl) || $vUrl === $embedVideoUrl) continue;
+                    ?>
+                        <div class="p-8 rounded-2xl border space-y-4 transition-colors duration-300"
+                             :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)', boxShadow: 'var(--theme-card-shadow)' }">
+                            <span class="text-[11px] font-semibold uppercase tracking-[0.24em] block" :style="{ color: 'var(--theme-accent)' }">Visual Tour</span>
+                            <h3 class="font-editorial text-2xl font-normal" :style="{ color: 'var(--theme-title)' }"><?= e($vd['caption'] ?: 'Video Showcase') ?></h3>
+                            <div class="aspect-video rounded-xl overflow-hidden bg-black border" :style="{ borderColor: 'var(--theme-border-subtle)' }">
+                                <iframe src="<?= e($vUrl) ?>" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 <?php endif; ?>
 
             </div>

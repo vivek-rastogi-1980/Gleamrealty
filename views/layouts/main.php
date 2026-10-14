@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" data-theme="<?= e($active_theme ?? \App\Models\Setting::getActiveTheme()) ?>">
+<html lang="en" data-theme="<?= e($active_theme ?? \App\Models\Setting::getActiveTheme()) ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -150,7 +150,7 @@
     </script>
 
     <!-- Lenis Smooth Scroll, GSAP, and ScrollTrigger -->
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
@@ -653,7 +653,10 @@
         }
 
         /* Lenis smooth scrolling defaults */
-        html.lenis {
+        html {
+            scroll-behavior: auto !important;
+        }
+        html.lenis, html.lenis body {
             height: auto;
         }
         .lenis.lenis-smooth {
@@ -667,6 +670,25 @@
         }
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
+        }
+
+        /* Modern Smooth Scrollbar Styling */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.7);
         }
 
         /* Subtle Ken Burns Zoom Animation */
@@ -1589,23 +1611,57 @@
     <!-- Lenis & GSAP Micro-Interactions Script -->
     <script>
         // 1. Smooth Scroll Engine: Initialize Lenis in your main layout
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-        });
+        let lenis = null;
+        if (typeof Lenis !== 'undefined') {
+            lenis = new Lenis({
+                duration: 1.0,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 1.0,
+                touchMultiplier: 1.5,
+                autoRaf: false,
+            });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
+            window.lenis = lenis;
+
+            // Connect Lenis to ScrollTrigger
+            lenis.on('scroll', () => {
+                if (typeof ScrollTrigger !== 'undefined') {
+                    ScrollTrigger.update();
+                }
+            });
+
+            // Single RAF loop using GSAP's ticker (prevents duplicate animation frame conflict)
+            if (typeof gsap !== 'undefined') {
+                gsap.ticker.add((time) => {
+                    lenis.raf(time * 1000);
+                });
+                gsap.ticker.lagSmoothing(0);
+            } else {
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+            }
+
+            // Smooth internal anchor link navigation
+            document.addEventListener('click', (e) => {
+                const anchor = e.target.closest('a[href^="#"]');
+                if (anchor) {
+                    const href = anchor.getAttribute('href');
+                    if (href && href.length > 1 && !href.startsWith('#/')) {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            lenis.scrollTo(target, { offset: -80 });
+                        }
+                    }
+                }
+            });
         }
-        requestAnimationFrame(raf);
-
-        // Connect Lenis to ScrollTrigger
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0);
 
         // 2. GSAP ScrollTrigger Micro-Interactions
         document.addEventListener('DOMContentLoaded', () => {
