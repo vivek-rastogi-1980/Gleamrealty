@@ -170,7 +170,68 @@ class CommercialPropertyController extends Controller
             'project_slug' => trim((string) $request->input('showcase_project_slug', $current['showcase']['project_slug'] ?? 'shri-vrinda-orchids-commercial-complex')),
         ];
 
-        // 6. Institutional Commercial Advisory
+        // 6. Vrindavan Commercial Land & Retail Rate Matrix
+        $matrixRows = [];
+        $rawRows = $request->post('matrix_rows');
+        if (is_array($rawRows)) {
+            foreach ($rawRows as $row) {
+                if (!is_array($row)) {
+                    continue;
+                }
+                $corridor = trim((string) ($row['corridor'] ?? ''));
+                $landRate = trim((string) ($row['land_rate'] ?? ''));
+                $retailRate = trim((string) ($row['retail_rate'] ?? ''));
+                $optimalUse = trim((string) ($row['optimal_use'] ?? ''));
+                $yield = trim((string) ($row['projected_yield'] ?? ''));
+
+                if ($corridor !== '' || $landRate !== '' || $retailRate !== '' || $optimalUse !== '' || $yield !== '') {
+                    $matrixRows[] = [
+                        'corridor' => $corridor,
+                        'land_rate' => $landRate,
+                        'retail_rate' => $retailRate,
+                        'optimal_use' => $optimalUse,
+                        'projected_yield' => $yield,
+                    ];
+                }
+            }
+        } elseif (!isset($_POST['matrix_title']) && !empty($current['matrix']['rows'])) {
+            $matrixRows = $current['matrix']['rows'];
+        }
+
+        $matrix = [
+            'eyebrow' => trim((string) $request->input('matrix_eyebrow', $current['matrix']['eyebrow'] ?? '2026 Pricing Transparency')),
+            'title' => trim((string) $request->input('matrix_title', $current['matrix']['title'] ?? 'Vrindavan Commercial Land & Retail Rate Matrix')),
+            'subtitle' => trim((string) $request->input('matrix_subtitle', $current['matrix']['subtitle'] ?? 'Current market price analysis per corridor across permissible commercial zones in Vrindavan.')),
+            'rows' => $matrixRows,
+        ];
+
+        // 7. Frequently Asked Questions
+        $faqList = [];
+        $rawQuestions = $request->post('faq_q');
+        $rawAnswers = $request->post('faq_a');
+        if (is_array($rawQuestions)) {
+            foreach ($rawQuestions as $index => $q) {
+                $qText = trim((string) $q);
+                $aText = isset($rawAnswers[$index]) ? trim((string) $rawAnswers[$index]) : '';
+                if ($qText !== '' || $aText !== '') {
+                    $faqList[] = [
+                        'q' => $qText,
+                        'a' => $aText,
+                    ];
+                }
+            }
+        } elseif (!isset($_POST['faqs_title']) && !empty($current['faqs']['list'])) {
+            $faqList = $current['faqs']['list'];
+        }
+
+        $faqs = [
+            'eyebrow' => trim((string) $request->input('faqs_eyebrow', $current['faqs']['eyebrow'] ?? 'Investor Intelligence')),
+            'title' => trim((string) $request->input('faqs_title', $current['faqs']['title'] ?? 'Frequently Asked Questions')),
+            'subtitle' => trim((string) $request->input('faqs_subtitle', $current['faqs']['subtitle'] ?? 'Clear, straightforward answers about commercial land, CLU compliance, and returns in Vrindavan.')),
+            'list' => $faqList,
+        ];
+
+        // 8. Institutional Commercial Advisory
         $consultation = [
             'badge' => trim((string) $request->input('consultation_badge', $current['consultation']['badge'] ?? '')),
             'title' => trim((string) $request->input('consultation_title', $current['consultation']['title'] ?? '')),
@@ -180,7 +241,7 @@ class CommercialPropertyController extends Controller
             'whatsapp' => trim((string) $request->input('consultation_whatsapp', $current['consultation']['whatsapp'] ?? '+91 9871731303')),
         ];
 
-        // 7. SEO Metadata
+        // 9. SEO Metadata
         $seo = [
             'meta_title' => trim((string) $request->input('meta_title', $current['seo']['meta_title'] ?? '')),
             'meta_description' => trim((string) $request->input('meta_description', $current['seo']['meta_description'] ?? '')),
@@ -193,6 +254,8 @@ class CommercialPropertyController extends Controller
             'catalysts' => $catalysts,
             'sectors' => $sectors,
             'showcase' => $showcase,
+            'matrix' => $matrix,
+            'faqs' => $faqs,
             'consultation' => $consultation,
             'seo' => $seo,
         ];

@@ -1226,7 +1226,7 @@ $heroBadge = !empty($rp['hero']['badge']) ? $rp['hero']['badge'] : '✦ Gleamrea
                 ],
                 [
                     'q' => '5. What are the legal risks associated with purchasing a plot in Vrindavan and how to avoid them?',
-                    'a' => "To avoid legal complications, always verify title claims against government revenue records rather than verbal developer promises. Conduct a comprehensive 30-year title search through a local advocate, verify that your specific plot number is demarcated in the approved MVDA layout map, and secure a Non-Encumbrance Certificate (NEC). Having a nationalized bank (SBI, HDFC, ICICI) approve loans for the project provides independent legal validation. Always insist on a registered Sale Deed at the Sub-Registrar Office followed by timely revenue mutation (Dakhil Kharij) in the Jamabandi."
+                    'a' => "To avoid legal complications, always verify title claims against government revenue records rather than verbal developer promises. Conduct a comprehensive 12-year title search through a local advocate, verify that your specific plot number is demarcated in the approved MVDA layout map, and secure a Non-Encumbrance Certificate (NEC). Having a nationalized bank (SBI, HDFC, ICICI) approve loans for the project provides independent legal validation. Always insist on a registered Sale Deed at the Sub-Registrar Office followed by timely revenue mutation (Dakhil Kharij) in the Jamabandi."
                 ],
                 [
                     'q' => '6. How much land is being sold in Vrindavan and what are the standard plot sizes?',

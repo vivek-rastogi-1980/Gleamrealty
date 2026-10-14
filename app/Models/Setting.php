@@ -543,6 +543,107 @@ class Setting
                 'f4_val' => 'Ready to Build',
                 'project_slug' => 'shri-vrinda-orchids-commercial-complex',
             ],
+            'matrix' => [
+                'eyebrow' => '2026 Pricing Transparency',
+                'title' => 'Vrindavan Commercial Land & Retail Rate Matrix',
+                'subtitle' => 'Current market price analysis per corridor across permissible commercial zones in Vrindavan.',
+                'rows' => [
+                    [
+                        'corridor' => 'Rukmani Vihar Prime Road',
+                        'land_rate' => '₹ 65,000 – ₹ 85,000',
+                        'retail_rate' => '₹ 14,000 – ₹ 18,000',
+                        'optimal_use' => 'High-Street Retail, Clinics, Banks',
+                        'projected_yield' => '11% - 14%',
+                    ],
+                    [
+                        'corridor' => 'NH-19 Highway Frontage',
+                        'land_rate' => '₹ 45,000 – ₹ 60,000',
+                        'retail_rate' => '₹ 10,000 – ₹ 14,000',
+                        'optimal_use' => 'Hotels, Resorts, Mega Warehousing',
+                        'projected_yield' => '12% - 16%',
+                    ],
+                    [
+                        'corridor' => 'Chhatikara-Vrindavan Road',
+                        'land_rate' => '₹ 75,000 – ₹ 1,10,000',
+                        'retail_rate' => '₹ 16,000 – ₹ 22,000',
+                        'optimal_use' => 'Boutique Stays, QSR Food Courts',
+                        'projected_yield' => '10% - 13%',
+                    ],
+                    [
+                        'corridor' => 'Bhaktivedanta Swami Marg (ISKCON)',
+                        'land_rate' => '₹ 1,20,000 – ₹ 1,80,000',
+                        'retail_rate' => '₹ 24,000 – ₹ 32,000',
+                        'optimal_use' => 'Precious Gems, Heritage Artifacts',
+                        'projected_yield' => '9% - 11%',
+                    ],
+                    [
+                        'corridor' => 'Sunrakh / Parikrama Periphery',
+                        'land_rate' => '₹ 35,000 – ₹ 48,000',
+                        'retail_rate' => '₹ 8,500 – ₹ 12,000',
+                        'optimal_use' => 'Ayurvedic Ashrams & Wellness',
+                        'projected_yield' => '12% - 15%',
+                    ],
+                ],
+            ],
+            'faqs' => [
+                'eyebrow' => 'Investor Intelligence',
+                'title' => 'Frequently Asked Questions',
+                'subtitle' => 'Clear, straightforward answers about commercial land, CLU compliance, and returns in Vrindavan.',
+                'list' => [
+                    [
+                        'q' => '1. What is the current commercial plot rate in Vrindavan?',
+                        'a' => 'Commercial plot rates in Vrindavan in 2026 range from ₹35,000/sq. yard along developing outer links (Sunrakh, Chaumuha) to ₹65,000–₹85,000/sq. yard in high-demand hubs like Rukmani Vihar and NH-19 highway frontage. Core temple belts exceed ₹1,20,000/sq. yard.'
+                    ],
+                    [
+                        'q' => '2. Why is MVDA commercial approval essential before purchasing commercial property?',
+                        'a' => 'MVDA commercial sanction guarantees legal Change of Land Use (CLU), preventing demolition notices, sealing, or legal disputes. Furthermore, scheduled commercial developments mandate 30–40 ft wide approach roads, adequate guest parking, and clear titles recognized by banks.'
+                    ],
+                    [
+                        'q' => '3. Can outstation buyers and NRIs invest in commercial land in Vrindavan?',
+                        'a' => 'Yes, absolutely. Commercial plots and retail shops in RERA and MVDA approved developments have clear freehold titles that can be registered in the name of Indian residents or NRIs with immediate registry and mutation.'
+                    ],
+                    [
+                        'q' => '4. What are the typical rental yields for commercial property in Vrindavan?',
+                        'a' => 'Commercial assets in Vrindavan generate 10% to 15% annual rental yields, significantly higher than typical 2-3% residential apartment yields. Hospitality and holiday guest homes benefit from 70-75% annual average occupancy.'
+                    ],
+                    [
+                        'q' => '5. What commercial units are available in Shri Vrinda Orchids Commercial Complex?',
+                        'a' => 'Shri Vrinda Orchids Commercial Complex offers lockable retail shops and showroom units ranging from 180 sq. ft to 650 sq. ft, suitable for branded retail, pharmacies, boutique sweet shops, and banking outlets.'
+                    ],
+                    [
+                        'q' => '6. How will the Jewar International Airport impact commercial property values?',
+                        'a' => 'The Jewar Airport, now operating commercial flights, connects Vrindavan in just 90 minutes via the Yamuna Expressway. This facilitates global tourism, making large-format hotels, resorts, and premium retail highly profitable.'
+                    ],
+                    [
+                        'q' => '7. Is bank loan financing available for commercial property in Vrindavan?',
+                        'a' => 'Yes. On all MVDA approved commercial developments marketed by GLEAMREALTY PRIVATE LIMITED, premier lenders including SBI, HDFC, and ICICI offer commercial mortgage and business financing facilities.'
+                    ],
+                    [
+                        'q' => '8. What is the minimum investment ticket size for commercial property?',
+                        'a' => 'Retail units in structured commercial complexes start from approximately ₹28 to ₹35 Lakhs, while commercial plots for hotel or guest house developments typically start from ₹65 Lakhs onwards.'
+                    ],
+                    [
+                        'q' => '9. How does the Banke Bihari Corridor affect commercial zoning?',
+                        'a' => 'The corridor project will modernize pedestrian flow and create dedicated high-street shopping zones, driving double-digit capital appreciation in commercial land located within a 5 km radius.'
+                    ],
+                    [
+                        'q' => '10. Can commercial property in Vrindavan be leased back to hotel operators?',
+                        'a' => 'Yes, managed lease-back models are rapidly expanding in Vrindavan, where commercial developers partner with hospitality chains to offer fixed monthly returns and profit-sharing models to investors.'
+                    ],
+                    [
+                        'q' => '11. Which areas in Vrindavan have the highest commercial footfall?',
+                        'a' => 'Rukmani Vihar, Chhatikara Road, Bhaktivedanta Swami Marg, and the NH-19 intersection experience the highest density of tourist vehicles and devotee footfall year-round.'
+                    ],
+                    [
+                        'q' => '12. What documents should I inspect before buying commercial land?',
+                        'a' => 'Verify the 30-year title deed, MVDA commercial layout sanction order, Section 143/80 non-agricultural conversion certificate, UP-RERA registration, and municipal tax clearance certificates.'
+                    ],
+                    [
+                        'q' => '13. How does GLEAMREALTY PRIVATE LIMITED assist commercial investors?',
+                        'a' => 'We provide end-to-end advisory: conducting legal due diligence, selecting high-footfall micro-locations, negotiating direct developer pricing with zero brokerage, and managing registration and mutation.'
+                    ],
+                ],
+            ],
             'consultation' => [
                 'badge' => 'Institutional Advisory',
                 'title' => 'Schedule a Commercial Site Visit',
@@ -563,7 +664,14 @@ class Setting
             return $defaults;
         }
 
-        return array_replace_recursive($defaults, $stored);
+        $merged = array_replace_recursive($defaults, $stored);
+        if (isset($stored['matrix']['rows'])) {
+            $merged['matrix']['rows'] = $stored['matrix']['rows'];
+        }
+        if (isset($stored['faqs']['list'])) {
+            $merged['faqs']['list'] = $stored['faqs']['list'];
+        }
+        return $merged;
     }
 
     /**
@@ -573,6 +681,12 @@ class Setting
     {
         $current = self::getCommercialPropertySections();
         $merged = array_replace_recursive($current, $data);
+        if (isset($data['matrix']['rows'])) {
+            $merged['matrix']['rows'] = $data['matrix']['rows'];
+        }
+        if (isset($data['faqs']['list'])) {
+            $merged['faqs']['list'] = $data['faqs']['list'];
+        }
         self::set('commercial_property_sections', $merged);
 
         $page = Page::findBySlug('commercial-property-in-vrindavan');

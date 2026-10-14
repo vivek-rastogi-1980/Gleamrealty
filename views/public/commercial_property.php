@@ -548,15 +548,15 @@ $heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrea
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                2026 Pricing Transparency
+                <?= e($cp['matrix']['eyebrow'] ?? '2026 Pricing Transparency') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                Vrindavan Commercial Land &amp; Retail Rate Matrix
+                <?= e($cp['matrix']['title'] ?? 'Vrindavan Commercial Land & Retail Rate Matrix') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-text-secondary)' }">
-                Current market price analysis per corridor across permissible commercial zones in Vrindavan.
+                <?= e($cp['matrix']['subtitle'] ?? 'Current market price analysis per corridor across permissible commercial zones in Vrindavan.') ?>
             </p>
         </div>
 
@@ -574,41 +574,20 @@ $heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrea
                     </tr>
                 </thead>
                 <tbody class="divide-y font-light" :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                    <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
-                        <td class="p-4 sm:p-5 font-semibold">Rukmani Vihar Prime Road</td>
-                        <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 65,000 – ₹ 85,000</td>
-                        <td class="p-4 sm:p-5">₹ 14,000 – ₹ 18,000</td>
-                        <td class="p-4 sm:p-5">High-Street Retail, Clinics, Banks</td>
-                        <td class="p-4 sm:p-5 text-amber-500 font-bold">11% - 14%</td>
-                    </tr>
-                    <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
-                        <td class="p-4 sm:p-5 font-semibold">NH-19 Highway Frontage</td>
-                        <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 45,000 – ₹ 60,000</td>
-                        <td class="p-4 sm:p-5">₹ 10,000 – ₹ 14,000</td>
-                        <td class="p-4 sm:p-5">Hotels, Resorts, Mega Warehousing</td>
-                        <td class="p-4 sm:p-5 text-amber-500 font-bold">12% - 16%</td>
-                    </tr>
-                    <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
-                        <td class="p-4 sm:p-5 font-semibold">Chhatikara-Vrindavan Road</td>
-                        <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 75,000 – ₹ 1,10,000</td>
-                        <td class="p-4 sm:p-5">₹ 16,000 – ₹ 22,000</td>
-                        <td class="p-4 sm:p-5">Boutique Stays, QSR Food Courts</td>
-                        <td class="p-4 sm:p-5 text-amber-500 font-bold">10% - 13%</td>
-                    </tr>
-                    <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
-                        <td class="p-4 sm:p-5 font-semibold">Bhaktivedanta Swami Marg (ISKCON)</td>
-                        <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 1,20,000 – ₹ 1,80,000</td>
-                        <td class="p-4 sm:p-5">₹ 24,000 – ₹ 32,000</td>
-                        <td class="p-4 sm:p-5">Precious Gems, Heritage Artifacts</td>
-                        <td class="p-4 sm:p-5 text-amber-500 font-bold">9% - 11%</td>
-                    </tr>
-                    <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
-                        <td class="p-4 sm:p-5 font-semibold">Sunrakh / Parikrama Periphery</td>
-                        <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 35,000 – ₹ 48,000</td>
-                        <td class="p-4 sm:p-5">₹ 8,500 – ₹ 12,000</td>
-                        <td class="p-4 sm:p-5">Ayurvedic Ashrams &amp; Wellness</td>
-                        <td class="p-4 sm:p-5 text-amber-500 font-bold">12% - 15%</td>
-                    </tr>
+                    <?php
+                    $matrixRows = !empty($cp['matrix']['rows']) && is_array($cp['matrix']['rows'])
+                        ? $cp['matrix']['rows']
+                        : [];
+                    ?>
+                    <?php foreach ($matrixRows as $row): ?>
+                        <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
+                            <td class="p-4 sm:p-5 font-semibold"><?= e($row['corridor'] ?? '') ?></td>
+                            <td class="p-4 sm:p-5 text-amber-300 font-bold"><?= e($row['land_rate'] ?? '') ?></td>
+                            <td class="p-4 sm:p-5"><?= e($row['retail_rate'] ?? '') ?></td>
+                            <td class="p-4 sm:p-5"><?= e($row['optimal_use'] ?? '') ?></td>
+                            <td class="p-4 sm:p-5 text-amber-500 font-bold"><?= e($row['projected_yield'] ?? '') ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -618,7 +597,7 @@ $heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrea
 
 
 <!-- =======================================================================
-     7. SECTION 6: Frequently Asked Questions (13 Interactive FAQs)
+     7. SECTION 6: Frequently Asked Questions
      ======================================================================= -->
 <section class="py-20 sm:py-28 px-6 sm:px-8 border-b transition-colors duration-300"
          :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-border-hairline)' }">
@@ -627,75 +606,24 @@ $heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrea
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Investor Intelligence
+                <?= e($cp['faqs']['eyebrow'] ?? 'Investor Intelligence') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                Frequently Asked Questions
+                <?= e($cp['faqs']['title'] ?? 'Frequently Asked Questions') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-text-secondary)' }">
-                Clear, straightforward answers about commercial land, CLU compliance, and returns in Vrindavan.
+                <?= e($cp['faqs']['subtitle'] ?? 'Clear, straightforward answers about commercial land, CLU compliance, and returns in Vrindavan.') ?>
             </p>
         </div>
 
         <div class="space-y-4" x-data="{ activeAccordion: null }">
             
             <?php
-            $commercialFaqs = [
-                [
-                    'q' => '1. What is the current commercial plot rate in Vrindavan?',
-                    'a' => 'Commercial plot rates in Vrindavan in 2026 range from ₹35,000/sq. yard along developing outer links (Sunrakh, Chaumuha) to ₹65,000–₹85,000/sq. yard in high-demand hubs like Rukmani Vihar and NH-19 highway frontage. Core temple belts exceed ₹1,20,000/sq. yard.'
-                ],
-                [
-                    'q' => '2. Why is MVDA commercial approval essential before purchasing commercial property?',
-                    'a' => 'MVDA commercial sanction guarantees legal Change of Land Use (CLU), preventing demolition notices, sealing, or legal disputes. Furthermore, scheduled commercial developments mandate 30–40 ft wide approach roads, adequate guest parking, and clear titles recognized by banks.'
-                ],
-                [
-                    'q' => '3. Can outstation buyers and NRIs invest in commercial land in Vrindavan?',
-                    'a' => 'Yes, absolutely. Commercial plots and retail shops in RERA and MVDA approved developments have clear freehold titles that can be registered in the name of Indian residents or NRIs with immediate registry and mutation.'
-                ],
-                [
-                    'q' => '4. What are the typical rental yields for commercial property in Vrindavan?',
-                    'a' => 'Commercial assets in Vrindavan generate 10% to 15% annual rental yields, significantly higher than typical 2-3% residential apartment yields. Hospitality and holiday guest homes benefit from 70-75% annual average occupancy.'
-                ],
-                [
-                    'q' => '5. What commercial units are available in Shri Vrinda Orchids Commercial Complex?',
-                    'a' => 'Shri Vrinda Orchids Commercial Complex offers lockable retail shops and showroom units ranging from 180 sq. ft to 650 sq. ft, suitable for branded retail, pharmacies, boutique sweet shops, and banking outlets.'
-                ],
-                [
-                    'q' => '6. How will the Jewar International Airport impact commercial property values?',
-                    'a' => 'The Jewar Airport, now operating commercial flights, connects Vrindavan in just 90 minutes via the Yamuna Expressway. This facilitates global tourism, making large-format hotels, resorts, and premium retail highly profitable.'
-                ],
-                [
-                    'q' => '7. Is bank loan financing available for commercial property in Vrindavan?',
-                    'a' => 'Yes. On all MVDA approved commercial developments marketed by GLEAMREALTY PRIVATE LIMITED, premier lenders including SBI, HDFC, and ICICI offer commercial mortgage and business financing facilities.'
-                ],
-                [
-                    'q' => '8. What is the minimum investment ticket size for commercial property?',
-                    'a' => 'Retail units in structured commercial complexes start from approximately ₹28 to ₹35 Lakhs, while commercial plots for hotel or guest house developments typically start from ₹65 Lakhs onwards.'
-                ],
-                [
-                    'q' => '9. How does the Banke Bihari Corridor affect commercial zoning?',
-                    'a' => 'The corridor project will modernize pedestrian flow and create dedicated high-street shopping zones, driving double-digit capital appreciation in commercial land located within a 5 km radius.'
-                ],
-                [
-                    'q' => '10. Can commercial property in Vrindavan be leased back to hotel operators?',
-                    'a' => 'Yes, managed lease-back models are rapidly expanding in Vrindavan, where commercial developers partner with hospitality chains to offer fixed monthly returns and profit-sharing models to investors.'
-                ],
-                [
-                    'q' => '11. Which areas in Vrindavan have the highest commercial footfall?',
-                    'a' => 'Rukmani Vihar, Chhatikara Road, Bhaktivedanta Swami Marg, and the NH-19 intersection experience the highest density of tourist vehicles and devotee footfall year-round.'
-                ],
-                [
-                    'q' => '12. What documents should I inspect before buying commercial land?',
-                    'a' => 'Verify the 30-year title deed, MVDA commercial layout sanction order, Section 143/80 non-agricultural conversion certificate, UP-RERA registration, and municipal tax clearance certificates.'
-                ],
-                [
-                    'q' => '13. How does GLEAMREALTY PRIVATE LIMITED assist commercial investors?',
-                    'a' => 'We provide end-to-end advisory: conducting legal due diligence, selecting high-footfall micro-locations, negotiating direct developer pricing with zero brokerage, and managing registration and mutation.'
-                ]
-            ];
+            $commercialFaqs = !empty($cp['faqs']['list']) && is_array($cp['faqs']['list'])
+                ? $cp['faqs']['list']
+                : [];
             ?>
 
             <?php foreach ($commercialFaqs as $idx => $faq): ?>
@@ -704,7 +632,7 @@ $heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrea
                     <button @click="activeAccordion = (activeAccordion === <?= $idx ?> ? null : <?= $idx ?>)"
                             class="w-full p-6 text-left flex items-center justify-between gap-4 font-editorial text-lg sm:text-xl font-normal transition-colors"
                             :style="{ color: 'var(--theme-title)' }">
-                        <span><?= htmlspecialchars($faq['q']) ?></span>
+                        <span><?= e($faq['q'] ?? '') ?></span>
                         <span class="text-xl shrink-0 transition-transform duration-300"
                               :class="{ 'rotate-180': activeAccordion === <?= $idx ?> }">
                             &darr;
@@ -715,7 +643,7 @@ $heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrea
                          x-cloak
                          class="px-6 pb-6 text-sm font-light leading-relaxed border-t pt-4"
                          :style="{ color: 'var(--theme-text-secondary)', borderColor: 'var(--theme-border-hairline)' }">
-                        <?= htmlspecialchars($faq['a']) ?>
+                        <?= nl2br(e($faq['a'] ?? '')) ?>
                     </div>
                 </div>
             <?php endforeach; ?>

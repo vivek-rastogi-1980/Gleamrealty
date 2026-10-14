@@ -1,4 +1,4 @@
-<div class="space-y-6 max-w-6xl mx-auto" x-data="{ activeTab: 'hero' }">
+<div class="space-y-6 max-w-6xl mx-auto" x-data="{ activeTab: 'hero', matrixRows: <?= htmlspecialchars(json_encode($sections['matrix']['rows'] ?? []), ENT_QUOTES, 'UTF-8') ?>, faqs: <?= htmlspecialchars(json_encode($sections['faqs']['list'] ?? []), ENT_QUOTES, 'UTF-8') ?> }">
 
     <!-- Top Action Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/90 border border-slate-800 p-5 rounded-2xl shadow-xl">
@@ -10,7 +10,7 @@
                 <span class="text-xs text-slate-400 font-mono">/commercial-property-in-vrindavan</span>
             </div>
             <h2 class="text-2xl font-bold font-heading text-white mt-1">Commercial Property in Vrindavan Content &amp; Media</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Control all text, imagery, economic metrics, infrastructure catalysts, asset classes, and SEO for the commercial property landing page.</p>
+            <p class="text-xs text-slate-400 mt-0.5">Control all text, imagery, economic metrics, infrastructure catalysts, asset classes, rate matrix, FAQs, and SEO for the commercial property landing page.</p>
         </div>
         <div class="flex items-center gap-3">
             <a href="<?= url('/commercial-property-in-vrindavan') ?>" target="_blank"
@@ -55,10 +55,20 @@
                     class="px-4 py-2 rounded-lg text-xs transition-all flex items-center gap-2">
                 <span>5. Flagship Showcase</span>
             </button>
+            <button type="button" @click="activeTab = 'matrix'"
+                    :class="activeTab === 'matrix' ? 'bg-amber-400 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium'"
+                    class="px-4 py-2 rounded-lg text-xs transition-all flex items-center gap-2">
+                <span>6. Rate Matrix</span>
+            </button>
+            <button type="button" @click="activeTab = 'faqs'"
+                    :class="activeTab === 'faqs' ? 'bg-amber-400 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium'"
+                    class="px-4 py-2 rounded-lg text-xs transition-all flex items-center gap-2">
+                <span>7. FAQs</span>
+            </button>
             <button type="button" @click="activeTab = 'consultation'"
                     :class="activeTab === 'consultation' ? 'bg-amber-400 text-slate-950 font-bold shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium'"
                     class="px-4 py-2 rounded-lg text-xs transition-all flex items-center gap-2">
-                <span>6. Consultation &amp; SEO</span>
+                <span>8. Consultation &amp; SEO</span>
             </button>
         </div>
 
@@ -625,7 +635,194 @@
         </div>
 
         <!-- =======================================================================
-             TAB 6: CONSULTATION & SEO
+             TAB 6: RATE MATRIX
+             ======================================================================= -->
+        <div x-show="activeTab === 'matrix'" class="space-y-6" style="display: none;">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Vrindavan Commercial Land &amp; Retail Rate Matrix
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Manage corridors, benchmark land rates, retail rates, optimal uses, and projected yields.</p>
+                    </div>
+                </div>
+
+                <!-- Header Metadata -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Eyebrow / Badge</label>
+                        <input type="text" name="matrix_eyebrow" value="<?= e($sections['matrix']['eyebrow'] ?? '2026 Pricing Transparency') ?>"
+                               class="w-full bg-slate-950/70 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Section Title</label>
+                        <input type="text" name="matrix_title" value="<?= e($sections['matrix']['title'] ?? 'Vrindavan Commercial Land & Retail Rate Matrix') ?>"
+                               class="w-full bg-slate-950/70 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Subtitle / Note</label>
+                        <textarea name="matrix_subtitle" rows="2"
+                                  class="w-full bg-slate-950/70 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400"><?= e($sections['matrix']['subtitle'] ?? 'Current market price analysis per corridor across permissible commercial zones in Vrindavan.') ?></textarea>
+                    </div>
+                </div>
+
+                <!-- Matrix Table -->
+                <div class="space-y-4 pt-4 border-t border-slate-800">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400">Rate Matrix Corridors</h4>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Rows appear on the commercial property live page in this order.</p>
+                        </div>
+                        <button type="button" @click="matrixRows.push({corridor: '', land_rate: '', retail_rate: '', optimal_use: '', projected_yield: ''})"
+                                class="px-3.5 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-lg text-xs font-bold transition-all shadow-md flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>Add Corridor Row</span>
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/60">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/60 font-semibold uppercase tracking-wider text-[11px]">
+                                    <th class="p-3">Commercial Corridor</th>
+                                    <th class="p-3">Land Rate (Sq. Yard)</th>
+                                    <th class="p-3">Retail Rate (Sq. Ft)</th>
+                                    <th class="p-3">Optimal Commercial Use</th>
+                                    <th class="p-3">Projected Yield</th>
+                                    <th class="p-3 text-center w-12">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800/80">
+                                <template x-for="(row, index) in matrixRows" :key="index">
+                                    <tr class="hover:bg-slate-900/30 transition-colors">
+                                        <td class="p-2.5">
+                                            <input type="text" :name="'matrix_rows[' + index + '][corridor]'" x-model="row.corridor"
+                                                   placeholder="e.g. Rukmani Vihar Prime Road"
+                                                   class="w-full min-w-[160px] bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                                        </td>
+                                        <td class="p-2.5">
+                                            <input type="text" :name="'matrix_rows[' + index + '][land_rate]'" x-model="row.land_rate"
+                                                   placeholder="e.g. ₹ 65,000 – ₹ 85,000"
+                                                   class="w-full min-w-[130px] bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-amber-300 font-semibold focus:outline-none focus:border-amber-400">
+                                        </td>
+                                        <td class="p-2.5">
+                                            <input type="text" :name="'matrix_rows[' + index + '][retail_rate]'" x-model="row.retail_rate"
+                                                   placeholder="e.g. ₹ 14,000 – ₹ 18,000"
+                                                   class="w-full min-w-[130px] bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-400">
+                                        </td>
+                                        <td class="p-2.5">
+                                            <input type="text" :name="'matrix_rows[' + index + '][optimal_use]'" x-model="row.optimal_use"
+                                                   placeholder="e.g. High-Street Retail, Clinics, Banks"
+                                                   class="w-full min-w-[180px] bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-400">
+                                        </td>
+                                        <td class="p-2.5">
+                                            <input type="text" :name="'matrix_rows[' + index + '][projected_yield]'" x-model="row.projected_yield"
+                                                   placeholder="e.g. 11% - 14%"
+                                                   class="w-full min-w-[100px] bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-amber-400 font-bold focus:outline-none focus:border-amber-400">
+                                        </td>
+                                        <td class="p-2.5 text-center">
+                                            <button type="button" @click="matrixRows.splice(index, 1)"
+                                                    class="p-1.5 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition-colors"
+                                                    title="Remove Row">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        <div x-show="matrixRows.length === 0" class="p-6 text-center text-xs text-slate-500 italic">
+                            No corridor rows added yet. Click "+ Add Corridor Row" to add one.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =======================================================================
+             TAB 7: FAQS
+             ======================================================================= -->
+        <div x-show="activeTab === 'faqs'" class="space-y-6" style="display: none;">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Frequently Asked Questions (FAQ Accordions)
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Manage investor FAQs with dynamic questions, comprehensive answers, and ordering.</p>
+                    </div>
+                </div>
+
+                <!-- Header Metadata -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Eyebrow / Badge</label>
+                        <input type="text" name="faqs_eyebrow" value="<?= e($sections['faqs']['eyebrow'] ?? 'Investor Intelligence') ?>"
+                               class="w-full bg-slate-950/70 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Section Title</label>
+                        <input type="text" name="faqs_title" value="<?= e($sections['faqs']['title'] ?? 'Frequently Asked Questions') ?>"
+                               class="w-full bg-slate-950/70 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Subtitle / Note</label>
+                        <textarea name="faqs_subtitle" rows="2"
+                                  class="w-full bg-slate-950/70 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400"><?= e($sections['faqs']['subtitle'] ?? 'Clear, straightforward answers about commercial land, CLU compliance, and returns in Vrindavan.') ?></textarea>
+                    </div>
+                </div>
+
+                <!-- FAQ List Items -->
+                <div class="space-y-4 pt-4 border-t border-slate-800">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+                                <span>Question &amp; Answer Items</span>
+                                <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[10px]" x-text="faqs.length + ' FAQs'"></span>
+                            </h4>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Click '+ Add FAQ' to append a new interactive accordion item.</p>
+                        </div>
+                        <button type="button" @click="faqs.push({q: '', a: ''})"
+                                class="px-3.5 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-lg text-xs font-bold transition-all shadow-md flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>Add FAQ</span>
+                        </button>
+                    </div>
+
+                    <div class="space-y-3">
+                        <template x-for="(faq, index) in faqs" :key="index">
+                            <div class="p-4 bg-slate-950/80 rounded-xl border border-slate-800/90 relative space-y-3 hover:border-slate-700 transition-colors">
+                                <div class="flex items-center justify-between gap-3">
+                                    <span class="text-xs font-bold text-amber-400/90 font-mono" x-text="'Q' + (index + 1)"></span>
+                                    <button type="button" @click="faqs.splice(index, 1)"
+                                            class="text-rose-400 hover:text-rose-300 p-1 hover:bg-rose-500/10 rounded transition-colors"
+                                            title="Remove Question">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    </button>
+                                </div>
+                                <div>
+                                    <input type="text" :name="'faq_q[' + index + ']'" x-model="faq.q"
+                                           placeholder="e.g. What is the current commercial plot rate in Vrindavan?"
+                                           class="w-full bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-amber-400">
+                                </div>
+                                <div>
+                                    <textarea :name="'faq_a[' + index + ']'" x-model="faq.a" rows="3"
+                                              placeholder="Provide detailed answer..."
+                                              class="w-full bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-amber-400"></textarea>
+                                </div>
+                            </div>
+                        </template>
+                        <div x-show="faqs.length === 0" class="p-6 text-center text-xs text-slate-500 italic border border-slate-800 rounded-xl">
+                            No FAQs added yet. Click "+ Add FAQ" to add one.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =======================================================================
+             TAB 8: CONSULTATION & SEO
              ======================================================================= -->
         <div x-show="activeTab === 'consultation'" class="space-y-6">
             <!-- Advisory Desk -->
