@@ -22,7 +22,8 @@ class ProjectController extends Controller
         $search = (string) $request->query('search', '');
         $type = (string) $request->query('type', '');
 
-        $projects = Project::all($search, !empty($type) ? $type : null);
+        $allProjects = Project::all($search, !empty($type) ? $type : null);
+        $projects = array_values(array_filter($allProjects, fn($p) => (int) ($p['is_active'] ?? 1) === 1));
 
         return $this->view('public/home', [
             'seo_title' => 'Exclusive Real Estate Projects Portfolio',
@@ -36,7 +37,7 @@ class ProjectController extends Controller
     public function show(Request $request, string $slug): Response
     {
         $project = Project::findBySlug($slug);
-        if (!$project) {
+        if (!$project || (isset($project['is_active']) && (int) $project['is_active'] === 0)) {
             return Response::html(
                 '<!DOCTYPE html><html><head><title>404 Not Found</title><style>body{background:#090d16;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center;}h1{font-size:36px;color:#c5a880;}p{color:#888;}a{color:#c5a880;}</style></head><body><div><h1>Project Not Found</h1><p>The requested project does not exist.</p><p style="margin-top:20px;"><a href="' . url('/') . '">&larr; Return to Home</a></p></div></body></html>',
                 404
@@ -56,9 +57,9 @@ class ProjectController extends Controller
             $amenities = is_array($decoded) ? $decoded : explode(',', $project['amenities']);
         }
 
-        // Curated related projects (excluding current)
+        // Curated related projects (excluding current and inactive)
         $allProjects = Project::all();
-        $relatedProjects = array_values(array_filter($allProjects, fn($p) => (int) $p['id'] !== $projectId));
+        $relatedProjects = array_values(array_filter($allProjects, fn($p) => (int) $p['id'] !== $projectId && (int) ($p['is_active'] ?? 1) === 1));
         $relatedProjects = array_slice($relatedProjects, 0, 3);
 
         return $this->view('public/project', [

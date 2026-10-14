@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\Page;
 use App\Models\Project;
 use Core\Controller;
 use Core\Request;
@@ -22,7 +23,12 @@ class LocationController extends Controller
         $normalizedCity = strtolower(trim($city));
         $type = (string) $request->query('type', '');
 
-        // Location specific metadata
+        // Fetch dynamic CMS page if exists
+        $page = Page::findBySlug('location/' . $normalizedCity)
+             ?: Page::findBySlug('location-' . $normalizedCity)
+             ?: Page::findBySlug($normalizedCity);
+
+        // Location specific defaults
         if ($normalizedCity === 'mathura') {
             $cityName = 'Mathura';
             $seoTitle = 'Luxury Properties & Plots in Mathura | MVDA Approved | Gleamrealty';
@@ -59,8 +65,45 @@ class LocationController extends Controller
             $otherCityUrl = url('/location/mathura');
         }
 
-        $projects = Project::byLocation($normalizedCity, !empty($type) ? $type : null);
+        // Apply CMS dynamic overrides when available
+        if ($page) {
+            if (!empty($page['hero_heading'])) {
+                $headline = $page['hero_heading'];
+            }
+            if (!empty($page['hero_subheading'])) {
+                $tagline = $page['hero_subheading'];
+            }
+            if (!empty($page['hero_media_url'])) {
+                $coverImage = media_url($page['hero_media_url']);
+            }
+            if (!empty($page['content'])) {
+                $editorial = $page['content'];
+            }
+            if (!empty($page['meta_title'])) {
+                $seoTitle = $page['meta_title'];
+            }
+            if (!empty($page['meta_description'])) {
+                $seoDesc = $page['meta_description'];
+            }
+        }
 
+        // Filter by selected projects from CMS if configured
+        $locSections = \App\Models\Setting::get("location_{$normalizedCity}_sections", []);
+        if (!empty($locSections['selected_projects']) && is_array($locSections['selected_projects'])) {
+            $selectedIds = $locSections['selected_projects'];
+            $allProjects = Project::all();
+            $projects = array_values(array_filter($allProjects, function($p) use ($selectedIds, $type) {
+                if (!in_array((int)$p['id'], $selectedIds, true)) {
+                    return false;
+                }
+                if (!empty($type) && $p['property_type'] !== $type) {
+                    return false;
+                }
+                return true;
+            }));
+        } else {
+            $projects = Project::byLocation($normalizedCity, !empty($type) ? $type : null);
+        }
         return $this->view('public/location_properties', [
             'seo_title' => $seoTitle,
             'seo_description' => $seoDesc,
@@ -75,6 +118,7 @@ class LocationController extends Controller
             'otherCityUrl' => $otherCityUrl,
             'projects' => $projects,
             'selected_type' => $type,
+            'page' => $page,
         ]);
     }
 }

@@ -13,7 +13,7 @@ use Core\Database;
  */
 class Project
 {
-    public static function all(string $search = '', ?string $type = null): array
+    public static function all(string $search = '', ?string $type = null, ?string $location = null): array
     {
         $sql = "SELECT * FROM `projects` WHERE 1=1";
         $params = [];
@@ -29,6 +29,11 @@ class Project
         if (!empty($type)) {
             $sql .= " AND `project_type` = ?";
             $params[] = $type;
+        }
+
+        if (!empty($location)) {
+            $sql .= " AND `location` LIKE ?";
+            $params[] = "%{$location}%";
         }
 
         $sql .= " ORDER BY `id` DESC";

@@ -22,14 +22,19 @@ class ProjectController extends Controller
     {
         $search = (string) $request->query('search', '');
         $type = (string) $request->query('type', '');
+        $location = (string) $request->query('location', '');
 
-        $projects = Project::all($search, !empty($type) ? $type : null);
+        $projects = Project::all($search, !empty($type) ? $type : null, !empty($location) ? $location : null);
+        $rawLocs = \Core\Database::fetchAll("SELECT DISTINCT `location` FROM `projects` WHERE `location` IS NOT NULL AND `location` != '' ORDER BY `location` ASC");
+        $locations = array_values(array_filter(array_column($rawLocs, 'location')));
 
         return $this->adminView('admin/projects/index', [
             'seo_title' => 'Project Management',
             'projects' => $projects,
             'search' => $search,
             'selected_type' => $type,
+            'selected_location' => $location,
+            'locations' => $locations,
         ]);
     }
 
@@ -228,6 +233,20 @@ class ProjectController extends Controller
 
         Project::update($projectId, $payload);
 
+        // Handle Primary Cover / Elevation Image upload if provided
+        $heroFile = $request->file('hero_image');
+        if ($heroFile && !empty($heroFile['tmp_name']) && $heroFile['error'] === UPLOAD_ERR_OK) {
+            $imgPath = Uploader::upload($heroFile, 'projects');
+            if ($imgPath) {
+                $existing = \Core\Database::fetch("SELECT `id` FROM `project_media` WHERE `project_id` = ? AND `media_type` IN ('gallery', 'elevation') ORDER BY `display_order` ASC, `id` ASC LIMIT 1", [$projectId]);
+                if ($existing) {
+                    \Core\Database::execute("UPDATE `project_media` SET `file_path` = ? WHERE `id` = ?", [$imgPath, $existing['id']]);
+                } else {
+                    \App\Models\ProjectMedia::create($projectId, $imgPath, 'gallery', $name . ' Primary Elevation', 0);
+                }
+            }
+        }
+
         $this->flash('success', "Project '{$name}' updated successfully.");
         return $this->redirect(url('/admin/projects/' . $projectId . '/edit'));
     }
@@ -247,5 +266,24 @@ class ProjectController extends Controller
         }
 
         return $this->redirect(url('/admin/projects'));
+    }
+
+    public function toggleStatus(Request $request, string $id): Response
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            return Response::json(['success' => false, 'message' => 'Invalid security token'], 403);
+        }
+
+        $projectId = (int) $id;
+        $project = Project::find($projectId);
+        if (!$project) {
+            return Response::json(['success' => false, 'message' => 'Project not found'], 404);
+        }
+
+        $newStatus = (int) $request->post('is_active', 0);
+        
+        \Core\Database::execute("UPDATE `projects` SET `is_active` = ? WHERE `id` = ?", [$newStatus, $projectId]);
+
+        return Response::json(['success' => true, 'is_active' => $newStatus]);
     }
 }

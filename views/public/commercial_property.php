@@ -1,92 +1,109 @@
 <?php
 /**
  * Commercial Property in Vrindavan — Master Showcase View
- * Faithfully matching content, sections, and data from https://earthousing.com/commercial-property-in-vrindavan
+ * Curated exclusively for Gleamrealty Private Limited
  * Fully integrated with Gleamrealty Multi-Theme Engine (Dark-Yellow, Green & White, Blue & White)
  * 
  * @var array $page
  * @var array $projects
+ * @var array|null $cp
  */
+$cp = !empty($cp) ? $cp : \App\Models\Setting::getCommercialPropertySections();
+
+$heroCover = !empty($cp['hero']['image']) ? media_url($cp['hero']['image']) : (!empty($page['hero_media_url']) ? media_url($page['hero_media_url']) : asset('uploads/pages/commercial-property-in-vrindavan.jpeg'));
+$heroTitle = !empty($cp['hero']['heading']) ? $cp['hero']['heading'] : (!empty($page['hero_heading']) ? $page['hero_heading'] : ($page['title'] ?? 'Commercial Property in Vrindavan'));
+$heroSubtitle = !empty($cp['hero']['subheading']) ? $cp['hero']['subheading'] : (!empty($page['hero_subheading']) ? $page['hero_subheading'] : 'Commercial Land, High-Street Retail Shops & Hotel Plots in Vrindavan');
+$heroBadge = !empty($cp['hero']['badge']) ? $cp['hero']['badge'] : '✦ Gleamrealty Private Limited • HIGH-YIELD COMMERCIAL ASSET CLASS';
 ?>
 
 <!-- =======================================================================
      1. HERO BANNER: Commercial Property in Vrindavan
      ======================================================================= -->
-<section class="relative min-h-[48vh] sm:min-h-[56vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden transition-colors duration-300"
-         :style="{ backgroundColor: 'var(--theme-hero-from)', borderColor: 'var(--theme-border-hairline)' }">
+<section class="relative min-h-[52vh] sm:min-h-[58vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden bg-stone-950 transition-colors duration-300"
+         :style="{ borderColor: 'var(--theme-border-hairline)' }">
     
     <!-- Background Hero Imagery -->
     <div class="absolute inset-0 z-0">
-        <img src="<?= asset('uploads/pages/commercial-property-in-vrindavan.jpeg') ?>"
-             alt="Commercial Property in Vrindavan — Shops, Retail & Land"
-             class="w-full h-full object-cover filter brightness-[0.35] contrast-[1.08] scale-105 transition-transform duration-1000">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30"></div>
+        <img src="<?= $heroCover ?>"
+             alt="<?= e($heroTitle) ?> — Shops, Retail & Land"
+             class="w-full h-full object-cover filter brightness-[0.42] contrast-[1.08] scale-105 transition-transform duration-1000">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/75 to-stone-950/40"></div>
+        <div class="absolute inset-0 bg-black/35"></div>
     </div>
 
     <!-- Radiant Ambient Light Glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-[140px] pointer-events-none -z-0 opacity-25"
          :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-5">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-6">
         
         <!-- Breadcrumbs -->
         <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.22em] uppercase">
             <a href="<?= url('/') ?>" class="text-stone-300 hover:text-white transition-colors">Home</a>
-            <span class="text-stone-500">&bull;</span>
+            <span class="text-amber-500/60">&bull;</span>
             <a href="<?= url('/projects') ?>" class="text-stone-300 hover:text-white transition-colors">Projects</a>
-            <span class="text-stone-500">&bull;</span>
-            <span class="text-amber-300 font-bold">Commercial Property</span>
+            <span class="text-amber-500/60">&bull;</span>
+            <span class="text-amber-400 font-bold">Commercial Property</span>
         </div>
 
         <!-- Eyebrow Pill -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-white/10 text-white border border-white/20 shadow-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Gleamrealty Private Office &bull; High-Yield Commercial Asset Class
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-stone-900/80 text-white border border-amber-500/30 shadow-md">
+            <span class="w-2 h-2 rounded-full bg-[#9A6B2F] animate-pulse"></span>
+            <?= e($heroBadge) ?>
         </div>
 
         <!-- Main H1 Title -->
-        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-xl leading-[1.1]">
-            Commercial Property in Vrindavan
+        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] leading-[1.1]">
+            <?= e($heroTitle) ?>
         </h1>
 
         <!-- Subheading Tagline -->
-        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-md">
-            Commercial Land, High-Street Retail Shops &amp; Hotel Plots in Vrindavan
+        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            <?= e($heroSubtitle) ?>
         </h2>
 
         <!-- Trust Badges Strip -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-3">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                <svg class="w-3.5 h-3.5 text-emerald-400 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                100% MVDA &amp; CLU Approved
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-2">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-white shadow-sm">
+                <svg class="w-3.5 h-3.5 text-[#9A6B2F] fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <?= e($cp['hero']['badge_1'] ?? '100% MVDA & CLU Approved') ?>
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 shadow-sm">
-                ✦ 11-Crore Annual Pilgrim Footfall
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 shadow-sm">
+                <?= e($cp['hero']['badge_2'] ?? '✦ 11-Crore Annual Pilgrim Footfall') ?>
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                Bank Financing Approved (SBI, HDFC)
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
+                <?= e($cp['hero']['badge_3'] ?? 'Bank Financing Approved') ?>
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                Zero Brokerage Direct
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
+                <?= e($cp['hero']['badge_4'] ?? 'Zero Brokerage Direct') ?>
             </span>
         </div>
 
         <!-- CTAs -->
         <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a href="#commercial-showcase"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] transition-all duration-300 shadow-lg hover:scale-105"
-               :style="{ backgroundColor: 'var(--theme-accent)', color: '#090d16' }">
-                View Commercial Units &darr;
+               class="btn-bronze inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] shadow-lg hover:shadow-xl transition-all">
+                <span>View Commercial Units</span>
+                <span class="text-sm">&darr;</span>
             </a>
-            <a href="#freesitevisit"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 transition-all duration-300">
-                Book Commercial Site Visit
-            </a>
+            <button type="button" @click="vipModalOpen = true"
+                    class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] bg-stone-900/90 hover:bg-stone-800 text-white border border-stone-700 shadow-lg hover:shadow-xl transition-all cursor-pointer">
+                <span>Book Commercial Site Visit</span>
+                <span class="text-amber-400">&rarr;</span>
+            </button>
             <a href="tel:+919871731303"
-               class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 hover:border-white/50 transition-colors">
+               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/50 transition-colors">
                 <svg class="w-3.5 h-3.5 fill-current text-amber-300" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
-                +91 9871731303
+                <span>+91 9871731303</span>
             </a>
+            <?php if (function_exists('auth_user') && auth_user()): ?>
+                <a href="<?= url('/admin/commercial-property') ?>"
+                   target="_blank"
+                   class="inline-flex items-center gap-1.5 px-4 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Edit Page in Admin</span>
+                </a>
+            <?php endif; ?>
         </div>
 
     </div>
@@ -105,7 +122,8 @@
             <div class="relative rounded-3xl overflow-hidden border shadow-2xl group transition-all"
                  :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)', boxShadow: 'var(--theme-card-shadow)' }">
                 <div class="aspect-[4/5] relative overflow-hidden bg-stone-900">
-                    <img src="<?= asset('uploads/pages/commercial-property-in-vrindavan.jpeg') ?>"
+                    <?php $overviewCardImg = !empty($cp['overview']['image']) ? media_url($cp['overview']['image']) : asset('uploads/pages/commercial-property-in-vrindavan.jpeg'); ?>
+                    <img src="<?= $overviewCardImg ?>"
                          alt="Commercial Land & Retail Plazas Vrindavan"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
@@ -116,10 +134,10 @@
                      :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest font-bold block" :style="{ color: 'var(--theme-accent)' }">
-                            High-Yield Asset
+                            <?= e($cp['overview']['badge_sub'] ?? 'High-Yield Asset') ?>
                         </span>
                         <div class="font-serif text-sm sm:text-base font-bold tracking-wide" :style="{ color: 'var(--theme-title)' }">
-                            12% - 18% Project Yields
+                            <?= e($cp['overview']['badge_title'] ?? '12% - 18% Project Yields') ?>
                         </div>
                     </div>
                     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border"
@@ -132,13 +150,14 @@
             <!-- Secondary Micro Banner -->
             <div class="p-5 rounded-2xl border flex items-center gap-4 transition-colors"
                  :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                <img src="<?= asset('uploads/pages/property-in-vrindavan.png') ?>" alt="Vrindavan Gateway" class="w-16 h-16 rounded-xl object-cover shrink-0 border"
+                <?php $secMicroImg = !empty($cp['overview']['secondary_image']) ? media_url($cp['overview']['secondary_image']) : asset('uploads/pages/property-in-vrindavan.png'); ?>
+                <img src="<?= $secMicroImg ?>" alt="Vrindavan Gateway" class="w-16 h-16 rounded-xl object-cover shrink-0 border"
                      :style="{ borderColor: 'var(--theme-border-hairline)' }">
                 <div class="text-xs leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
                     <strong class="block text-sm font-semibold" :style="{ color: 'var(--theme-title)' }">
-                        Strategic Retail Hub
+                        <?= e($cp['overview']['secondary_title'] ?? 'Strategic Retail Hub') ?>
                     </strong>
-                    Positioned along heavy tourist corridors capturing daily pilgrim spending.
+                    <?= e($cp['overview']['secondary_desc'] ?? 'Positioned along heavy tourist corridors capturing daily pilgrim spending.') ?>
                 </div>
             </div>
         </div>
@@ -147,25 +166,31 @@
         <div class="lg:col-span-7 space-y-6 text-left">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Economic Reality
+                <?= e($cp['overview']['badge'] ?? 'Economic Reality') ?>
             </span>
 
             <h2 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight leading-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                Commercial Land in Vrindavan
+                <?= e($cp['overview']['title'] ?? 'Commercial Land in Vrindavan') ?>
             </h2>
 
             <div class="space-y-4 text-sm sm:text-base font-light leading-relaxed"
                  :style="{ color: 'var(--theme-text-secondary)' }">
-                <p>
-                    The spiritual heartbeat of India has always been centered in the sacred groves of Vrindavan. Millions have traveled to this city over the years, seeking peace, devotion, and a link to God. The narrative surrounding Vrindavan has been transformed from being purely spiritual in nature to displaying the current trend of economic prosperity throughout the region. This is a time of monumental economic growth for Vrindavan, transitioning from a traditional pilgrimage town into a vibrant commercial hub.
-                </p>
-                <p>
-                    To understand why the demand for <strong :style="{ color: 'var(--theme-title)' }">Commercial Property in Vrindavan</strong> has hit an all-time high, one must look at the sheer scale of the audience. Statistics from the Uttar Pradesh Tourism Department and recent market surveys indicate that Vrindavan now welcomes <strong :style="{ color: 'var(--theme-title)' }">over 8 crore pilgrims annually</strong>, conservatively projected to surpass <strong :style="{ color: 'var(--theme-title)' }">11 crore by 2027</strong>. This footfall is not just seasonal; it is a year-round surge that peaks during Janmashtami, Holi, and Radhashtami, but never truly dips.
-                </p>
-                <p>
-                    Every devotee who visits Vrindavan requires food, shelter, retail shopping, and logistics. From traditional sweet shops and boutique hotels to modern shopping arcades, high-street retail, and fine dining, the commercial appetite is immense and currently underserved. GLEAMREALTY PRIVATE LIMITED curates only 100% legally clear, MVDA-sanctioned commercial land and retail developments.
-                </p>
+                <?php if (!empty($cp['overview']['content'])): ?>
+                    <?= $cp['overview']['content'] ?>
+                <?php elseif (!empty($page['content'])): ?>
+                    <?= $page['content'] ?>
+                <?php else: ?>
+                    <p>
+                        The spiritual heartbeat of India has always been centered in the sacred groves of Vrindavan. Millions have traveled to this city over the years, seeking peace, devotion, and a link to God. The narrative surrounding Vrindavan has been transformed from being purely spiritual in nature to displaying the current trend of economic prosperity throughout the region. This is a time of monumental economic growth for Vrindavan, transitioning from a traditional pilgrimage town into a vibrant commercial hub.
+                    </p>
+                    <p>
+                        To understand why the demand for <strong :style="{ color: 'var(--theme-title)' }">Commercial Property in Vrindavan</strong> has hit an all-time high, one must look at the sheer scale of the audience. Statistics from the Uttar Pradesh Tourism Department and recent market surveys indicate that Vrindavan now welcomes <strong :style="{ color: 'var(--theme-title)' }">over 8 crore pilgrims annually</strong>, conservatively projected to surpass <strong :style="{ color: 'var(--theme-title)' }">11 crore by 2027</strong>. This footfall is not just seasonal; it is a year-round surge that peaks during Janmashtami, Holi, and Radhashtami, but never truly dips.
+                    </p>
+                    <p>
+                        Every devotee who visits Vrindavan requires food, shelter, retail shopping, and logistics. From traditional sweet shops and boutique hotels to modern shopping arcades, high-street retail, and fine dining, the commercial appetite is immense and currently underserved. GLEAMREALTY PRIVATE LIMITED curates only 100% legally clear, MVDA-sanctioned commercial land and retail developments.
+                    </p>
+                <?php endif; ?>
             </div>
 
             <!-- 4 Quick Key Metrics -->
@@ -173,23 +198,39 @@
                  :style="{ borderColor: 'var(--theme-border-hairline)' }">
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">11 Cr+</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Projected Footfall</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                        <?= e($cp['overview']['metric_1_val'] ?? '11 Cr+') ?>
+                    </div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                        <?= e($cp['overview']['metric_1_lbl'] ?? 'Projected Footfall') ?>
+                    </div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">75%+</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Avg Occupancy</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                        <?= e($cp['overview']['metric_2_val'] ?? '75%+') ?>
+                    </div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                        <?= e($cp['overview']['metric_2_lbl'] ?? 'Avg Occupancy') ?>
+                    </div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">₹30K Cr</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Infra Outlay</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                        <?= e($cp['overview']['metric_3_val'] ?? '₹30K Cr') ?>
+                    </div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                        <?= e($cp['overview']['metric_3_lbl'] ?? 'Infra Outlay') ?>
+                    </div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial text-emerald-400">100%</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">MVDA Approved</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                        <?= e($cp['overview']['metric_4_val'] ?? '100%') ?>
+                    </div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                        <?= e($cp['overview']['metric_4_lbl'] ?? 'MVDA Approved') ?>
+                    </div>
                 </div>
             </div>
 
@@ -209,15 +250,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Growth Arteries
+                <?= e($cp['catalysts']['eyebrow'] ?? 'Growth Arteries') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Infrastructure Catalysts Driving Commercial Land in Vrindavan
+                <?= e($cp['catalysts']['title'] ?? 'Infrastructure Catalysts Driving Commercial Land in Vrindavan') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
-               :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                The surge in commercial land demand is fueled by multi-billion dollar state and central infrastructure initiatives redirecting capital directly into the Braj corridor.
+                :style="{ color: 'var(--theme-section-alt-subtext)' }">
+                <?= e($cp['catalysts']['subtitle'] ?? 'The surge in commercial land demand is fueled by multi-billion dollar state and central infrastructure initiatives redirecting capital directly into the Braj corridor.') ?>
             </p>
         </div>
 
@@ -232,10 +273,10 @@
                     01
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    The Banke Bihari Heritage Corridor: Commercial Game-Changer
+                    <?= e($cp['catalysts']['p1_title'] ?? 'The Banke Bihari Heritage Corridor: Commercial Game-Changer') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    Much like how the Kashi Vishwanath Corridor revolutionized the economy of Varanasi, the upcoming Banke Bihari Corridor will reroute millions of visitors into modern, structured retail pathways. The ‘Golden Mile’ is emerging, with high-street commercial developments within 3-5 km appreciating at phenomenal double-digit rates.
+                    <?= e($cp['catalysts']['p1_desc'] ?? '') ?>
                 </p>
             </div>
 
@@ -247,10 +288,10 @@
                     02
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    The Jewar International Airport Factor
+                    <?= e($cp['catalysts']['p2_title'] ?? 'The Jewar International Airport Factor') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    With Noida International Airport operational in 2026, international tourists and the NRI diaspora can reach Vrindavan in just 90 minutes via the Yamuna Expressway. This connectivity catalyst is leading national and international hospitality chains to secure commercial land for 4-star, 5-star, and boutique resort properties.
+                    <?= e($cp['catalysts']['p2_desc'] ?? '') ?>
                 </p>
             </div>
 
@@ -262,10 +303,10 @@
                     03
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Superior Rental Yields &amp; Lease-Back Security
+                    <?= e($cp['catalysts']['p3_title'] ?? 'Superior Rental Yields & Lease-Back Security') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    Commercial property in Vrindavan yields two distinct streams of return: aggressive capital appreciation on land scarcity, and recurring annual rental yields of 10-15%. Hospitality and guest-house accommodations routinely report 70-75% year-round occupancy, reaching 100% capacity throughout festive periods.
+                    <?= e($cp['catalysts']['p3_desc'] ?? '') ?>
                 </p>
             </div>
 
@@ -277,10 +318,10 @@
                     04
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    The "Limited Supply" Reality of Sacred Land
+                    <?= e($cp['catalysts']['p4_title'] ?? 'The "Limited Supply" Reality of Sacred Land') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    Vrindavan is geographically and ecologically bounded by Yamuna green buffers and sacred forests. Authorized commercial-zoned land accounts for less than 4% of total municipal acreage. Early investors in organized retail arcades and highway commercial frontage hold virtually unreplicable generational assets.
+                    <?= e($cp['catalysts']['p4_desc'] ?? '') ?>
                 </p>
             </div>
 
@@ -300,15 +341,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Sectors in High Demand
+                <?= e($cp['sectors']['eyebrow'] ?? 'Sectors in High Demand') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                Where Smart Commercial Capital Is Deploying
+                <?= e($cp['sectors']['title'] ?? 'Where Smart Commercial Capital Is Deploying') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-text-secondary)' }">
-                From boutique heritage hotels to high-street retail malls, discover the three core verticals powering highest commercial returns in Vrindavan.
+                <?= e($cp['sectors']['subtitle'] ?? 'From boutique heritage hotels to high-street retail malls, discover the three core verticals powering highest commercial returns in Vrindavan.') ?>
             </p>
         </div>
 
@@ -320,18 +361,20 @@
                 <div class="space-y-4">
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold border"
                          :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)', borderColor: 'var(--theme-badge-border)' }">
-                        🏨
+                        <?= e($cp['sectors']['s1_icon'] ?? '🏨') ?>
                     </div>
                     <h3 class="text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                        Hospitality: Resorts &amp; Hotels
+                        <?= e($cp['sectors']['s1_title'] ?? 'Hospitality: Resorts & Hotels') ?>
                     </h3>
                     <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                        The lack of high-quality hotel rooms in Vrindavan is one of the widest demand-supply gaps in North India. With 8+ crore visitors, existing branded room inventory caters to less than 5% of overnight guests. Large commercial plots on NH-19 and Rukmani Vihar are in prime demand for wellness resorts and spiritual stay enclaves.
+                        <?= e($cp['sectors']['s1_desc'] ?? '') ?>
                     </p>
                 </div>
                 <div class="pt-6 border-t mt-6 flex items-center justify-between text-xs" :style="{ borderColor: 'var(--theme-border-hairline)' }">
                     <span :style="{ color: 'var(--theme-accent)' }">Expected ROI</span>
-                    <span class="font-bold" :style="{ color: 'var(--theme-title)' }">14% - 18% Annualized</span>
+                    <span class="font-bold" :style="{ color: 'var(--theme-title)' }">
+                        <?= e($cp['sectors']['s1_roi'] ?? '14% - 18% Annualized') ?>
+                    </span>
                 </div>
             </div>
 
@@ -341,18 +384,20 @@
                 <div class="space-y-4">
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold border"
                          :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)', borderColor: 'var(--theme-badge-border)' }">
-                    🛍️
+                        <?= e($cp['sectors']['s2_icon'] ?? '🛍️') ?>
                     </div>
                     <h3 class="text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                        High-Street Retail Arcades
+                        <?= e($cp['sectors']['s2_title'] ?? 'High-Street Retail Arcades') ?>
                     </h3>
                     <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                        The era of crowded traditional alleys is evolving. Modern pilgrims seek air-conditioned retail arcades, branded religious souvenir emporiums, organized parking, and clean facilities. Gated commercial plazas like Shri Vrinda Orchids Commercial Complex cater to this new-age demand.
+                        <?= e($cp['sectors']['s2_desc'] ?? '') ?>
                     </p>
                 </div>
                 <div class="pt-6 border-t mt-6 flex items-center justify-between text-xs" :style="{ borderColor: 'var(--theme-border-hairline)' }">
                     <span :style="{ color: 'var(--theme-accent)' }">Rental Yields</span>
-                    <span class="font-bold" :style="{ color: 'var(--theme-title)' }">₹80 - ₹150 / sq. ft / mo</span>
+                    <span class="font-bold" :style="{ color: 'var(--theme-title)' }">
+                        <?= e($cp['sectors']['s2_roi'] ?? '₹80 - ₹150 / sq. ft / mo') ?>
+                    </span>
                 </div>
             </div>
 
@@ -362,18 +407,20 @@
                 <div class="space-y-4">
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-bold border"
                          :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)', borderColor: 'var(--theme-badge-border)' }">
-                        🍽️
+                        <?= e($cp['sectors']['s3_icon'] ?? '🍽️') ?>
                     </div>
                     <h3 class="text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                        Sattvic Fine Dining &amp; F&amp;B
+                        <?= e($cp['sectors']['s3_title'] ?? 'Sattvic Fine Dining & F&B') ?>
                     </h3>
                     <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                        While traditional street delicacies flourish, families and international devotees seek hygienic, hygienic Sattvic fine dining restaurants, vegetarian cafes, and thali halls with dedicated parking and serene ambient courtyards.
+                        <?= e($cp['sectors']['s3_desc'] ?? '') ?>
                     </p>
                 </div>
                 <div class="pt-6 border-t mt-6 flex items-center justify-between text-xs" :style="{ borderColor: 'var(--theme-border-hairline)' }">
                     <span :style="{ color: 'var(--theme-accent)' }">Payback Period</span>
-                    <span class="font-bold" :style="{ color: 'var(--theme-title)' }">4 - 6 Years</span>
+                    <span class="font-bold" :style="{ color: 'var(--theme-title)' }">
+                        <?= e($cp['sectors']['s3_roi'] ?? '4 - 6 Years') ?>
+                    </span>
                 </div>
             </div>
 
@@ -393,15 +440,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Featured Commercial Enclave
+                <?= e($cp['showcase']['eyebrow'] ?? 'Featured Commercial Enclave') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Shri Vrinda Orchids Commercial Complex
+                <?= e($cp['showcase']['title'] ?? 'Shri Vrinda Orchids Commercial Complex') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Prime MVDA approved commercial shops and retail spaces strategically located in Rukmani Vihar, Vrindavan’s most sought-after VIP residential corridor.
+                <?= e($cp['showcase']['subtitle'] ?? 'Prime MVDA approved commercial shops and retail spaces strategically located in Rukmani Vihar, Vrindavan’s most sought-after VIP residential corridor.') ?>
             </p>
         </div>
 
@@ -409,53 +456,70 @@
              :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
             
             <div class="lg:col-span-6 relative bg-stone-900 min-h-[340px]">
-                <img src="<?= asset('uploads/pages/commercial-property-in-vrindavan.jpeg') ?>"
-                     alt="Shri Vrinda Orchids Commercial Complex"
+                <?php $scImg = !empty($cp['showcase']['image']) ? media_url($cp['showcase']['image']) : asset('uploads/pages/commercial-property-in-vrindavan.jpeg'); ?>
+                <img src="<?= $scImg ?>"
+                     alt="<?= e($cp['showcase']['title'] ?? 'Shri Vrinda Orchids Commercial Complex') ?>"
                      class="w-full h-full object-cover">
                 <div class="absolute top-6 left-6">
-                    <span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/90 text-white backdrop-blur-md shadow-md">
-                        100% MVDA &amp; UP-RERA Registered
+                    <span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#9A6B2F] text-white backdrop-blur-md shadow-md">
+                        <?= e($cp['showcase']['badge'] ?? '100% MVDA & UP-RERA Registered') ?>
                     </span>
                 </div>
                 <div class="absolute bottom-6 right-6 px-4 py-2 rounded-2xl text-sm font-bold bg-black/85 text-amber-300 backdrop-blur-md border border-white/20">
-                    Starting at ₹ 17,500 / sq. ft
+                    <?= e($cp['showcase']['price_tag'] ?? 'Starting at ₹ 17,500 / sq. ft') ?>
                 </div>
             </div>
 
             <div class="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-between space-y-6">
                 <div class="space-y-4">
                     <div class="text-xs uppercase tracking-widest font-semibold" :style="{ color: 'var(--theme-accent)' }">
-                        Rukmani Vihar, Vrindavan
+                        <?= e($cp['showcase']['location'] ?? 'Rukmani Vihar, Vrindavan') ?>
                     </div>
                     <h3 class="text-2xl sm:text-3xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                        Modern Retail Arcade &amp; High-Street Showrooms
+                        <?= e($cp['showcase']['headline'] ?? 'Modern Retail Arcade & High-Street Showrooms') ?>
                     </h3>
                     <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                        Serving over 1,500 premium households in the immediate Rukmani Vihar neighborhood plus passing pilgrim transit. Features 40-foot wide approach avenues, underground utilities, dedicated parking stalls, and dual-side accessibility.
+                        <?= e($cp['showcase']['desc'] ?? 'Serving over 1,500 premium households in the immediate Rukmani Vihar neighborhood plus passing pilgrim transit. Features 40-foot wide approach avenues, underground utilities, dedicated parking stalls, and dual-side accessibility.') ?>
                     </p>
 
                     <div class="grid grid-cols-2 gap-4 pt-2">
                         <div class="p-3 rounded-xl border" :style="{ borderColor: 'var(--theme-border-hairline)', backgroundColor: 'var(--theme-section-card-bg)' }">
-                            <span class="text-[10px] uppercase block text-stone-400">Shop Sizes</span>
-                            <span class="text-sm font-bold" :style="{ color: 'var(--theme-title)' }">180 – 650 Sq. Ft</span>
+                            <span class="text-[10px] uppercase block text-stone-400">
+                                <?= e($cp['showcase']['f1_lbl'] ?? 'Shop Sizes') ?>
+                            </span>
+                            <span class="text-sm font-bold" :style="{ color: 'var(--theme-title)' }">
+                                <?= e($cp['showcase']['f1_val'] ?? '180 – 650 Sq. Ft') ?>
+                            </span>
                         </div>
                         <div class="p-3 rounded-xl border" :style="{ borderColor: 'var(--theme-border-hairline)', backgroundColor: 'var(--theme-section-card-bg)' }">
-                            <span class="text-[10px] uppercase block text-stone-400">Frontage</span>
-                            <span class="text-sm font-bold" :style="{ color: 'var(--theme-title)' }">Main Sector Road</span>
+                            <span class="text-[10px] uppercase block text-stone-400">
+                                <?= e($cp['showcase']['f2_lbl'] ?? 'Frontage') ?>
+                            </span>
+                            <span class="text-sm font-bold" :style="{ color: 'var(--theme-title)' }">
+                                <?= e($cp['showcase']['f2_val'] ?? 'Main Sector Road') ?>
+                            </span>
                         </div>
                         <div class="p-3 rounded-xl border" :style="{ borderColor: 'var(--theme-border-hairline)', backgroundColor: 'var(--theme-section-card-bg)' }">
-                            <span class="text-[10px] uppercase block text-stone-400">Possession</span>
-                            <span class="text-sm font-bold" :style="{ color: 'var(--theme-title)' }">Ready Construction</span>
+                            <span class="text-[10px] uppercase block text-stone-400">
+                                <?= e($cp['showcase']['f3_lbl'] ?? 'Possession') ?>
+                            </span>
+                            <span class="text-sm font-bold" :style="{ color: 'var(--theme-title)' }">
+                                <?= e($cp['showcase']['f3_val'] ?? 'Ready Construction') ?>
+                            </span>
                         </div>
                         <div class="p-3 rounded-xl border" :style="{ borderColor: 'var(--theme-border-hairline)', backgroundColor: 'var(--theme-section-card-bg)' }">
-                            <span class="text-[10px] uppercase block text-stone-400">Financing</span>
-                            <span class="text-sm font-bold text-emerald-400">SBI / HDFC Approved</span>
+                            <span class="text-[10px] uppercase block text-stone-400">
+                                <?= e($cp['showcase']['f4_lbl'] ?? 'Financing') ?>
+                            </span>
+                            <span class="text-sm font-bold text-amber-600 dark:text-amber-400">
+                                <?= e($cp['showcase']['f4_val'] ?? 'SBI / HDFC Approved') ?>
+                            </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="pt-4 flex flex-wrap items-center gap-4">
-                    <a href="<?= url('/projects/shri-vrinda-orchids-commercial-complex') ?>"
+                    <a href="<?= url('/projects/' . ($cp['showcase']['project_slug'] ?? 'shri-vrinda-orchids-commercial-complex')) ?>"
                        class="px-8 py-3.5 rounded-xl text-xs uppercase font-bold tracking-wider transition-all shadow-lg hover:scale-105"
                        :style="{ backgroundColor: 'var(--theme-accent)', color: '#090d16' }">
                         Explore Commercial Complex &rarr;
@@ -515,35 +579,35 @@
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 65,000 – ₹ 85,000</td>
                         <td class="p-4 sm:p-5">₹ 14,000 – ₹ 18,000</td>
                         <td class="p-4 sm:p-5">High-Street Retail, Clinics, Banks</td>
-                        <td class="p-4 sm:p-5 text-emerald-400 font-bold">11% - 14%</td>
+                        <td class="p-4 sm:p-5 text-amber-500 font-bold">11% - 14%</td>
                     </tr>
                     <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
                         <td class="p-4 sm:p-5 font-semibold">NH-19 Highway Frontage</td>
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 45,000 – ₹ 60,000</td>
                         <td class="p-4 sm:p-5">₹ 10,000 – ₹ 14,000</td>
                         <td class="p-4 sm:p-5">Hotels, Resorts, Mega Warehousing</td>
-                        <td class="p-4 sm:p-5 text-emerald-400 font-bold">12% - 16%</td>
+                        <td class="p-4 sm:p-5 text-amber-500 font-bold">12% - 16%</td>
                     </tr>
                     <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
                         <td class="p-4 sm:p-5 font-semibold">Chhatikara-Vrindavan Road</td>
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 75,000 – ₹ 1,10,000</td>
                         <td class="p-4 sm:p-5">₹ 16,000 – ₹ 22,000</td>
                         <td class="p-4 sm:p-5">Boutique Stays, QSR Food Courts</td>
-                        <td class="p-4 sm:p-5 text-emerald-400 font-bold">10% - 13%</td>
+                        <td class="p-4 sm:p-5 text-amber-500 font-bold">10% - 13%</td>
                     </tr>
                     <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
                         <td class="p-4 sm:p-5 font-semibold">Bhaktivedanta Swami Marg (ISKCON)</td>
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 1,20,000 – ₹ 1,80,000</td>
                         <td class="p-4 sm:p-5">₹ 24,000 – ₹ 32,000</td>
                         <td class="p-4 sm:p-5">Precious Gems, Heritage Artifacts</td>
-                        <td class="p-4 sm:p-5 text-emerald-400 font-bold">9% - 11%</td>
+                        <td class="p-4 sm:p-5 text-amber-500 font-bold">9% - 11%</td>
                     </tr>
                     <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
                         <td class="p-4 sm:p-5 font-semibold">Sunrakh / Parikrama Periphery</td>
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 35,000 – ₹ 48,000</td>
                         <td class="p-4 sm:p-5">₹ 8,500 – ₹ 12,000</td>
                         <td class="p-4 sm:p-5">Ayurvedic Ashrams &amp; Wellness</td>
-                        <td class="p-4 sm:p-5 text-emerald-400 font-bold">12% - 15%</td>
+                        <td class="p-4 sm:p-5 text-amber-500 font-bold">12% - 15%</td>
                     </tr>
                 </tbody>
             </table>
@@ -676,15 +740,15 @@
         <div class="text-center space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Institutional Advisory
+                <?= e($cp['consultation']['badge'] ?? 'Institutional Advisory') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Schedule a Commercial Site Consultation
+                <?= e($cp['consultation']['title'] ?? 'Schedule a Commercial Site Consultation') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed max-w-2xl mx-auto"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Tour our flagship commercial developments and review projected footfalls, rental cashflow models, and sanctioned layout blueprints with our senior commercial advisors.
+                <?= e($cp['consultation']['subtitle'] ?? 'Tour our flagship commercial developments and review projected footfalls, rental cashflow models, and sanctioned layout blueprints with our senior commercial advisors.') ?>
             </p>
         </div>
 
@@ -724,7 +788,7 @@
                          });
                          const data = await res.json();
                          if (data.status === 'success' || res.ok) {
-                             this.successMsg = 'Thank you for connecting with Gleamrealty Private Office. Our Senior Commercial Consultant will contact you today.';
+                             this.successMsg = 'Thank you for connecting with Gleamrealty Private Limited. Our Senior Commercial Consultant will contact you today.';
                              this.name = ''; this.phone = ''; this.email = ''; this.message = '';
                          } else {
                              this.errorMsg = data.message || 'Error sending request. Please call +91 9871731303 / +91 7409767452.';
@@ -738,7 +802,7 @@
              }">
             
             <form @submit.prevent="submitForm()" class="space-y-6">
-                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-medium text-center">
+                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-[#FDF3E3] border border-[#9A6B2F]/30 text-[#9A6B2F] text-sm font-medium text-center">
                     <span x-text="successMsg"></span>
                 </div>
                 <div x-show="errorMsg" x-cloak class="p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-sm font-medium text-center">
@@ -758,7 +822,7 @@
                         <label class="block text-xs uppercase font-semibold tracking-wider" :style="{ color: 'var(--theme-title)' }">
                             Phone / WhatsApp *
                         </label>
-                        <input type="tel" x-model="phone" required placeholder="+91 98765 43210"
+                        <input type="tel" x-model="phone" required placeholder="+91 9871731303"
                                class="w-full px-4 py-3.5 rounded-xl border text-sm outline-none transition-all"
                                :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)', color: 'var(--theme-text-primary)' }">
                     </div>
@@ -807,12 +871,12 @@
                     </button>
                     <div class="flex items-center gap-2 text-xs" :style="{ color: 'var(--theme-text-secondary)' }">
                         <span>Commercial Direct Desk:</span>
-                        <a href="tel:+919871731303" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
-                            +91 9871731303
+                        <a href="tel:<?= preg_replace('/\s+/', '', $cp['consultation']['phone_1'] ?? '+919871731303') ?>" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($cp['consultation']['phone_1'] ?? '+91 9871731303') ?>
                         </a>
                         <span>/</span>
-                        <a href="tel:+917409767452" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
-                            +91 7409767452
+                        <a href="tel:<?= preg_replace('/\s+/', '', $cp['consultation']['phone_2'] ?? '+917409767452') ?>" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($cp['consultation']['phone_2'] ?? '+91 7409767452') ?>
                         </a>
                     </div>
                 </div>

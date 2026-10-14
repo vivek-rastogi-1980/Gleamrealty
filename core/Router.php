@@ -122,7 +122,7 @@ class Router
                 throw new RuntimeException("Method [{$method}] does not exist on controller [{$controllerClass}].");
             }
 
-            $result = call_user_func_array([$instance, $method], array_merge([$request], $params));
+            $result = call_user_func_array([$instance, $method], array_merge([$request], array_values($params)));
             return $this->normalizeResponse($result);
         }
 

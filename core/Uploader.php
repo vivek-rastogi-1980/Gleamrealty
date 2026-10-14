@@ -15,14 +15,19 @@ class Uploader
         'jpg', 'jpeg', 'png', 'webp', 'gif', 'pdf', 'mp4', 'webm'
     ];
 
+    protected static array $allowedImageExtensions = [
+        'jpg', 'jpeg', 'png', 'webp', 'gif'
+    ];
+
     /**
      * Upload an uploaded $_FILES entry to public/uploads/{subDirectory}.
      *
      * @param array $file $_FILES['input_name']
      * @param string $subDirectory
+     * @param array|null $allowedCustomExts
      * @return string|null Relative URL path on success, null on failure
      */
-    public static function upload(array $file, string $subDirectory = 'projects'): ?string
+    public static function upload(array $file, string $subDirectory = 'projects', ?array $allowedCustomExts = null): ?string
     {
         if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) {
             return null;
@@ -31,12 +36,19 @@ class Uploader
         $origName = (string) ($file['name'] ?? 'upload');
         $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
 
-        if (!in_array($ext, static::$allowedExtensions, true)) {
+        $allowed = $allowedCustomExts ?? static::$allowedExtensions;
+        if (!in_array($ext, $allowed, true)) {
             return null;
         }
 
+        // Clean subDirectory to avoid duplication like public/uploads/public/uploads/hero
+        $cleanSub = trim(str_replace(['public/', 'uploads/'], '', str_replace('\\', '/', $subDirectory)), '/');
+        if ($cleanSub === '') {
+            $cleanSub = 'general';
+        }
+
         $basePath = dirname(__DIR__);
-        $targetDir = $basePath . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $subDirectory;
+        $targetDir = $basePath . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $cleanSub);
 
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0775, true);
@@ -49,10 +61,22 @@ class Uploader
         $targetPath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
 
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return '/public/uploads/' . $subDirectory . '/' . $fileName;
+            return 'uploads/' . $cleanSub . '/' . $fileName;
         }
 
         return null;
+    }
+
+    /**
+     * Specialized image uploader restricted to web image formats.
+     *
+     * @param array $file
+     * @param string $subDirectory
+     * @return string|null
+     */
+    public static function image(array $file, string $subDirectory = 'hero'): ?string
+    {
+        return static::upload($file, $subDirectory, static::$allowedImageExtensions);
     }
 
     /**

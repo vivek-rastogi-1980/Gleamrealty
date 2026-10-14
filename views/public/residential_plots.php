@@ -1,205 +1,263 @@
 <?php
 /**
  * Residential Plots in Vrindavan — Master Showcase View
- * Faithfully matching content, sections, and images from https://earthousing.com/residential-plots-in-vrindavan
- * Fully integrated with Gleamrealty Multi-Theme Engine (Dark-Yellow, Green & White, Blue & White)
+ * Fully Controlled & Dynamically Editable through Admin Panel (/admin/residential-plots)
+ * Integrated with Gleamrealty Multi-Theme Engine
  * 
  * @var array $page
  * @var array $projects
+ * @var array $rp
  */
+
+$rp = !empty($rp) ? $rp : \App\Models\Setting::getResidentialPlotsSections();
+
+$heroCover = !empty($rp['hero']['image']) ? media_url($rp['hero']['image']) : asset('uploads/pages/residential-plots-in-vrindavan.jpeg');
+$heroTitle = !empty($rp['hero']['heading']) ? $rp['hero']['heading'] : ($page['hero_heading'] ?? 'Plots in Vrindavan');
+$heroSubtitle = !empty($rp['hero']['subheading']) ? $rp['hero']['subheading'] : ($page['hero_subheading'] ?? 'Plot for Sale in Vrindavan, Plot in Vrindavan near Prem Mandir');
+$heroBadge = !empty($rp['hero']['badge']) ? $rp['hero']['badge'] : '✦ Gleamrealty Private Limited • RESIDENTIAL PLOTS';
 ?>
 
-<!-- =======================================================================
-     1. HERO BANNER: Plots in Vrindavan
-     ======================================================================= -->
-<section class="relative min-h-[48vh] sm:min-h-[56vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden transition-colors duration-300"
-         :style="{ backgroundColor: 'var(--theme-hero-from)', borderColor: 'var(--theme-border-hairline)' }">
-    
-    <!-- Background Hero Imagery -->
-    <div class="absolute inset-0 z-0">
-        <img src="<?= asset('uploads/pages/residential-plots-in-vrindavan.jpeg') ?>"
-             alt="Residential Plots in Vrindavan — MVDA Approved"
-             class="w-full h-full object-cover filter brightness-[0.38] contrast-[1.05] scale-105 transition-transform duration-1000">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
-    </div>
+<div x-data="{ vipModalOpen: false, filterCategory: 'all' }">
 
-    <!-- Radiant Ambient Light Glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-[140px] pointer-events-none -z-0 opacity-25"
-         :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
-
-    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-5">
+    <!-- =======================================================================
+         1. HERO BANNER: Plots in Vrindavan
+         ======================================================================= -->
+    <section class="relative min-h-[52vh] sm:min-h-[58vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden bg-stone-950 transition-colors duration-300"
+             :style="{ borderColor: 'var(--theme-border-hairline)' }">
         
-        <!-- Breadcrumbs & Category Badge -->
-        <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.22em] uppercase">
-            <a href="<?= url('/') ?>" class="text-stone-300 hover:text-white transition-colors">Home</a>
-            <span class="text-stone-500">&bull;</span>
-            <a href="<?= url('/projects') ?>" class="text-stone-300 hover:text-white transition-colors">Projects</a>
-            <span class="text-stone-500">&bull;</span>
-            <span class="text-amber-300 font-bold">Residential Plots</span>
+        <!-- Background Hero Imagery -->
+        <div class="absolute inset-0 z-0">
+            <img src="<?= $heroCover ?>"
+                 alt="<?= e($heroTitle) ?> — MVDA Approved"
+                 class="w-full h-full object-cover filter brightness-[0.42] contrast-[1.08] scale-105 transition-transform duration-1000">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/75 to-stone-950/40"></div>
+            <div class="absolute inset-0 bg-black/35"></div>
         </div>
 
-        <!-- Eyebrow Pill -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-white/10 text-white border border-white/20 shadow-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Gleamrealty Private Office &bull; Braj Bhumi Sanctuary
-        </div>
+        <!-- Radiant Ambient Light Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-[140px] pointer-events-none -z-0 opacity-25"
+             :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
 
-        <!-- Main H1 Title -->
-        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-xl leading-[1.1]">
-            Plots in Vrindavan
-        </h1>
-
-        <!-- H2 / Subheading Tagline -->
-        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-md">
-            Plot for Sale in Vrindavan, Plot in Vrindavan near Prem Mandir
-        </h2>
-
-        <!-- Trust Badges Strip -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-3">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                <svg class="w-3.5 h-3.5 text-emerald-400 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                100% MVDA &amp; RERA Approved
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 shadow-sm">
-                ✦ Immediate Registry &amp; Mutation
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                Bank Loan Approved (SBI, HDFC, ICICI)
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                Zero Brokerage Direct
-            </span>
-        </div>
-
-        <!-- CTAs -->
-        <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <a href="#projects-showcase"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] transition-all duration-300 shadow-lg hover:scale-105"
-               :style="{ backgroundColor: 'var(--theme-accent)', color: '#090d16' }">
-                View Available Plots &darr;
-            </a>
-            <a href="#freesitevisit"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 transition-all duration-300">
-                Book Free Site Visit
-            </a>
-            <a href="tel:+919871731303"
-               class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 hover:border-white/50 transition-colors">
-                <svg class="w-3.5 h-3.5 fill-current text-amber-300" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
-                +91 9871731303
-            </a>
-        </div>
-
-    </div>
-</section>
-
-
-<!-- =======================================================================
-     2. SECTION 1: Simplicity and Sincerity — The Ground Reality of Vrindavan
-     ======================================================================= -->
-<section class="py-20 sm:py-28 px-6 sm:px-8 border-b transition-colors duration-300"
-         :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-border-hairline)' }">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        
-        <!-- Left Column: Visual Showcase -->
-        <div class="lg:col-span-5 relative space-y-6">
-            <div class="relative rounded-3xl overflow-hidden border shadow-2xl group transition-all"
-                 :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)', boxShadow: 'var(--theme-card-shadow)' }">
-                <div class="aspect-[4/5] relative overflow-hidden bg-stone-900">
-                    <img src="<?= asset('uploads/pages/mero-vrindavan.png') ?>"
-                         alt="Mero Vrindavan Divine Land"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-                </div>
-
-                <!-- Floating Sincerity Badge -->
-                <div class="absolute bottom-6 left-6 right-6 p-4 rounded-2xl backdrop-blur-xl border flex items-center justify-between shadow-xl"
-                     :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
-                    <div>
-                        <span class="text-[10px] uppercase tracking-widest font-bold block" :style="{ color: 'var(--theme-accent)' }">
-                            Brajwas Guaranteed
-                        </span>
-                        <div class="font-serif text-sm sm:text-base font-bold tracking-wide" :style="{ color: 'var(--theme-title)' }">
-                            3,000+ Happy Families
-                        </div>
-                    </div>
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border"
-                         :style="{ backgroundColor: 'var(--theme-btn-pri-bg)', color: 'var(--theme-btn-pri-text)', borderColor: 'var(--theme-border-hairline)' }">
-                        ✦
-                    </div>
-                </div>
+        <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-6">
+            
+            <!-- Breadcrumbs & Category Badge -->
+            <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.22em] uppercase">
+                <a href="<?= url('/') ?>" class="text-stone-300 hover:text-white transition-colors">Home</a>
+                <span class="text-amber-500/60">&bull;</span>
+                <span class="text-stone-300">Communities</span>
+                <span class="text-amber-500/60">&bull;</span>
+                <span class="text-amber-400 font-bold">Residential Plots</span>
             </div>
 
-            <!-- Secondary Micro Banner -->
-            <div class="p-5 rounded-2xl border flex items-center gap-4 transition-colors"
-                 :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                <img src="<?= asset('uploads/pages/property-in-vrindavan.png') ?>" alt="Vrindavan Gateway" class="w-16 h-16 rounded-xl object-cover shrink-0 border"
-                     :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <div class="text-xs leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    <strong class="block text-sm font-semibold" :style="{ color: 'var(--theme-title)' }">
-                        Over 5 Lakh Sq. Yards
-                    </strong>
-                    Consulted and delivered with 100% legal clearance across the Vrindavan-Mathura belt.
-                </div>
+            <!-- Eyebrow Pill -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-stone-900/80 text-white border border-amber-500/30 shadow-md">
+                <span class="w-2 h-2 rounded-full bg-[#9A6B2F] animate-pulse"></span>
+                <?= e($heroBadge) ?>
             </div>
-        </div>
 
-        <!-- Right Column: Narrative -->
-        <div class="lg:col-span-7 space-y-6 text-left">
-            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
-                  :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Simplicity and Sincerity
-            </span>
+            <!-- Main H1 Title -->
+            <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] leading-[1.1]">
+                <?= e($heroTitle) ?>
+            </h1>
 
-            <h2 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight leading-tight"
-                :style="{ color: 'var(--theme-title)' }">
-                Plot in Vrindavan near Prem Mandir
+            <!-- H2 / Subheading Tagline -->
+            <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                <?= e($heroSubtitle) ?>
             </h2>
 
-            <div class="space-y-4 text-sm sm:text-base font-normal leading-relaxed"
-                 :style="{ color: 'var(--theme-text-primary)' }">
-                <p>
-                    In the decade ahead, Braj's skyline will change more than it has in the last hundred years. When the government pumps over <strong :style="{ color: 'var(--theme-title)' }">₹30,000 Crore</strong> of infrastructure into an area already saturated with pilgrims and devotees, buying residential land in Vrindavan is now much more than just a spiritual landmark; it’s the most viable strategic real estate maneuver in all of North India. But in a city where permissible land is scarce, how do you separate the noise from what’s important?
-                </p>
-                <p>
-                    Many dream of owning land in this sacred city, but the search for that perfect piece of property is often overwhelming. As the region's premier private real estate office, <strong :style="{ color: 'var(--theme-title)' }">Gleamrealty Private Office</strong> is your trusted friend. We are experts on finding qualified properties with the right mixture of modern convenience and spiritual peace. Whether you are looking for a retirement retreat, weekend sanctuary, or long-term high-yield asset, we deliver the transparency and candor that is essential while navigating residential land in Vrindavan.
-                </p>
-                <p>
-                    In a vibrant but complex market like Vrindavan-Mathura, trust is the currency. We have been a driving force behind this local real estate sector for more than <strong :style="{ color: 'var(--theme-title)' }">10 years</strong>. We work with a different mission at heart: we do not build nor resell unverified colony land. What we are is true market specialists who fight through the noise to put on your desk only the best of the best.
-                </p>
-                <p>
-                    Our footprint is our satisfied <strong>3,000+ families</strong> who have found their “Brajwas” under our guidance. We have assisted millions of devotees and investors nationwide to acquire over <strong>5 lakh sq. yards</strong> of land at prime points in the city. Buying residential plots in Vrindavan is as calm as the destination. We offer simple and honest consultation, ensuring every property we promote is fully government-approved.
-                </p>
+            <!-- Trust Badges Strip -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-2">
+                <?php if (!empty($rp['hero']['badge_1'])): ?>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-white shadow-sm">
+                        <svg class="w-3.5 h-3.5 text-[#9A6B2F] fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <?= e($rp['hero']['badge_1']) ?>
+                    </span>
+                <?php endif; ?>
+                <?php if (!empty($rp['hero']['badge_2'])): ?>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 shadow-sm">
+                        <?= e($rp['hero']['badge_2']) ?>
+                    </span>
+                <?php endif; ?>
+                <?php if (!empty($rp['hero']['badge_3'])): ?>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
+                        <?= e($rp['hero']['badge_3']) ?>
+                    </span>
+                <?php endif; ?>
+                <?php if (!empty($rp['hero']['badge_4'])): ?>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
+                        <?= e($rp['hero']['badge_4']) ?>
+                    </span>
+                <?php endif; ?>
             </div>
 
-            <!-- 4 Quick Key Metrics -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t"
-                 :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <div class="p-4 rounded-xl border text-center"
-                     :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">10+</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Years Heritage</div>
-                </div>
-                <div class="p-4 rounded-xl border text-center"
-                     :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">3,000+</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Devotee Families</div>
-                </div>
-                <div class="p-4 rounded-xl border text-center"
-                     :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">5 Lakh+</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Sq. Yards Sold</div>
-                </div>
-                <div class="p-4 rounded-xl border text-center"
-                     :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial text-emerald-400">100%</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">MVDA Approved</div>
-                </div>
+            <!-- Action CTAs -->
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                <a href="#projects-showcase"
+                   class="btn-bronze inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] shadow-lg hover:shadow-xl transition-all">
+                    <span>View Available Plots</span>
+                    <span class="text-sm">&darr;</span>
+                </a>
+                <button type="button" @click="vipModalOpen = true"
+                        class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] bg-stone-900/90 hover:bg-stone-800 text-white border border-stone-700 shadow-lg hover:shadow-xl transition-all cursor-pointer">
+                    <span>Book Free Site Visit</span>
+                    <span class="text-amber-400">&rarr;</span>
+                </button>
+                <a href="tel:<?= preg_replace('/[^0-9+]/', '', $rp['consultation']['phone_1'] ?? company_phone_1()) ?>"
+                   class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/50 transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current text-amber-300" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
+                    <span><?= e($rp['consultation']['phone_1'] ?? company_phone_1()) ?></span>
+                </a>
+                <?php if (function_exists('auth_user') && auth_user()): ?>
+                    <a href="<?= url('/admin/residential-plots') ?>"
+                       target="_blank"
+                       class="inline-flex items-center gap-1.5 px-4 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        <span>Edit Page in Admin</span>
+                    </a>
+                <?php endif; ?>
             </div>
 
         </div>
+    </section>
 
-    </div>
-</section>
+
+    <!-- =======================================================================
+         2. SECTION 1: Simplicity and Sincerity — The Ground Reality of Vrindavan
+         ======================================================================= -->
+    <section class="py-20 sm:py-28 px-6 sm:px-8 border-b transition-colors duration-300"
+             :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-border-hairline)' }">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            <!-- Left Column: Visual Showcase -->
+            <div class="lg:col-span-5 relative space-y-6">
+                <div class="relative rounded-3xl overflow-hidden border shadow-2xl group transition-all"
+                     :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)', boxShadow: 'var(--theme-card-shadow)' }">
+                    <div class="aspect-[4/5] relative overflow-hidden bg-stone-900">
+                        <?php $ovImg = !empty($rp['overview']['image']) ? media_url($rp['overview']['image']) : asset('uploads/pages/mero-vrindavan.png'); ?>
+                        <img src="<?= $ovImg ?>"
+                             alt="<?= e($rp['overview']['title'] ?? 'Mero Vrindavan Divine Land') ?>"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                    </div>
+
+                    <!-- Floating Sincerity Badge -->
+                    <div class="absolute bottom-6 left-6 right-6 p-4 rounded-2xl backdrop-blur-xl border flex items-center justify-between shadow-xl"
+                         :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest font-bold block" :style="{ color: 'var(--theme-accent)' }">
+                                <?= e($rp['overview']['badge_sub'] ?? 'Brajwas Guaranteed') ?>
+                            </span>
+                            <div class="font-serif text-sm sm:text-base font-bold tracking-wide" :style="{ color: 'var(--theme-title)' }">
+                                <?= e($rp['overview']['badge_title'] ?? '3,000+ Happy Families') ?>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border"
+                             :style="{ backgroundColor: 'var(--theme-btn-pri-bg)', color: 'var(--theme-btn-pri-text)', borderColor: 'var(--theme-border-hairline)' }">
+                            ✦
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Micro Banner -->
+                <div class="p-5 rounded-2xl border flex items-center gap-4 transition-colors"
+                     :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
+                    <?php $secImg = !empty($rp['overview']['secondary_image']) ? media_url($rp['overview']['secondary_image']) : asset('uploads/pages/property-in-vrindavan.png'); ?>
+                    <img src="<?= $secImg ?>" alt="Vrindavan Gateway" class="w-16 h-16 rounded-xl object-cover shrink-0 border"
+                         :style="{ borderColor: 'var(--theme-border-hairline)' }">
+                    <div class="text-xs leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
+                        <strong class="block text-sm font-semibold" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['overview']['secondary_title'] ?? 'Over 5 Lakh Sq. Yards') ?>
+                        </strong>
+                        <?= e($rp['overview']['secondary_desc'] ?? 'Consulted and delivered with 100% legal clearance across the Vrindavan-Mathura belt.') ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Narrative -->
+            <div class="lg:col-span-7 space-y-6 text-left">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
+                      :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
+                    <?= e($rp['overview']['badge'] ?? '✦ The Ground Reality of Braj') ?>
+                </span>
+
+                <h2 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight leading-tight"
+                    :style="{ color: 'var(--theme-title)' }">
+                    <?= e($rp['overview']['title'] ?? 'Plot in Vrindavan near Prem Mandir') ?>
+                </h2>
+
+                <?php if (!empty($rp['overview']['subtitle'])): ?>
+                    <p class="text-sm font-light italic leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
+                        <?= e($rp['overview']['subtitle']) ?>
+                    </p>
+                <?php endif; ?>
+
+                <div class="space-y-4 text-sm sm:text-base font-normal leading-relaxed"
+                     :style="{ color: 'var(--theme-text-primary)' }">
+                    <?php if (!empty($rp['overview']['content'])): ?>
+                        <?= $rp['overview']['content'] ?>
+                    <?php elseif (!empty($page['content'])): ?>
+                        <?= $page['content'] ?>
+                    <?php else: ?>
+                        <p>
+                            In the decade ahead, Braj's skyline will change more than it has in the last hundred years. When the government pumps over <strong :style="{ color: 'var(--theme-title)' }">₹30,000 Crore</strong> of infrastructure into an area already saturated with pilgrims and devotees, buying residential land in Vrindavan is now much more than just a spiritual landmark; it’s the most viable strategic real estate maneuver in all of North India. But in a city where permissible land is scarce, how do you separate the noise from what’s important?
+                        </p>
+                        <p>
+                            Many dream of owning land in this sacred city, but the search for that perfect piece of property is often overwhelming. As the region's premier private real estate office, <strong :style="{ color: 'var(--theme-title)' }">Gleamrealty Private Limited</strong> is your trusted friend. We are experts on finding qualified properties with the right mixture of modern convenience and spiritual peace. Whether you are looking for a retirement retreat, weekend sanctuary, or long-term high-yield asset, we deliver the transparency and candor that is essential while navigating residential land in Vrindavan.
+                        </p>
+                        <p>
+                            In a vibrant but complex market like Vrindavan-Mathura, trust is the currency. We have been a driving force behind this local real estate sector for more than <strong :style="{ color: 'var(--theme-title)' }">10 years</strong>. We work with a different mission at heart: we do not build nor resell unverified colony land. What we are is true market specialists who fight through the noise to put on your desk only the best of the best.
+                        </p>
+                        <p>
+                            Our footprint is our satisfied <strong>3,000+ families</strong> who have found their “Brajwas” under our guidance. We have assisted millions of devotees and investors nationwide to acquire over <strong>5 lakh sq. yards</strong> of land at prime points in the city. Buying residential plots in Vrindavan is as calm as the destination. We offer simple and honest consultation, ensuring every property we promote is fully government-approved.
+                        </p>
+                    <?php endif; ?>
+                </div>
+
+                <!-- 4 Quick Key Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t"
+                     :style="{ borderColor: 'var(--theme-border-hairline)' }">
+                    <div class="p-4 rounded-xl border text-center"
+                         :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
+                        <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                            <?= e($rp['overview']['metric_1_val'] ?? '10+') ?>
+                        </div>
+                        <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                            <?= e($rp['overview']['metric_1_lbl'] ?? 'Years Heritage') ?>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border text-center"
+                         :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
+                        <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                            <?= e($rp['overview']['metric_2_val'] ?? '3,000+') ?>
+                        </div>
+                        <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                            <?= e($rp['overview']['metric_2_lbl'] ?? 'Devotee Families') ?>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border text-center"
+                         :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
+                        <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                            <?= e($rp['overview']['metric_3_val'] ?? '5 Lakh+') ?>
+                        </div>
+                        <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                            <?= e($rp['overview']['metric_3_lbl'] ?? 'Sq. Yards Sold') ?>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border text-center"
+                         :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
+                        <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">
+                            <?= e($rp['overview']['metric_4_val'] ?? '100%') ?>
+                        </div>
+                        <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">
+                            <?= e($rp['overview']['metric_4_lbl'] ?? 'MVDA Approved') ?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 
 
 <!-- =======================================================================
@@ -212,15 +270,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Regulatory Standards
+                <?= e($rp['legalities']['eyebrow'] ?? 'Regulatory Standards') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Legalities of Vrindavan Real Estate
+                <?= e($rp['legalities']['title'] ?? 'Legalities of Vrindavan Real Estate') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                When looking for residential land in Vrindavan, the first question every smart investor asks is about legality and approvals. The city is currently undergoing a massive transformation under the <strong>Braj Master Plan 2041</strong>, and understanding the difference between various types of land is crucial for securing your family's future.
+                <?= e($rp['legalities']['subtitle'] ?? 'When looking for residential land in Vrindavan, the first question every smart investor asks is about legality and approvals. The city is currently undergoing a massive transformation under the Braj Master Plan 2041, and understanding the difference between various types of land is crucial for securing your family\'s future.') ?>
             </p>
         </div>
 
@@ -235,10 +293,10 @@
                     01
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Sanctioned Layouts: The Guarantee of Planned Living
+                    <?= e($rp['legalities']['p1_title'] ?? 'Sanctioned Layouts: The Guarantee of Planned Living') ?>
                 </h3>
                 <p class="text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                    The shrinkage in space is described as one of the most frequent problems in unauthorized colonies. A local dealer might show you an attractive open green patch, only to construct shops or commercial units on it tomorrow. In an MVDA-sanctioned layout, open areas, 30-to-40 ft wide roads, and community parks are marked on official government records and protected perpetually against encroachment.
+                    <?= e($rp['legalities']['p1_desc'] ?? 'The shrinkage in space is described as one of the most frequent problems in unauthorized colonies. A local dealer might show you an attractive open green patch, only to construct shops or commercial units on it tomorrow. In an MVDA-sanctioned layout, open areas, 30-to-40 ft wide roads, and community parks are marked on official government records and protected perpetually against encroachment.') ?>
                 </p>
             </div>
 
@@ -250,10 +308,10 @@
                     02
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Infrastructure Guarantees: Built for the Future
+                    <?= e($rp['legalities']['p2_title'] ?? 'Infrastructure Guarantees: Built for the Future') ?>
                 </h3>
                 <p class="text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                    An unauthorized plot is nothing but a chunk of dirt. Fundamentally, an MVDA-approved plot is a fragment of a modern ecosystem. These developments are strictly bound by Building Bye-Laws &amp; Model Zonal Regulations (2025). This mandates underground electrification, subterranean sewage and stormwater drainage networks, wide paved concrete roads, and dedicated potable water supply lines.
+                    <?= e($rp['legalities']['p2_desc'] ?? 'An unauthorized plot is nothing but a chunk of dirt. Fundamentally, an MVDA-approved plot is a fragment of a modern ecosystem. These developments are strictly bound by Building Bye-Laws & Model Zonal Regulations (2025). This mandates underground electrification, subterranean sewage and stormwater drainage networks, wide paved concrete roads, and dedicated potable water supply lines.') ?>
                 </p>
             </div>
 
@@ -265,10 +323,10 @@
                     03
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Ease of Financing: The Bank’s Vote of Confidence
+                    <?= e($rp['legalities']['p3_title'] ?? 'Ease of Financing: The Bank’s Vote of Confidence') ?>
                 </h3>
                 <p class="text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                    For most families, purchasing land is a critical financial milestone requiring home loan assistance. Premier public and private financial institutions (SBI, HDFC Bank, ICICI Bank, Punjab National Bank) conduct stringent 30-year legal searches before approving project funding. An MVDA sanction is the bank’s non-negotiable prerequisite, giving you sovereign institutional peace of mind.
+                    <?= e($rp['legalities']['p3_desc'] ?? 'For most families, purchasing land is a critical financial milestone requiring home loan assistance. Premier public and private financial institutions (SBI, HDFC Bank, ICICI Bank, Punjab National Bank) conduct stringent 30-year legal searches before approving project funding. An MVDA sanction is the bank’s non-negotiable prerequisite, giving you sovereign institutional peace of mind.') ?>
                 </p>
             </div>
 
@@ -280,10 +338,10 @@
                     04
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Future Appreciation: Wealth Creation Through Legality
+                    <?= e($rp['legalities']['p4_title'] ?? 'Future Appreciation: Wealth Creation Through Legality') ?>
                 </h3>
                 <p class="text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                    Real estate returns in Vrindavan revolve around Scarcity and Security. While raw unorganized farmland is plenty, permissible MVDA residential land represents less than 7% of total city acreage. As master plan zoning tightens, MVDA sanctioned land experiences superior, compounding valuation growth compared to speculative farmland.
+                    <?= e($rp['legalities']['p4_desc'] ?? 'The historic data of the last five years in Vrindavan reveals a striking pattern: MVDA-sanctioned plotted developments have appreciated at 2.8 times the rate of unapproved farmland colonies, while offering 100% protection against demolition or registry freezes.') ?>
                 </p>
             </div>
 
@@ -294,8 +352,8 @@
              :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div class="space-y-2">
-                    <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-emerald-400">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold" :style="{ color: 'var(--theme-accent)' }">
+                        <span class="w-2 h-2 rounded-full" :style="{ backgroundColor: 'var(--theme-accent)' }"></span>
                         Dual Legal Protection
                     </div>
                     <h3 class="text-2xl sm:text-3xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
@@ -314,7 +372,7 @@
 
             <div class="p-5 rounded-2xl border text-xs sm:text-sm font-normal leading-relaxed"
                  :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)', color: 'var(--theme-text-primary)' }">
-                <strong :style="{ color: 'var(--theme-title)' }">Gleamrealty Vetting Protocol:</strong> We understand there are private plotted developments in Vrindavan that may not always carry an MVDA sanction initially. In such cases, Gleamrealty steps into the shoes of the regulator: verifying title deeds back 30 years, confirming 143 agricultural-to-non-agricultural conversion, clearing revenue tax receipts, and validating mutation feasibility before a single plot is offered to our patrons.
+                <strong :style="{ color: 'var(--theme-title)' }">Gleamrealty Vetting Protocol:</strong> We understand there are private plotted developments in Vrindavan that may not always carry an MVDA sanction initially. In such cases, Gleamrealty steps into the shoes of the regulator: verifying title deeds back 12 years, confirming 143 agricultural-to-non-agricultural conversion, clearing revenue tax receipts, and validating mutation feasibility before a single plot is offered to our patrons.
             </div>
         </div>
 
@@ -461,7 +519,7 @@
             </h2>
             <p class="text-sm sm:text-base font-normal leading-relaxed"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                At Gleamrealty Private Office, selecting the right piece of residential land requires more than just looking at a site plan. It demands verified legal sanctions, robust physical infrastructure, and unmatched spiritual connectivity. Explore our flagship developments below:
+                At Gleamrealty Private Limited, selecting the right piece of residential land requires more than just looking at a site plan. It demands verified legal sanctions, robust physical infrastructure, and unmatched spiritual connectivity. Explore our flagship developments below:
             </p>
         </div>
 
@@ -478,7 +536,7 @@
                              alt="Shri Vrinda Orchids Plots and Villas"
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/90 text-white backdrop-blur-md shadow-md">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#9A6B2F] text-white backdrop-blur-md shadow-md">
                                 MVDA &amp; RERA Approved
                             </span>
                         </div>
@@ -521,7 +579,7 @@
                              alt="Shri Vrinda Naivedyam Premium Residential Plots"
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/90 text-white backdrop-blur-md shadow-md">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#9A6B2F] text-white backdrop-blur-md shadow-md">
                                 MVDA Approved
                             </span>
                         </div>
@@ -650,7 +708,7 @@
                              alt="Shri Vrinda Aakruti Village Township"
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/90 text-white backdrop-blur-md shadow-md">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#9A6B2F] text-white backdrop-blur-md shadow-md">
                                 Plots &amp; Duplex Villas
                             </span>
                         </div>
@@ -761,44 +819,75 @@
         <div class="lg:col-span-7 space-y-6">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Growth Catalysts
+                <?= e($rp['megaprojects']['eyebrow'] ?? 'Economic Infrastructure') ?>
             </span>
 
             <h2 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight leading-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                The 2026 Ground Reality: Megaprojects Transforming Braj
+                <?= e($rp['megaprojects']['title'] ?? 'The 2026 Ground Reality: Megaprojects Transforming Braj') ?>
             </h2>
 
             <div class="space-y-4 text-sm sm:text-base font-normal leading-relaxed"
                  :style="{ color: 'var(--theme-text-primary)' }">
-                <p>
-                    Now is the definitive moment to acquire residential land in Vrindavan. The transformation of Ayodhya and Varanasi set the national gold standard; today, the full administrative and developmental focus of the Uttar Pradesh government is directed at Mathura-Vrindavan under the <strong :style="{ color: 'var(--theme-title)' }">Braj 2041 Master Plan</strong>.
-                </p>
+                <?php if (!empty($rp['megaprojects']['subtitle'])): ?>
+                    <p class="font-light italic" :style="{ color: 'var(--theme-text-secondary)' }">
+                        <?= e($rp['megaprojects']['subtitle']) ?>
+                    </p>
+                <?php endif; ?>
                 
                 <div class="border-l-2 pl-4 py-1 space-y-1" :style="{ borderColor: 'var(--theme-accent)' }">
-                    <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
-                        The Banke Bihari Corridor:
-                    </strong>
+                    <div class="flex items-center justify-between">
+                        <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['megaprojects']['mp1_title'] ?? 'Noida International Airport (Jewar)') ?>
+                        </strong>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">
+                            <?= e($rp['megaprojects']['mp1_badge'] ?? 'Opening 2026') ?>
+                        </span>
+                    </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        Similar to the Kashi Vishwanath Dham, this corridor creates organized, comfortable pedestrian plazas, direct Yamuna river access, VIP parking, and seamless connectivity. Properties along the 5 to 7 km radius are seeing record absorption.
+                        <?= e($rp['megaprojects']['mp1_desc'] ?? 'Just 75–90 minutes from Vrindavan via the Yamuna Expressway, connecting global devotees directly without Delhi airport congestion.') ?>
                     </p>
                 </div>
 
                 <div class="border-l-2 pl-4 py-1 space-y-1" :style="{ borderColor: 'var(--theme-accent)' }">
-                    <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
-                        The YEIDA Heritage City:
-                    </strong>
+                    <div class="flex items-center justify-between">
+                        <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['megaprojects']['mp2_title'] ?? '1,000-Acre Raya Heritage City') ?>
+                        </strong>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">
+                            <?= e($rp['megaprojects']['mp2_badge'] ?? 'YEIDA Megaproject') ?>
+                        </span>
+                    </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        Developed by Yamuna Expressway Industrial Development Authority over 772 hectares, the Heritage City bridges the expressway with Vrindavan. It will host international wellness centers, five-star hospitality pavilions, and cultural theme parks.
+                        <?= e($rp['megaprojects']['mp2_desc'] ?? 'A dedicated spiritual tourism and cultural zone adjacent to Mathura-Vrindavan featuring riverfront development and convention centers.') ?>
                     </p>
                 </div>
 
                 <div class="border-l-2 pl-4 py-1 space-y-1" :style="{ borderColor: 'var(--theme-accent)' }">
-                    <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
-                        Noida International Airport (Jewar):
-                    </strong>
+                    <div class="flex items-center justify-between">
+                        <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['megaprojects']['mp3_title'] ?? 'Banke Bihari Corridor & Rapid Rail') ?>
+                        </strong>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">
+                            <?= e($rp['megaprojects']['mp3_badge'] ?? 'Urban Modernization') ?>
+                        </span>
+                    </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        Opening in 2025-2026, Jewar Airport is only 45-55 minutes from our NH-19 projects, making weekend pilgrimage direct and effortless for international devotees and NRIs across the globe.
+                        <?= e($rp['megaprojects']['mp3_desc'] ?? 'Grand corridor decongesting access to the historic temple with dedicated rapid transit between Mathura Junction and Vrindavan.') ?>
+                    </p>
+                </div>
+
+                <div class="border-l-2 pl-4 py-1 space-y-1" :style="{ borderColor: 'var(--theme-accent)' }">
+                    <div class="flex items-center justify-between">
+                        <strong class="block text-sm" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['megaprojects']['mp4_title'] ?? 'MVDA Master Plan 2031') ?>
+                        </strong>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">
+                            <?= e($rp['megaprojects']['mp4_badge'] ?? '₹2,082 Cr Budget') ?>
+                        </span>
+                    </div>
+                    <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
+                        <?= e($rp['megaprojects']['mp4_desc'] ?? 'Planned arterial road expansions, green belt reserves, and comprehensive civic infrastructure ensuring pristine residential communities.') ?>
                     </p>
                 </div>
             </div>
@@ -819,15 +908,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                The Sacred Experience
+                <?= e($rp['lifestyle']['eyebrow'] ?? 'Sacred Living') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Life as a Brajwasi: The Spiritual Lifestyle Dividend
+                <?= e($rp['lifestyle']['title'] ?? 'Life as a Brajwasi: The Spiritual Lifestyle Dividend') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                When you invest in residential land in Vrindavan, you aren't just buying a plot of earth; you are securing a front-row seat to an elevated divine lifestyle that nurtures the soul.
+                <?= e($rp['lifestyle']['subtitle'] ?? 'When you invest in residential land in Vrindavan, you aren\'t just buying a plot of earth; you are securing a front-row seat to an elevated divine lifestyle that nurtures the soul.') ?>
             </p>
         </div>
 
@@ -839,52 +928,52 @@
                 <div class="p-6 rounded-2xl border transition-colors space-y-2"
                      :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                     <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-sm">✦ 04:30 AM</span>
+                        <span class="text-amber-400 font-bold text-sm">✦ 01</span>
                         <h4 class="font-editorial text-lg font-normal" :style="{ color: 'var(--theme-title)' }">
-                            Mangala Aarti &amp; Sacred Dawn
+                            <?= e($rp['lifestyle']['card1_title'] ?? 'Mangala Aarti & Sacred Dawn') ?>
                         </h4>
                     </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        Begin your morning to the peaceful ringing of temple bells and birdsong. Developments like Shri Vrinda Orchids and Shri Vrinda Greens are nestled minutes from Ramtal and Rukmani Vihar, keeping you connected without the city bustle.
+                        <?= e($rp['lifestyle']['card1_desc'] ?? 'Begin your morning to the peaceful ringing of temple bells and birdsong. Developments like Shri Vrinda Orchids and Shri Vrinda Greens are nestled minutes from Ramtal and Rukmani Vihar, keeping you connected without the city bustle.') ?>
                     </p>
                 </div>
 
                 <div class="p-6 rounded-2xl border transition-colors space-y-2"
                      :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                     <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-sm">✦ Daily</span>
+                        <span class="text-amber-400 font-bold text-sm">✦ 02</span>
                         <h4 class="font-editorial text-lg font-normal" :style="{ color: 'var(--theme-title)' }">
-                            The Sacred Tradition of Parikrama
+                            <?= e($rp['lifestyle']['card2_title'] ?? 'The Sacred Tradition of Parikrama') ?>
                         </h4>
                     </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        Living here gives you instant daily access to the holy Parikrama Marg. Devotees take serene barefoot morning walks along sacred dust and century-old Kadamba groves.
+                        <?= e($rp['lifestyle']['card2_desc'] ?? 'Living here gives you instant daily access to the holy Parikrama Marg. Devotees take serene barefoot morning walks along sacred dust and century-old Kadamba groves.') ?>
                     </p>
                 </div>
 
                 <div class="p-6 rounded-2xl border transition-colors space-y-2"
                      :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                     <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-sm">✦ Sunset</span>
+                        <span class="text-amber-400 font-bold text-sm">✦ 03</span>
                         <h4 class="font-editorial text-lg font-normal" :style="{ color: 'var(--theme-title)' }">
-                            Yamuna Sandhya &amp; Deep Daan
+                            <?= e($rp['lifestyle']['card3_title'] ?? 'Yamuna Sandhya & Deep Daan') ?>
                         </h4>
                     </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        As dusk descends over the Yamuna, the aroma of incense and sound of kartals echo through the air. Experience peaceful contemplation and community Satsang with like-minded neighbors.
+                        <?= e($rp['lifestyle']['card3_desc'] ?? 'As dusk descends over the Yamuna, the aroma of incense and sound of kartals echo through the air. Experience peaceful contemplation and community Satsang with like-minded neighbors.') ?>
                     </p>
                 </div>
 
                 <div class="p-6 rounded-2xl border transition-colors space-y-2"
                      :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                     <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-sm">✦ Year-Round</span>
+                        <span class="text-amber-400 font-bold text-sm">✦ 04</span>
                         <h4 class="font-editorial text-lg font-normal" :style="{ color: 'var(--theme-title)' }">
-                            Festivals Through “Resident Eyes”
+                            <?= e($rp['lifestyle']['card4_title'] ?? 'Festivals Through “Resident Eyes”') ?>
                         </h4>
                     </div>
                     <p class="text-xs sm:text-sm font-normal leading-relaxed" :style="{ color: 'var(--theme-text-primary)' }">
-                        While tourists struggle with packed streets during Holi, Janmashtami, Kartik Maas, and Jhulan Yatra, you enjoy the serene shelter of your own gated retreat, joining celebrations at your leisure.
+                        <?= e($rp['lifestyle']['card4_desc'] ?? 'While tourists struggle with packed streets during Holi, Janmashtami, Kartik Maas, and Jhulan Yatra, you enjoy the serene shelter of your own gated retreat, joining celebrations at your leisure.') ?>
                     </p>
                 </div>
 
@@ -1032,7 +1121,7 @@
                             <th class="p-4 sm:p-6 font-semibold uppercase tracking-wider text-xs" :style="{ color: 'var(--theme-title)' }">Location / Corridor</th>
                             <th class="p-4 sm:p-6 font-semibold uppercase tracking-wider text-xs" :style="{ color: 'var(--theme-title)' }">2021 Price</th>
                             <th class="p-4 sm:p-6 font-semibold uppercase tracking-wider text-xs text-amber-400">2026 Price</th>
-                            <th class="p-4 sm:p-6 font-semibold uppercase tracking-wider text-xs text-emerald-400">2028-30 Forecast</th>
+                            <th class="p-4 sm:p-6 font-semibold uppercase tracking-wider text-xs text-amber-500">2028-30 Forecast</th>
                             <th class="p-4 sm:p-6 font-semibold uppercase tracking-wider text-xs" :style="{ color: 'var(--theme-title)' }">Profile &amp; Suitability</th>
                         </tr>
                     </thead>
@@ -1045,7 +1134,7 @@
                             </td>
                             <td class="p-4 sm:p-6 font-medium" :style="{ color: 'var(--theme-text-secondary)' }">₹ 14,000 - ₹ 18,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-bold text-amber-400">₹ 38,000 - ₹ 45,000 / sq. yd</td>
-                            <td class="p-4 sm:p-6 font-bold text-emerald-400">₹ 65,000 - ₹ 80,000 / sq. yd</td>
+                            <td class="p-4 sm:p-6 font-bold text-amber-500">₹ 65,000 - ₹ 80,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-normal" :style="{ color: 'var(--theme-text-primary)' }">High capital appreciation, expressway connectivity, best entry value.</td>
                         </tr>
 
@@ -1056,7 +1145,7 @@
                             </td>
                             <td class="p-4 sm:p-6 font-medium" :style="{ color: 'var(--theme-text-secondary)' }">₹ 22,000 - ₹ 28,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-bold text-amber-400">₹ 55,000 - ₹ 75,000 / sq. yd</td>
-                            <td class="p-4 sm:p-6 font-bold text-emerald-400">₹ 95,000 - ₹ 1,20,000 / sq. yd</td>
+                            <td class="p-4 sm:p-6 font-bold text-amber-500">₹ 95,000 - ₹ 1,20,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-normal" :style="{ color: 'var(--theme-text-primary)' }">VIP luxury plotted residential living, private villas, established enclave.</td>
                         </tr>
 
@@ -1067,7 +1156,7 @@
                             </td>
                             <td class="p-4 sm:p-6 font-medium" :style="{ color: 'var(--theme-text-secondary)' }">₹ 20,000 - ₹ 25,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-bold text-amber-400">₹ 50,000 - ₹ 68,000 / sq. yd</td>
-                            <td class="p-4 sm:p-6 font-bold text-emerald-400">₹ 85,000 - ₹ 1,10,000 / sq. yd</td>
+                            <td class="p-4 sm:p-6 font-bold text-amber-500">₹ 85,000 - ₹ 1,10,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-normal" :style="{ color: 'var(--theme-text-primary)' }">Close to Prem Mandir and ISKCON, high rental yields for boutique stays.</td>
                         </tr>
 
@@ -1078,7 +1167,7 @@
                             </td>
                             <td class="p-4 sm:p-6 font-medium" :style="{ color: 'var(--theme-text-secondary)' }">₹ 12,000 - ₹ 16,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-bold text-amber-400">₹ 32,000 - ₹ 40,000 / sq. yd</td>
-                            <td class="p-4 sm:p-6 font-bold text-emerald-400">₹ 55,000 - ₹ 70,000 / sq. yd</td>
+                            <td class="p-4 sm:p-6 font-bold text-amber-500">₹ 55,000 - ₹ 70,000 / sq. yd</td>
                             <td class="p-4 sm:p-6 font-normal" :style="{ color: 'var(--theme-text-primary)' }">Planned township living, gateway to Govardhan Parikrama, duplex villas.</td>
                         </tr>
 
@@ -1207,15 +1296,15 @@
         <div class="text-center space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Complimentary VIP Advisory
+                <?= e($rp['consultation']['badge'] ?? '✦ Free VIP Site Visit & Showing') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Find Your Dream Property in Vrindavan
+                <?= e($rp['consultation']['title'] ?? 'Find Your Dream Plot in Vrindavan') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed max-w-2xl mx-auto"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Schedule a personalized consultation and guided site tour of our 6 flagship MVDA approved developments. Our senior Braj property advisors will guide you with absolute candor.
+                <?= e($rp['consultation']['subtitle'] ?? 'Schedule a personalized consultation and guided site tour of our 6 flagship MVDA approved developments. Our senior property advisors will guide you with absolute candor.') ?>
             </p>
         </div>
 
@@ -1259,10 +1348,10 @@
                              this.successMsg = 'Hare Krishna! Thank you for reaching out. Our Senior Advisory Team will call you shortly.';
                              this.name = ''; this.phone = ''; this.email = ''; this.message = '';
                          } else {
-                             this.errorMsg = data.message || 'Something went wrong. Please call us directly at +91 9871731303 / +91 7409767452.';
+                             this.errorMsg = data.message || 'Something went wrong. Please call us directly at <?= e($rp['consultation']['phone_1'] ?? '+91 9871731303') ?> / <?= e($rp['consultation']['phone_2'] ?? '+91 7409767452') ?>.';
                          }
                      } catch (e) {
-                         this.errorMsg = 'Network error. Please call our private office at +91 9871731303 / +91 7409767452.';
+                         this.errorMsg = 'Network error. Please call our Gleamrealty Private Limited at <?= e($rp['consultation']['phone_1'] ?? '+91 9871731303') ?> / <?= e($rp['consultation']['phone_2'] ?? '+91 7409767452') ?>.';
                      } finally {
                          this.loading = false;
                      }
@@ -1271,7 +1360,7 @@
             
             <form @submit.prevent="submitForm()" class="space-y-6">
                 
-                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-medium text-center">
+                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-[#FDF3E3] border border-[#9A6B2F]/30 text-[#9A6B2F] text-sm font-medium text-center">
                     <span x-text="successMsg"></span>
                 </div>
 
@@ -1300,7 +1389,7 @@
                         <input type="tel"
                                x-model="phone"
                                required
-                               placeholder="+91 98765 43210"
+                               placeholder="<?= e($rp['consultation']['phone_1'] ?? '+91 9871731303') ?>"
                                class="w-full px-4 py-3.5 rounded-xl border text-sm outline-none transition-all"
                                :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)', color: 'var(--theme-text-primary)' }">
                     </div>
@@ -1370,18 +1459,23 @@
 
                     <div class="flex items-center gap-4 text-xs" :style="{ color: 'var(--theme-text-secondary)' }">
                         <span>Or reach our desk directly:</span>
-                        <a href="https://wa.me/919871731303?text=Hare%20Krishna!%20I%20am%20interested%20in%20Residential%20Plots%20in%20Vrindavan."
+                        <?php
+                            $waNumber = preg_replace('/[^0-9]/', '', $rp['consultation']['whatsapp'] ?? '919871731303');
+                            $phone1Clean = preg_replace('/[^0-9+]/', '', $rp['consultation']['phone_1'] ?? '+91 9871731303');
+                            $phone2Clean = preg_replace('/[^0-9+]/', '', $rp['consultation']['phone_2'] ?? '+91 7409767452');
+                        ?>
+                        <a href="https://wa.me/<?= $waNumber ?>?text=Hare%20Krishna!%20I%20am%20interested%20in%20Residential%20Plots%20in%20Vrindavan."
                            target="_blank"
-                           class="inline-flex items-center gap-1.5 font-bold text-emerald-400 hover:underline">
+                           class="inline-flex items-center gap-1.5 font-bold text-amber-600 dark:text-amber-400 hover:underline">
                             WhatsApp &bull; Instant
                         </a>
                         <span>&bull;</span>
-                        <a href="tel:+919871731303" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
-                            +91 9871731303
+                        <a href="tel:<?= $phone1Clean ?>" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['consultation']['phone_1'] ?? '+91 9871731303') ?>
                         </a>
                         <span>/</span>
-                        <a href="tel:+917409767452" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
-                            +91 7409767452
+                        <a href="tel:<?= $phone2Clean ?>" class="font-bold hover:underline" :style="{ color: 'var(--theme-title)' }">
+                            <?= e($rp['consultation']['phone_2'] ?? '+91 7409767452') ?>
                         </a>
                     </div>
                 </div>
@@ -1392,3 +1486,5 @@
 
     </div>
 </section>
+
+</div>

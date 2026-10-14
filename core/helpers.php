@@ -32,7 +32,16 @@ if (!function_exists('url')) {
 if (!function_exists('asset')) {
     function asset(string $path): string
     {
-        return url('/public/' . ltrim($path, '/'));
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+
+        $clean = ltrim($path, '/');
+        if (str_starts_with($clean, 'public/')) {
+            return url('/' . $clean);
+        }
+
+        return url('/public/' . $clean);
     }
 }
 
@@ -47,7 +56,12 @@ if (!function_exists('media_url')) {
             return $path;
         }
 
-        return url('/' . ltrim($path, '/'));
+        $clean = ltrim($path, '/');
+        if (!str_starts_with($clean, 'public/')) {
+            $clean = 'public/' . $clean;
+        }
+
+        return url('/' . $clean);
     }
 }
 
@@ -111,3 +125,58 @@ if (!function_exists('slugify')) {
         return strtolower($text ?: 'item-' . time());
     }
 }
+
+if (!function_exists('company_address')) {
+    function company_address(): string
+    {
+        return \App\Models\Setting::getOfficeAddress();
+    }
+}
+
+if (!function_exists('company_map_embed_url')) {
+    function company_map_embed_url(): string
+    {
+        return \App\Models\Setting::getOfficeMapEmbedUrl();
+    }
+}
+
+if (!function_exists('company_map_directions_url')) {
+    function company_map_directions_url(): string
+    {
+        return \App\Models\Setting::getOfficeDirectionsUrl();
+    }
+}
+
+if (!function_exists('company_phone_1')) {
+    function company_phone_1(): string
+    {
+        $contact = \App\Models\Setting::getContactSections();
+        return (string) ($contact['office']['phone_1'] ?? '+91 9871731303');
+    }
+}
+
+if (!function_exists('company_phone_2')) {
+    function company_phone_2(): string
+    {
+        $contact = \App\Models\Setting::getContactSections();
+        return (string) ($contact['office']['phone_2'] ?? '+91 7409767452');
+    }
+}
+
+if (!function_exists('company_whatsapp')) {
+    function company_whatsapp(): string
+    {
+        $contact = \App\Models\Setting::getContactSections();
+        return (string) ($contact['office']['whatsapp'] ?? '+91 9871731303');
+    }
+}
+
+if (!function_exists('company_email')) {
+    function company_email(): string
+    {
+        $contact = \App\Models\Setting::getContactSections();
+        return (string) ($contact['office']['email'] ?? 'contact@gleamrealty.com');
+    }
+}
+
+

@@ -12,81 +12,97 @@
 <!-- =======================================================================
      1. HERO BANNER: Mathura Plot Rate
      ======================================================================= -->
-<section class="relative min-h-[48vh] sm:min-h-[56vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden transition-colors duration-300"
-         :style="{ backgroundColor: 'var(--theme-hero-from)', borderColor: 'var(--theme-border-hairline)' }">
+<?php
+    $pr = \App\Models\Setting::getMathuraPlotRateSections();
+    $heroCover = !empty($page['hero_media_url']) ? media_url($page['hero_media_url']) : asset('uploads/pages/mero-vrindavan.png');
+    $heroTitle = !empty($page['hero_heading']) ? $page['hero_heading'] : ($page['title'] ?? 'Mathura Plot Rate');
+    $heroSubtitle = !empty($page['hero_subheading']) ? $page['hero_subheading'] : 'Plot for Sale in Mathura, 100 Gaj Plot in Mathura Price: The Ground Reality';
+?>
+<section class="relative min-h-[52vh] sm:min-h-[58vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden bg-stone-950 transition-colors duration-300"
+         :style="{ borderColor: 'var(--theme-border-hairline)' }">
     
     <!-- Background Hero Imagery -->
     <div class="absolute inset-0 z-0">
-        <img src="<?= asset('uploads/pages/mero-vrindavan.png') ?>"
-             alt="Mathura Plot Rate 2026 — Ground Reality Price Analysis"
-             class="w-full h-full object-cover filter brightness-[0.35] contrast-[1.08] scale-105 transition-transform duration-1000">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30"></div>
+        <img src="<?= $heroCover ?>"
+             alt="<?= e($heroTitle) ?> 2026 — Ground Reality Price Analysis"
+             class="w-full h-full object-cover filter brightness-[0.42] contrast-[1.08] scale-105 transition-transform duration-1000">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/75 to-stone-950/40"></div>
+        <div class="absolute inset-0 bg-black/35"></div>
     </div>
 
     <!-- Radiant Ambient Light Glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-[140px] pointer-events-none -z-0 opacity-25"
          :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-5">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-6">
         
         <!-- Breadcrumbs -->
         <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.22em] uppercase">
             <a href="<?= url('/') ?>" class="text-stone-300 hover:text-white transition-colors">Home</a>
-            <span class="text-stone-500">&bull;</span>
+            <span class="text-amber-500/60">&bull;</span>
             <a href="<?= url('/projects') ?>" class="text-stone-300 hover:text-white transition-colors">Projects</a>
-            <span class="text-stone-500">&bull;</span>
-            <span class="text-amber-300 font-bold">Mathura Plot Rate</span>
+            <span class="text-amber-500/60">&bull;</span>
+            <span class="text-amber-400 font-bold">Mathura Plot Rate</span>
         </div>
 
         <!-- Eyebrow Pill -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-white/10 text-white border border-white/20 shadow-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Gleamrealty Private Office &bull; 2026 Mathura Valuation Guide
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-stone-900/80 text-white border border-amber-500/30 shadow-md">
+            <span class="w-2 h-2 rounded-full bg-[#9A6B2F] animate-pulse"></span>
+            Gleamrealty Private Limited &bull; 2026 Mathura Valuation Guide
         </div>
 
         <!-- Main H1 Title -->
-        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-xl leading-[1.1]">
-            Mathura Plot Rate
+        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] leading-[1.1]">
+            <?= e($heroTitle) ?>
         </h1>
 
         <!-- Subheading Tagline -->
-        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-md">
-            Plot for Sale in Mathura, 100 Gaj Plot in Mathura Price: The Ground Reality
+        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            <?= e($heroSubtitle) ?>
         </h2>
 
         <!-- Trust Badges Strip -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-3">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                <svg class="w-3.5 h-3.5 text-emerald-400 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                MVDA Sanctioned Layouts
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-2">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-white shadow-sm">
+                <svg class="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <?= e($pr['hero']['badge_1'] ?? 'MVDA Sanctioned Layouts') ?>
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 shadow-sm">
-                ✦ 100 Gaj Pricing Realities
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 shadow-sm">
+                <?= e($pr['hero']['badge_2'] ?? '✦ 100 Gaj Pricing Realities') ?>
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                Govardhan Road Corridor
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
+                <?= e($pr['hero']['badge_3'] ?? 'Govardhan Road Corridor') ?>
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                Zero Brokerage Direct
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
+                <?= e($pr['hero']['badge_4'] ?? 'Zero Brokerage Direct') ?>
             </span>
         </div>
 
         <!-- CTAs -->
         <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a href="#mathura-rates-matrix"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] transition-all duration-300 shadow-lg hover:scale-105"
-               :style="{ backgroundColor: 'var(--theme-accent)', color: '#090d16' }">
-                View Price Table &darr;
+               class="btn-bronze inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] shadow-lg hover:shadow-xl transition-all">
+                <span>View Price Table</span>
+                <span class="text-sm">&darr;</span>
             </a>
-            <a href="#freesitevisit"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 transition-all duration-300">
-                Book Mathura Site Tour
-            </a>
+            <button type="button" @click="vipModalOpen = true"
+                    class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] bg-stone-900/90 hover:bg-stone-800 text-white border border-stone-700 shadow-lg hover:shadow-xl transition-all cursor-pointer">
+                <span>Book Mathura Site Tour</span>
+                <span class="text-amber-400">&rarr;</span>
+            </button>
             <a href="tel:+919871731303"
-               class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 hover:border-white/50 transition-colors">
+               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/50 transition-colors">
                 <svg class="w-3.5 h-3.5 fill-current text-amber-300" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
-                +91 9871731303
+                <span>+91 9871731303</span>
             </a>
+            <?php if (function_exists('auth_user') && auth_user()): ?>
+                <a href="<?= url('/admin/pages/' . ($page['id'] ?? 9) . '/edit') ?>"
+                   target="_blank"
+                   class="inline-flex items-center gap-1.5 px-4 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Edit Page in Admin</span>
+                </a>
+            <?php endif; ?>
         </div>
 
     </div>
@@ -116,7 +132,7 @@
                      :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
                     <div>
                         <span class="text-[10px] uppercase tracking-widest font-bold block" :style="{ color: 'var(--theme-accent)' }">
-                            Sanctioned Township Benchmark
+                            <?= e($pr['narrative']['badge_sub'] ?? 'Sanctioned Township Benchmark') ?>
                         </span>
                         <div class="font-serif text-sm sm:text-base font-bold tracking-wide" :style="{ color: 'var(--theme-title)' }">
                             ₹ 35,000 / sq. yd
@@ -136,9 +152,9 @@
                      :style="{ borderColor: 'var(--theme-border-hairline)' }">
                 <div class="text-xs leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
                     <strong class="block text-sm font-semibold" :style="{ color: 'var(--theme-title)' }">
-                        The True Cost of Ownership
+                        <?= e($pr['narrative']['secondary_title'] ?? 'The True Cost of Ownership') ?>
                     </strong>
-                    Distinguishing authentic MVDA approvals from unauthorized farmland promotions.
+                    <?= e($pr['narrative']['secondary_desc'] ?? 'Distinguishing authentic MVDA approvals from unauthorized farmland promotions.') ?>
                 </div>
             </div>
         </div>
@@ -147,25 +163,29 @@
         <div class="lg:col-span-7 space-y-6 text-left">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Price Reality
+                <?= e($pr['narrative']['eyebrow'] ?? 'Price Reality') ?>
             </span>
 
             <h2 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight leading-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                Plot for Sale in Mathura: The Truth Behind the Numbers
+                <?= e($pr['narrative']['title'] ?? 'Plot for Sale in Mathura: The Truth Behind the Numbers') ?>
             </h2>
 
             <div class="space-y-4 text-sm sm:text-base font-light leading-relaxed"
                  :style="{ color: 'var(--theme-text-secondary)' }">
-                <p>
-                    For anyone who has spent a weekend scrolling through online property classifieds in Mathura, you already know the confusing reality. One listing proclaims that the cost of a 100 gaj plot is <strong :style="{ color: 'var(--theme-title)' }">Rs. 9 Lakh</strong>. The very next advertisement quotes <strong :style="{ color: 'var(--theme-title)' }">Rs. 35 Lakh</strong>.
-                </p>
-                <p>
-                    Both claim to be "MVDA approved." Both promise 24-hour security, wide roads, and community parks. So what is the genuine plot rate in Mathura? The answer is that there is no single magical number; the difference comes down to <strong :style="{ color: 'var(--theme-title)' }">Approval Authenticity, Infrastructure Completion, and Road Widths</strong>.
-                </p>
-                <p>
-                    The Mathura Vrindavan Development Authority (MVDA) is the statutory planning authority. Once it sanctions a development, road dimensions (30-40 ft), open green buffers, and non-agricultural land usage are bound on government records. Cheap plots in Mathura are often speculative raw agricultural tracts. Sanctioned townships like <strong :style="{ color: 'var(--theme-title)' }">Shri Vrinda Aakruti Village (₹ 35,000/sq. yd)</strong> provide authentic collateral, immediate bank financing, and lifelong security.
-                </p>
+                <?php if (!empty($page['content'])): ?>
+                    <?= $page['content'] ?>
+                <?php else: ?>
+                    <p>
+                        For anyone who has spent a weekend scrolling through online property classifieds in Mathura, you already know the confusing reality. One listing proclaims that the cost of a 100 gaj plot is <strong :style="{ color: 'var(--theme-title)' }">Rs. 9 Lakh</strong>. The very next advertisement quotes <strong :style="{ color: 'var(--theme-title)' }">Rs. 35 Lakh</strong>.
+                    </p>
+                    <p>
+                        Both claim to be "MVDA approved." Both promise 24-hour security, wide roads, and community parks. So what is the genuine plot rate in Mathura? The answer is that there is no single magical number; the difference comes down to <strong :style="{ color: 'var(--theme-title)' }">Approval Authenticity, Infrastructure Completion, and Road Widths</strong>.
+                    </p>
+                    <p>
+                        The Mathura Vrindavan Development Authority (MVDA) is the statutory planning authority. Once it sanctions a development, road dimensions (30-40 ft), open green buffers, and non-agricultural land usage are bound on government records. Cheap plots in Mathura are often speculative raw agricultural tracts. Sanctioned townships like <strong :style="{ color: 'var(--theme-title)' }">Shri Vrinda Aakruti Village (₹ 35,000/sq. yd)</strong> provide authentic collateral, immediate bank financing, and lifelong security.
+                    </p>
+                <?php endif; ?>
             </div>
 
             <!-- 4 Quick Key Metrics -->
@@ -173,12 +193,12 @@
                  :style="{ borderColor: 'var(--theme-border-hairline)' }">
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">₹35,000</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Gated Benchmark</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }"><?= e($pr['narrative']['val_1'] ?? '₹35,000') ?></div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1"><?= e($pr['narrative']['lbl_1'] ?? 'Gated Benchmark') ?></div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">100 Gaj</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }"><?= e($pr['narrative']['val_2'] ?? '100 Gaj') ?></div>
                     <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">₹35 Lakhs</div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
@@ -188,7 +208,7 @@
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial text-emerald-400">100%</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">100%</div>
                     <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Bank Loanable</div>
                 </div>
             </div>
@@ -209,15 +229,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Target Profiles
+                <?= e($pr['target_profiles']['eyebrow'] ?? 'Target Profiles') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Who a Mathura Plot Makes Perfect Sense For
+                <?= e($pr['target_profiles']['title'] ?? 'Who a Mathura Plot Makes Perfect Sense For') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Mathura offers the ideal sweet-spot for families who seek peaceful devotional living without the crowded tourist bottleneck.
+                <?= e($pr['target_profiles']['subtitle'] ?? 'Mathura offers the ideal sweet-spot for families who seek peaceful devotional living without the crowded tourist bottleneck.') ?>
             </p>
         </div>
 
@@ -234,7 +254,7 @@
                     Delhi NCR &amp; Agra Devotee Families
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    For families from Delhi, Noida, Gurgaon, and Agra seeking a weekend haven or spiritual retirement home in Braj. You enjoy easy 15-minute access to the temples, but reside in an open, peaceful, unpolluted setting free from chaotic weekend traffic snarls.
+                    <?= e($pr['target_profiles']['p1_desc'] ?? 'For families from Delhi, Noida, Gurgaon, and Agra seeking a weekend haven or spiritual retirement home in Braj. You enjoy easy 15-minute access to the temples, but reside in an open, peaceful, unpolluted setting free from chaotic weekend traffic snarls.') ?>
                 </p>
             </div>
 
@@ -249,7 +269,7 @@
                     Retirement Seekers &amp; Seniors
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    Mathura provides everyday functional infrastructure that elderly residents depend on: multispecialty medical hospitals, clean railway connectivity, shopping markets, and peaceful community environments with like-minded neighbors.
+                    <?= e($pr['target_profiles']['p2_desc'] ?? 'Mathura provides everyday functional infrastructure that elderly residents depend on: multispecialty medical hospitals, clean railway connectivity, shopping markets, and peaceful community environments with like-minded neighbors.') ?>
                 </p>
             </div>
 
@@ -261,10 +281,10 @@
                     03
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Custom Villa Creators (vs Cramped Flats)
+                    <?= e($pr['target_profiles']['p3_title'] ?? 'Custom Villa Creators (vs Cramped Flats)') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    Devotees who wish to design their own independent cottage or duplex sanctuary with private open courtyards and Tulsi gardens, rather than paying recurring society maintenance for a small apartment with shared walls.
+                    <?= e($pr['target_profiles']['p3_desc'] ?? 'Devotees who wish to design their own independent cottage or duplex sanctuary with private open courtyards and Tulsi gardens, rather than paying recurring society maintenance for a small apartment with shared walls.') ?>
                 </p>
             </div>
 
@@ -276,10 +296,10 @@
                     04
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Long-Term Capital Preservers
+                    <?= e($pr['target_profiles']['p4_title'] ?? 'Long-Term Capital Preservers') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    Purchasing approved land along the Govardhan Road corridor locks in land value before upcoming highway widenings and transit corridors push prices toward central Vrindavan levels.
+                    Purchasing approved land along the <?= e($pr['hero']['badge_3'] ?? 'Govardhan Road Corridor') ?> locks in land value before upcoming highway widenings and transit corridors push prices toward central Vrindavan levels.
                 </p>
             </div>
 
@@ -299,7 +319,7 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                2026 Price Index
+                <?= e($pr['matrix']['eyebrow'] ?? '2026 Price Index') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-title)' }">
@@ -307,7 +327,7 @@
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-text-secondary)' }">
-                Comparing land rates across approved gated developments, highway corridors, and rural tracts.
+                <?= e($pr['matrix']['subtitle'] ?? 'Comparing land rates across approved gated developments, highway corridors, and rural tracts.') ?>
             </p>
         </div>
 
@@ -320,21 +340,21 @@
                         <th class="p-4 sm:p-5 font-bold">Micro-Market</th>
                         <th class="p-4 sm:p-5 font-bold">Approval Status</th>
                         <th class="p-4 sm:p-5 font-bold">Rate / Sq. Yard</th>
-                        <th class="p-4 sm:p-5 font-bold">100 Gaj Plot Cost</th>
+                        <th class="p-4 sm:p-5 font-bold"><?= e($pr['narrative']['val_2'] ?? '100 Gaj') ?> Plot Cost</th>
                         <th class="p-4 sm:p-5 font-bold">Key Characteristics</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y font-light" :style="{ borderColor: 'var(--theme-border-hairline)' }">
                     <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
                         <td class="p-4 sm:p-5 font-semibold">Govardhan Road (Shri Vrinda Aakruti Village)</td>
-                        <td class="p-4 sm:p-5"><span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/15 text-emerald-400 font-medium">MVDA Sanctioned</span></td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 py-1 rounded-full text-xs bg-[#FDF3E3] text-[#9A6B2F] border border-[#9A6B2F]/20 font-medium">MVDA Sanctioned</span></td>
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 35,000</td>
                         <td class="p-4 sm:p-5 font-bold">₹ 35.0 Lakhs</td>
                         <td class="p-4 sm:p-5">30-40ft Roads, Sweet Water, Bank Loan Approved</td>
                     </tr>
                     <tr class="hover:bg-white/5 transition-colors" :style="{ color: 'var(--theme-text-primary)' }">
                         <td class="p-4 sm:p-5 font-semibold">NH-19 Mathura Bypass</td>
-                        <td class="p-4 sm:p-5"><span class="px-2.5 py-1 rounded-full text-xs bg-emerald-500/15 text-emerald-400 font-medium">MVDA Approved</span></td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 py-1 rounded-full text-xs bg-[#FDF3E3] text-[#9A6B2F] border border-[#9A6B2F]/20 font-medium">MVDA Approved</span></td>
                         <td class="p-4 sm:p-5 text-amber-300 font-bold">₹ 38,000 – ₹ 45,000</td>
                         <td class="p-4 sm:p-5 font-bold">₹ 38L – ₹ 45L</td>
                         <td class="p-4 sm:p-5">Commercial &amp; Residential Highway Frontage</td>
@@ -362,7 +382,7 @@
 
 
 <!-- =======================================================================
-     5. SECTION 4: 100 Gaj Plot Cost Breakdown
+     5. SECTION 4: <?= e($pr['narrative']['val_2'] ?? '100 Gaj') ?> Plot <?= e($pr['breakdown']['eyebrow'] ?? 'Cost Breakdown') ?>
      ======================================================================= -->
 <section class="py-20 sm:py-28 px-6 sm:px-8 border-b transition-colors duration-300 theme-section-alt"
          :style="{ backgroundColor: 'var(--theme-section-alt-bg)', borderColor: 'var(--theme-border-hairline)' }">
@@ -371,15 +391,15 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Cost Breakdown
+                <?= e($pr['breakdown']['eyebrow'] ?? 'Cost Breakdown') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                100 Gaj Plot in Mathura: The Complete Price Sheet
+                <?= e($pr['breakdown']['title'] ?? '100 Gaj Plot in Mathura: The Complete Price Sheet') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Transparent itemized estimate for an MVDA-approved 100 sq. yard plot in Shri Vrinda Aakruti Village.
+                <?= e($pr['breakdown']['subtitle'] ?? 'Transparent itemized estimate for an MVDA-approved 100 sq. yard plot in Shri Vrinda Aakruti Village.') ?>
             </p>
         </div>
 
@@ -387,33 +407,33 @@
              :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
             
             <div class="flex items-center justify-between pb-4 border-b text-sm" :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }">Plot Size</span>
-                <span class="font-bold text-amber-300">100 Gaj (900 Sq. Ft / 100 Sq. Yards)</span>
+                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }"><?= e($pr['breakdown']['r1_lbl'] ?? 'Plot Size') ?></span>
+                <span class="font-bold text-amber-300"><?= e($pr['breakdown']['r1_val'] ?? '100 Gaj (900 Sq. Ft / 100 Sq. Yards)') ?></span>
             </div>
             <div class="flex items-center justify-between pb-4 border-b text-sm" :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }">Basic Land Cost (@ ₹ 35,000 / sq. yd)</span>
-                <span class="font-bold text-amber-300">₹ 35,00,000</span>
+                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }"><?= e($pr['breakdown']['r2_lbl'] ?? 'Basic Land Cost (@ ₹ 35,000 / sq. yd)') ?></span>
+                <span class="font-bold text-amber-300"><?= e($pr['breakdown']['r2_val'] ?? '₹ 35,00,000') ?></span>
             </div>
             <div class="flex items-center justify-between pb-4 border-b text-sm" :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }">Government Stamp Duty (UP Sub-Registrar: 7% male / 6% female)</span>
-                <span :style="{ color: 'var(--theme-text-secondary)' }">Approx. ₹ 1.40L – ₹ 1.75L (on circle rate base)</span>
+                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }"><?= e($pr['breakdown']['r3_lbl'] ?? 'Government Stamp Duty (UP Sub-Registrar: 7% male / 6% female)') ?></span>
+                <span :style="{ color: 'var(--theme-text-secondary)' }"><?= e($pr['breakdown']['r3_val'] ?? 'Approx. ₹ 1.40L – ₹ 1.75L (on circle rate base)') ?></span>
             </div>
             <div class="flex items-center justify-between pb-4 border-b text-sm" :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }">Registration Fee (1%) &amp; Mutation Support</span>
-                <span :style="{ color: 'var(--theme-text-secondary)' }">Approx. ₹ 25,000</span>
+                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }"><?= e($pr['breakdown']['r4_lbl'] ?? 'Registration Fee (1%) &amp; Mutation Support') ?></span>
+                <span :style="{ color: 'var(--theme-text-secondary)' }"><?= e($pr['breakdown']['r4_val'] ?? 'Approx. ₹ 25,000') ?></span>
             </div>
             <div class="flex items-center justify-between pb-4 border-b text-sm" :style="{ borderColor: 'var(--theme-border-hairline)' }">
-                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }">Brokerage / Consulting Fees</span>
-                <span class="font-bold text-emerald-400">₹ 0 (Zero Brokerage Direct)</span>
+                <span class="font-semibold" :style="{ color: 'var(--theme-title)' }"><?= e($pr['breakdown']['r5_lbl'] ?? 'Brokerage / Consulting Fees') ?></span>
+                <span class="font-bold text-[#9A6B2F]"><?= e($pr['breakdown']['r5_val'] ?? '₹ 0 (Zero Brokerage Direct)') ?></span>
             </div>
             <div class="flex items-center justify-between pt-2 text-base sm:text-lg font-bold">
-                <span :style="{ color: 'var(--theme-title)' }">Total All-Inclusive Outlay</span>
-                <span class="text-emerald-400">₹ 36.70L – ₹ 37.00 Lakhs</span>
+                <span :style="{ color: 'var(--theme-title)' }"><?= e($pr['breakdown']['total_lbl'] ?? 'Total All-Inclusive Outlay') ?></span>
+                <span class="text-[#9A6B2F]"><?= e($pr['breakdown']['total_val'] ?? '₹ 36.70L – ₹ 37.00 Lakhs') ?></span>
             </div>
 
             <div class="p-4 rounded-xl text-xs font-light leading-relaxed border"
                  :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)', color: 'var(--theme-text-secondary)' }">
-                <strong>Bank Loan Support:</strong> SBI, HDFC, and ICICI provide up to 75-80% loan on this approved asset. Down payment requirement is approximately ₹ 8.5 to ₹ 9.5 Lakhs.
+                <?= $pr['breakdown']['note'] ?? '<strong>Bank Loan Support:</strong> SBI, HDFC, and ICICI provide up to 75-80% loan on this approved asset. Down payment requirement is approximately ₹ 8.5 to ₹ 9.5 Lakhs.' ?>
             </div>
 
         </div>
@@ -432,29 +452,29 @@
         <div class="text-center max-w-3xl mx-auto space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors"
                   :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)' }">
-                Mathura FAQs
+                <?= e($pr['faqs']['eyebrow'] ?? 'Mathura FAQs') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-title)' }">
-                Frequently Asked Questions About Mathura Plot Rates
+                <?= e($pr['faqs']['title'] ?? 'Frequently Asked Questions About Mathura Plot Rates') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed"
                :style="{ color: 'var(--theme-text-secondary)' }">
-                Honest, practical clarity on plot prices, road approvals, and possession timelines in Mathura.
+                <?= e($pr['faqs']['subtitle'] ?? 'Honest, practical clarity on plot prices, road approvals, and possession timelines in Mathura.') ?>
             </p>
         </div>
 
         <div class="space-y-4" x-data="{ activeAccordion: null }">
             
             <?php
-            $mathuraPlotRateFaqs = [
+            $mathuraPlotRateFaqs = !empty($pr['faqs']['list']) ? $pr['faqs']['list'] : [
                 [
                     'q' => '1. What is the current Mathura plot rate per square yard in 2026?',
-                    'a' => 'There is no single uniform rate. Unapproved outer tracts (Chhata, Akbarpur tehsils) range between ₹9,000 and ₹18,000/sq. yard. In fully developed, MVDA-sanctioned gated developments like Shri Vrinda Aakruti Village on Govardhan Road, the plot rate is ₹35,000 per square yard.'
+                    'a' => 'There is no single uniform rate. Unapproved outer tracts (Chhata, Akbarpur tehsils) range between ₹9,000 and ₹18,000/sq. yard. In fully developed, MVDA-sanctioned gated developments like Shri Vrinda Aakruti Village on Govardhan Road, the plot rate is ' . e($pr['narrative']['val_1'] ?? '₹35,000') . ' per square yard.'
                 ],
                 [
-                    'q' => '2. Why do some listings advertise a 100 Gaj plot in Mathura for ₹9 Lakhs?',
-                    'a' => 'Advertisements quoting ₹9 Lakhs for 100 Gaj refer to unapproved, non-converted agricultural farmland with zero infrastructure, no water pipes, no electricity transformers, and no MVDA sanction. These cannot be legally financed by banks and carry severe risk of municipal demolition.'
+                    'q' => '2. Why do some listings advertise a ' . e($pr['narrative']['val_2'] ?? '100 Gaj') . ' plot in Mathura for ₹9 Lakhs?',
+                    'a' => 'Advertisements quoting ₹9 Lakhs for ' . e($pr['narrative']['val_2'] ?? '100 Gaj') . ' refer to unapproved, non-converted agricultural farmland with zero infrastructure, no water pipes, no electricity transformers, and no MVDA sanction. These cannot be legally financed by banks and carry severe risk of municipal demolition.'
                 ],
                 [
                     'q' => '3. What does MVDA approval guarantee for a Mathura plot?',
@@ -494,7 +514,7 @@
                 ],
                 [
                     'q' => '12. What sizes of plots are available in Mathura?',
-                    'a' => 'Sizes typically range from 116 sq. yards (approx. 100 Gaj) to 150 and 183 sq. yards (ideal for spacious 3 BHK duplex villas).'
+                    'a' => 'Sizes typically range from 116 sq. yards (approx. ' . e($pr['narrative']['val_2'] ?? '100 Gaj') . ') to 150 and 183 sq. yards (ideal for spacious 3 BHK duplex villas).'
                 ],
                 [
                     'q' => '13. How can I schedule a free site visit to Mathura plots?',
@@ -545,15 +565,15 @@
         <div class="text-center space-y-4">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-white/10 border border-white/20 shadow-sm"
                   :style="{ color: 'var(--theme-section-alt-accent)' }">
-                Free Guidance
+                <?= e($pr['consultation']['eyebrow'] ?? 'Free Guidance') ?>
             </span>
             <h2 class="font-editorial text-3xl sm:text-5xl font-normal tracking-tight"
                 :style="{ color: 'var(--theme-section-alt-title)' }">
-                Schedule a Mathura Plot Tour &amp; Rate Consultation
+                <?= e($pr['consultation']['title'] ?? 'Schedule a Mathura Plot Tour &amp; Rate Consultation') ?>
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed max-w-2xl mx-auto"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Tour Shri Vrinda Aakruti Village with our senior advisors and review layout maps, bank approval files, and pricing sheets.
+                <?= e($pr['consultation']['subtitle'] ?? 'Tour Shri Vrinda Aakruti Village with our senior advisors and review layout maps, bank approval files, and pricing sheets.') ?>
             </p>
         </div>
 
@@ -607,7 +627,7 @@
              }">
             
             <form @submit.prevent="submitForm()" class="space-y-6">
-                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-medium text-center">
+                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-[#FDF3E3] border border-[#9A6B2F]/30 text-[#9A6B2F] text-sm font-medium text-center">
                     <span x-text="successMsg"></span>
                 </div>
                 <div x-show="errorMsg" x-cloak class="p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-sm font-medium text-center">
@@ -627,7 +647,7 @@
                         <label class="block text-xs uppercase font-semibold tracking-wider" :style="{ color: 'var(--theme-title)' }">
                             Phone / WhatsApp *
                         </label>
-                        <input type="tel" x-model="phone" required placeholder="+91 98765 43210"
+                        <input type="tel" x-model="phone" required placeholder="+91 9871731303"
                                class="w-full px-4 py-3.5 rounded-xl border text-sm outline-none transition-all"
                                :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)', color: 'var(--theme-text-primary)' }">
                     </div>
@@ -689,3 +709,7 @@
 
     </div>
 </section>
+
+
+
+

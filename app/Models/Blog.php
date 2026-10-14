@@ -86,7 +86,7 @@ class Blog
 <ul>
     <li><strong>Approved Layout Sanction (MVDA Map Approval):</strong> Ensure the specific plot layout, boundary wall, and road widths (minimum 30–40 ft) are officially approved by MVDA.</li>
     <li><strong>UP Section 143 (Now Section 80 Revenue Code) Conversion:</strong> Confirms the land has been lawfully transformed from agricultural status to non-agricultural residential use.</li>
-    <li><strong>Khatoni & Chain of Title Deeds (30 Years):</strong> Verification of ancestral non-encumbrance, ensuring no joint-family disputes, Gram Sabha claims, or agricultural ceiling violations.</li>
+    <li><strong>Khatoni & Chain of Title Deeds (12 years):</strong> Verification of ancestral non-encumbrance, ensuring no joint-family disputes, Gram Sabha claims, or agricultural ceiling violations.</li>
     <li><strong>RERA Registration:</strong> Plotted projects larger than 500 sq. meters must have a valid UP-RERA registration number guaranteeing escrow account safety and timely infrastructure delivery.</li>
 </ul>
 

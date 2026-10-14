@@ -27,7 +27,7 @@
         </div>
 
         <!-- Hero Content Overlay -->
-        <div class="relative z-10 max-w-7xl mx-auto w-full">
+        <div class="relative z-10 max-w-7xl mx-auto w-full" style="margin-top:15px;">
             <!-- Breadcrumb Navigation -->
             <nav class="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-slate-300 mb-6 font-medium">
                 <a href="<?= url('/') ?>" class="hover:underline transition-colors" :style="{ color: 'var(--theme-accent)' }">Residences</a>
@@ -45,7 +45,7 @@
                 </span>
 
                 <?php if ((int) $project['mvda_approved'] === 1): ?>
-                    <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500/90 text-white shadow-xs">
+                    <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#0284C7] text-white shadow-xs">
                         100% MVDA Approved
                     </span>
                 <?php endif; ?>
@@ -138,8 +138,8 @@
                             <a href="<?= media_url($project['payment_plan_url']) ?>"
                                download
                                target="_blank"
-                               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl backdrop-blur-md bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 text-xs font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 shadow-md group">
-                                <svg class="w-4 h-4 text-emerald-300 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl backdrop-blur-md bg-[#9A6B2F] hover:bg-[#835722] text-white border border-[#9A6B2F]/40 text-xs font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 shadow-md group">
+                                <svg class="w-4 h-4 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 <span>Download Payment Plan</span>
                             </a>
                         <?php endif; ?>
@@ -245,7 +245,7 @@
                         <div class="p-4 rounded-xl border flex items-center justify-between transition-all"
                              :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
                             <span class="text-xs uppercase tracking-wider font-semibold" :style="{ color: 'var(--theme-subtitle)' }">Registry &amp; Mutation</span>
-                            <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">Immediate Freehold</span>
+                            <span class="text-xs font-bold" :style="{ color: 'var(--theme-accent)' }">Immediate Freehold</span>
                         </div>
 
                         <div class="p-4 rounded-xl border flex items-center justify-between transition-all"
@@ -341,11 +341,11 @@
                             <div class="p-6 rounded-xl border transition-all duration-300 flex flex-col justify-between space-y-4 hover:shadow-md"
                                  :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
                                 <div class="space-y-3">
-                                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20 text-xl font-bold">
+                                    <div class="w-12 h-12 rounded-xl bg-sky-500/15 text-sky-600 flex items-center justify-center border border-sky-500/25 text-xl font-bold">
                                         📊
                                     </div>
                                     <div>
-                                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500 block">Financial Milestones</span>
+                                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-sky-600 block">Financial Milestones</span>
                                         <h4 class="font-editorial text-xl font-normal" :style="{ color: 'var(--theme-title)' }">Payment Plan Schedule</h4>
                                     </div>
                                     <p class="text-xs font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
@@ -354,7 +354,7 @@
                                 </div>
                                 <?php if (!empty($project['payment_plan_url'])): ?>
                                     <a href="<?= media_url($project['payment_plan_url']) ?>" download target="_blank"
-                                       class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 text-xs font-semibold uppercase tracking-wider transition-all">
+                                       class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-600 border border-sky-500/30 text-xs font-semibold uppercase tracking-wider transition-all">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                         Download Payment Plan
                                     </a>
@@ -553,11 +553,12 @@
                     <?php else: ?>
                         <!-- Standard Vrindavan Map fallback -->
                         <div class="aspect-[16/9] w-full rounded-xl overflow-hidden bg-black/10 border mt-4" :style="{ borderColor: 'var(--theme-border-subtle)' }">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113426.31976077383!2d77.63212852277085!3d27.568453457193026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39736ce47bffc039%3A0xfe5fc3da92c7e2b6!2sVrindavan%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                            <iframe src="<?= e(company_map_embed_url()) ?>"
                                     class="w-full h-full"
                                     frameborder="0"
                                     allowfullscreen
-                                    loading="lazy"></iframe>
+                                    loading="lazy"
+                                    title="<?= e($project['name']) ?> Location Map"></iframe>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -591,28 +592,28 @@
                         <label class="block text-[11px] uppercase tracking-[0.14em] font-semibold mb-1.5" :style="{ color: 'var(--theme-title)' }">Your Full Name *</label>
                         <input type="text" name="name" required placeholder="Shri Rajesh Sharma"
                                :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-card-border)', color: 'var(--theme-text-primary)' }"
-                               class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-700/50 transition-colors font-medium placeholder:text-stone-400">
+                               class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-[#9A6B2F]/50 transition-colors font-medium placeholder:text-stone-400">
                     </div>
 
                     <div>
                         <label class="block text-[11px] uppercase tracking-[0.14em] font-semibold mb-1.5" :style="{ color: 'var(--theme-title)' }">Phone Number *</label>
-                        <input type="tel" name="phone" required placeholder="+91 98765 43210"
+                        <input type="tel" name="phone" required placeholder="+91 9871731303"
                                :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-card-border)', color: 'var(--theme-text-primary)' }"
-                               class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-700/50 transition-colors font-mono font-medium placeholder:text-stone-400">
+                               class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-[#9A6B2F]/50 transition-colors font-mono font-medium placeholder:text-stone-400">
                     </div>
 
                     <div>
                         <label class="block text-[11px] uppercase tracking-[0.14em] font-semibold mb-1.5" :style="{ color: 'var(--theme-title)' }">Email Address</label>
                         <input type="email" name="email" placeholder="client@example.com"
                                :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-card-border)', color: 'var(--theme-text-primary)' }"
-                               class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-700/50 transition-colors font-medium placeholder:text-stone-400">
+                               class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-[#9A6B2F]/50 transition-colors font-medium placeholder:text-stone-400">
                     </div>
 
                     <div>
                         <label class="block text-[11px] uppercase tracking-[0.14em] font-semibold mb-1.5" :style="{ color: 'var(--theme-title)' }">Estimated Budget</label>
                         <select name="budget_range"
                                 :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-card-border)', color: 'var(--theme-text-primary)' }"
-                                class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-700/50 transition-colors font-medium [&>option]:bg-white [&>option]:text-stone-900 dark:[&>option]:bg-stone-900 dark:[&>option]:text-white">
+                                class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-[#9A6B2F]/50 transition-colors font-medium [&>option]:bg-white [&>option]:text-stone-900 dark:[&>option]:bg-stone-900 dark:[&>option]:text-white">
                             <option value="₹ 25L - ₹ 50L">₹ 25 Lakhs – ₹ 50 Lakhs</option>
                             <option value="₹ 50L - ₹ 1 Cr">₹ 50 Lakhs – ₹ 1 Crore</option>
                             <option value="₹ 1 Cr - ₹ 2.5 Cr">₹ 1 Crore – ₹ 2.5 Crores</option>
@@ -624,7 +625,7 @@
                         <label class="block text-[11px] uppercase tracking-[0.14em] font-semibold mb-1.5" :style="{ color: 'var(--theme-title)' }">Specific Query / Preferred Visit Date</label>
                         <textarea name="message" rows="3" placeholder="Please send authenticated demarcation map & available corner plots..."
                                   :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-card-border)', color: 'var(--theme-text-primary)' }"
-                                  class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-700/50 transition-colors font-medium placeholder:text-stone-400"></textarea>
+                                  class="w-full border rounded-xl px-4 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-[#9A6B2F]/50 transition-colors font-medium placeholder:text-stone-400"></textarea>
                     </div>
 
                     <button type="submit"
@@ -694,10 +695,10 @@
                                :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)', color: 'var(--theme-title)' }"
                                class="w-full inline-flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold uppercase tracking-wider transition-all hover:scale-[1.01] hover:opacity-90 shadow-2xs group">
                                 <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                     Download Payment Plan
                                 </span>
-                                <span class="text-[10px] text-emerald-500 font-bold group-hover:translate-y-0.5 transition-transform">&darr;</span>
+                                <span class="text-[10px] text-amber-600 font-bold group-hover:translate-y-0.5 transition-transform">&darr;</span>
                             </a>
                         <?php endif; ?>
                     </div>
@@ -750,27 +751,24 @@
                                 </div>
 
                                 <!-- Quick Document Downloads -->
-                                <div class="grid grid-cols-3 gap-1 pt-3 border-t text-[10px] uppercase tracking-wider font-semibold" :style="{ borderColor: 'var(--theme-section-card-border)' }">
+                                <div class="grid grid-cols-3 gap-1.5 pt-3 border-t text-[10px] uppercase tracking-wider font-bold" :style="{ borderColor: 'var(--theme-section-card-border)' }">
                                     <?php if (!empty($rel['brochure_url'])): ?>
                                         <a href="<?= media_url($rel['brochure_url']) ?>" download target="_blank"
-                                           class="py-1.5 px-1 rounded border text-center truncate hover:opacity-80 transition-opacity"
-                                           :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-section-card-border)', color: 'var(--theme-section-card-title)' }"
+                                           class="py-1.5 px-1 rounded-md border text-center truncate font-bold text-[#0369A1] bg-[#E0F2FE] border-[#BAE6FD] hover:bg-[#BAE6FD] hover:text-[#0284C7] shadow-2xs hover:shadow-xs transition-all"
                                            title="Download Brochure">
                                             Brochure &darr;
                                         </a>
                                     <?php endif; ?>
                                     <?php if (!empty($rel['floor_plan_url'])): ?>
                                         <a href="<?= media_url($rel['floor_plan_url']) ?>" download target="_blank"
-                                           class="py-1.5 px-1 rounded border text-center truncate hover:opacity-80 transition-opacity"
-                                           :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-section-card-border)', color: 'var(--theme-section-card-title)' }"
+                                           class="py-1.5 px-1 rounded-md border text-center truncate font-bold text-[#0369A1] bg-[#E0F2FE] border-[#BAE6FD] hover:bg-[#BAE6FD] hover:text-[#0284C7] shadow-2xs hover:shadow-xs transition-all"
                                            title="Download Floor Plan">
                                             Floor Plan &darr;
                                         </a>
                                     <?php endif; ?>
                                     <?php if (!empty($rel['payment_plan_url'])): ?>
                                         <a href="<?= media_url($rel['payment_plan_url']) ?>" download target="_blank"
-                                           class="py-1.5 px-1 rounded border text-center truncate hover:opacity-80 transition-opacity"
-                                           :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-section-card-border)', color: 'var(--theme-section-card-title)' }"
+                                           class="py-1.5 px-1 rounded-md border text-center truncate font-bold text-[#0369A1] bg-[#E0F2FE] border-[#BAE6FD] hover:bg-[#BAE6FD] hover:text-[#0284C7] shadow-2xs hover:shadow-xs transition-all"
                                            title="Download Payment Plan">
                                             Payment &darr;
                                         </a>

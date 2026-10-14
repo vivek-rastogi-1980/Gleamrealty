@@ -49,17 +49,22 @@ class PageController extends Controller
         }
 
         $slug = (string) $request->input('slug', '');
-        $slug = slugify($slug ?: $title);
+        if (str_contains($slug, '/')) {
+            $segments = explode('/', $slug);
+            $slug = implode('/', array_filter(array_map('slugify', $segments)));
+        } else {
+            $slug = slugify($slug ?: $title);
+        }
 
         if (Page::findBySlug($slug)) {
             $slug .= '-' . time();
         }
 
         // Hero media upload
-        $heroMediaUrl = (string) $request->input('hero_media_url', '');
+        $heroMediaUrl = trim((string) $request->input('hero_media_url', ''));
         $heroFile = $request->file('hero_media_file');
-        if ($heroFile && !empty($heroFile['tmp_name'])) {
-            $uploaded = Uploader::upload($heroFile, 'pages');
+        if ($heroFile && !empty($heroFile['tmp_name']) && $heroFile['error'] === UPLOAD_ERR_OK) {
+            $uploaded = Uploader::image($heroFile, 'public/uploads/hero');
             if ($uploaded) {
                 $heroMediaUrl = $uploaded;
             }
@@ -115,12 +120,17 @@ class PageController extends Controller
 
         $title = (string) $request->input('title', $page['title']);
         $slug = (string) $request->input('slug', $page['slug']);
-        $slug = slugify($slug ?: $title);
+        if (str_contains($slug, '/')) {
+            $segments = explode('/', $slug);
+            $slug = implode('/', array_filter(array_map('slugify', $segments)));
+        } else {
+            $slug = slugify($slug ?: $title);
+        }
 
-        $heroMediaUrl = (string) $request->input('hero_media_url', $page['hero_media_url'] ?? '');
+        $heroMediaUrl = trim((string) $request->input('hero_media_url', $page['hero_media_url'] ?? ''));
         $heroFile = $request->file('hero_media_file');
-        if ($heroFile && !empty($heroFile['tmp_name'])) {
-            $uploaded = Uploader::upload($heroFile, 'pages');
+        if ($heroFile && !empty($heroFile['tmp_name']) && $heroFile['error'] === UPLOAD_ERR_OK) {
+            $uploaded = Uploader::image($heroFile, 'public/uploads/hero');
             if ($uploaded) {
                 $heroMediaUrl = $uploaded;
             }
@@ -146,6 +156,29 @@ class PageController extends Controller
         return $this->redirect(url('/admin/pages/' . $pageId . '/edit'));
     }
 
+    public function uploadImage(Request $request): Response
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            return Response::json(['success' => false, 'message' => 'Security token invalid'], 403);
+        }
+
+        $file = $request->file('content_image');
+        if (!$file || empty($file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) {
+            return Response::json(['success' => false, 'message' => 'No image file uploaded'], 400);
+        }
+
+        $uploaded = Uploader::image($file, 'public/uploads/pages');
+        if (!$uploaded) {
+            return Response::json(['success' => false, 'message' => 'Failed to upload image. Allowed formats: JPG, PNG, WebP'], 400);
+        }
+
+        return Response::json([
+            'success' => true,
+            'url' => media_url($uploaded),
+            'path' => $uploaded,
+        ]);
+    }
+
     public function delete(Request $request, string $id): Response
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
@@ -161,5 +194,24 @@ class PageController extends Controller
         }
 
         return $this->redirect(url('/admin/pages'));
+    }
+
+    public function toggleStatus(Request $request, string $id): Response
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            return Response::json(['success' => false, 'message' => 'Invalid security token'], 403);
+        }
+
+        $pageId = (int) $id;
+        $page = Page::find($pageId);
+        if (!$page) {
+            return Response::json(['success' => false, 'message' => 'Page not found'], 404);
+        }
+
+        $newStatus = (int) $request->post('is_published', 0);
+        
+        \Core\Database::execute("UPDATE `pages` SET `is_published` = ? WHERE `id` = ?", [$newStatus, $pageId]);
+
+        return Response::json(['success' => true, 'is_published' => $newStatus]);
     }
 }

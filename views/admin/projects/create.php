@@ -28,8 +28,16 @@
 
                 <div>
                     <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Location *</label>
-                    <input type="text" name="location" required placeholder="e.g. Vrindavan, Mathura"
+                    <input type="text" name="location" id="projectLocation" required placeholder="e.g. Vrindavan, Mathura"
                         class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
+                    <div class="flex flex-wrap gap-1.5 mt-2">
+                        <span class="text-[11px] text-slate-400 mr-1 self-center">Quick pick:</span>
+                        <button type="button" onclick="document.getElementById('projectLocation').value='Vrindavan'" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition-colors">Vrindavan</button>
+                        <button type="button" onclick="document.getElementById('projectLocation').value='Mathura'" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition-colors">Mathura</button>
+                        <button type="button" onclick="document.getElementById('projectLocation').value='Chhatikara Road, Vrindavan'" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition-colors">Chhatikara Road</button>
+                        <button type="button" onclick="document.getElementById('projectLocation').value='NH-19, Mathura-Vrindavan'" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition-colors">NH-19</button>
+                        <button type="button" onclick="document.getElementById('projectLocation').value='Govardhan Road'" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition-colors">Govardhan Road</button>
+                    </div>
                 </div>
             </div>
 
@@ -41,9 +49,13 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Project Type</label>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Project Type *</label>
                     <select name="project_type" class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
                         <option value="Plotted Community">Plotted Community</option>
+                        <option value="Land / Plots">Land / Plots</option>
+                        <option value="Flats &amp; Apartments">Flats &amp; Apartments</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Flat">Flat</option>
                         <option value="Luxury Villas">Luxury Villas</option>
                         <option value="Commercial">Commercial</option>
                         <option value="Township">Township</option>
@@ -135,7 +147,7 @@
         <!-- Card 4: Media, Maps & Brochure Uploads -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
             <h3 class="font-heading font-semibold text-white text-sm border-b border-slate-800 pb-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Media, Maps &amp; Documents
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span> Media, Maps &amp; Documents
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

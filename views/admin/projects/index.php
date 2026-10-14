@@ -9,19 +9,27 @@
                 <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
 
+            <select name="location" onchange="this.form.submit()"
+                class="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-400">
+                <option value="">All Locations</option>
+                <?php foreach (($locations ?? []) as $loc): ?>
+                    <option value="<?= e($loc) ?>" <?= ($selected_location ?? '') === $loc ? 'selected' : '' ?>><?= e($loc) ?></option>
+                <?php endforeach; ?>
+            </select>
+
             <select name="type" onchange="this.form.submit()"
                 class="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-400">
                 <option value="">All Project Types</option>
-                <option value="Plotted Community" <?= $selected_type === 'Plotted Community' ? 'selected' : '' ?>>Plotted Community</option>
-                <option value="Luxury Villas" <?= $selected_type === 'Luxury Villas' ? 'selected' : '' ?>>Luxury Villas</option>
-                <option value="Commercial" <?= $selected_type === 'Commercial' ? 'selected' : '' ?>>Commercial</option>
-                <option value="Township" <?= $selected_type === 'Township' ? 'selected' : '' ?>>Township</option>
+                <?php $types = ['Plotted Community', 'Land / Plots', 'Flats & Apartments', 'Apartment', 'Flat', 'Luxury Villas', 'Commercial', 'Township']; ?>
+                <?php foreach ($types as $t): ?>
+                    <option value="<?= $t ?>" <?= ($selected_type ?? '') === $t ? 'selected' : '' ?>><?= $t ?></option>
+                <?php endforeach; ?>
             </select>
 
             <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium rounded-lg transition-colors">
                 Filter
             </button>
-            <?php if (!empty($search) || !empty($selected_type)): ?>
+            <?php if (!empty($search) || !empty($selected_type) || !empty($selected_location)): ?>
                 <a href="<?= url('/admin/projects') ?>" class="text-xs text-slate-400 hover:text-white underline">Clear</a>
             <?php endif; ?>
         </form>
@@ -43,6 +51,7 @@
                         <th class="py-3.5 px-4">Type</th>
                         <th class="py-3.5 px-4">Starting Price</th>
                         <th class="py-3.5 px-4">Approvals</th>
+                        <th class="py-3.5 px-4 text-center">Status</th>
                         <th class="py-3.5 px-5 text-right">Actions</th>
                     </tr>
                 </thead>
@@ -81,7 +90,7 @@
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if (!empty($p['payment_plan_url'])): ?>
-                                                    <a href="<?= media_url($p['payment_plan_url']) ?>" target="_blank" download class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors" title="Download Payment Plan">
+                                                    <a href="<?= media_url($p['payment_plan_url']) ?>" target="_blank" download class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors" title="Download Payment Plan">
                                                         Payment &darr;
                                                     </a>
                                                 <?php endif; ?>
@@ -89,8 +98,11 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="py-4 px-4 text-xs font-medium text-slate-300">
-                                    <?= e($p['location']) ?>
+                                <td class="py-4 px-4">
+                                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/80 text-xs font-medium text-slate-200">
+                                        <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                                        <span><?= e($p['location']) ?></span>
+                                    </div>
                                 </td>
                                 <td class="py-4 px-4">
                                     <span class="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-800 text-amber-300 border border-amber-400/20">
@@ -103,12 +115,26 @@
                                 <td class="py-4 px-4">
                                     <div class="flex items-center gap-1.5 flex-wrap">
                                         <?php if ((int) $p['mvda_approved'] === 1): ?>
-                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">MVDA</span>
+                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">MVDA</span>
                                         <?php endif; ?>
                                         <?php if (!empty($p['rera_id'])): ?>
                                             <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">RERA</span>
                                         <?php endif; ?>
                                     </div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <label class="relative inline-flex items-center cursor-pointer" x-data="{ active: <?= (int) ($p['is_active'] ?? 1) ?> }">
+                                        <input type="checkbox" class="sr-only peer" :checked="active" @change="
+                                            fetch('<?= url('/admin/projects/' . $p['id'] . '/toggle') ?>', {
+                                                method: 'POST',
+                                                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                                body: '_csrf_token=<?= csrf_token() ?>&is_active=' + (active ? 0 : 1)
+                                            })
+                                            .then(res => res.json())
+                                            .then(data => { if (data.success) { active = data.is_active; } else { active = !active; } })
+                                        ">
+                                        <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                                    </label>
                                 </td>
                                 <td class="py-4 px-5 text-right">
                                     <div class="flex items-center justify-end gap-2">

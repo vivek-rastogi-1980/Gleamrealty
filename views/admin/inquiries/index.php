@@ -9,7 +9,7 @@
 
         <div class="flex items-center gap-3">
             <a href="<?= url('/admin/inquiries/export' . ($selected_project > 0 ? '?project_id=' . $selected_project : '')) ?>"
-                class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-heading font-semibold text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all shadow-md">
+                class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-heading font-semibold text-xs uppercase tracking-wider py-2.5 px-4 rounded-lg transition-all shadow-md">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                 Export to CSV
             </a>

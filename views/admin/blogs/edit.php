@@ -94,7 +94,7 @@
         <!-- Card 2: Featured Image -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
             <h3 class="font-heading font-semibold text-white text-sm border-b border-slate-800 pb-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Featured Header Image
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span> Featured Header Image
             </h3>
 
             <?php if (!empty($blog['featured_image'])): ?>

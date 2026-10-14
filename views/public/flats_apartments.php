@@ -7,66 +7,73 @@
  * @var array $page
  * @var array $projects
  */
+$faSections = \App\Models\Setting::get('flats_apartments_sections', []);
 ?>
 
 <!-- =======================================================================
      1. HERO BANNER: Flats in Vrindavan
      ======================================================================= -->
-<section class="relative min-h-[48vh] sm:min-h-[56vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden transition-colors duration-300"
-         :style="{ backgroundColor: 'var(--theme-hero-from)', borderColor: 'var(--theme-border-hairline)' }">
+<?php
+    $heroCover = !empty($page['hero_media_url']) ? media_url($page['hero_media_url']) : asset('uploads/pages/benefits-of-living-in-vrindavan.jpg');
+    $heroTitle = !empty($page['hero_heading']) ? $page['hero_heading'] : ($page['title'] ?? 'Flats in Vrindavan');
+    $heroSubtitle = !empty($page['hero_subheading']) ? $page['hero_subheading'] : 'Apartment in Vrindavan: 2026 Buyer\'s Guide for Flats & Gated Societies';
+?>
+<section class="relative min-h-[52vh] sm:min-h-[58vh] flex items-center justify-center border-b py-24 sm:py-32 overflow-hidden bg-stone-950 transition-colors duration-300"
+         :style="{ borderColor: 'var(--theme-border-hairline)' }">
     
     <!-- Background Hero Imagery -->
     <div class="absolute inset-0 z-0">
-        <img src="<?= asset('uploads/pages/benefits-of-living-in-vrindavan.jpg') ?>"
-             alt="Flats in Vrindavan — Apartments &amp; Gated Societies"
-             class="w-full h-full object-cover filter brightness-[0.38] contrast-[1.08] scale-105 transition-transform duration-1000">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30"></div>
+        <img src="<?= $heroCover ?>"
+             alt="<?= e($heroTitle) ?> — Apartments &amp; Gated Societies"
+             class="w-full h-full object-cover filter brightness-[0.42] contrast-[1.08] scale-105 transition-transform duration-1000">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/75 to-stone-950/40"></div>
+        <div class="absolute inset-0 bg-black/35"></div>
     </div>
 
     <!-- Radiant Ambient Light Glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-[140px] pointer-events-none -z-0 opacity-25"
          :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-5">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-6">
         
         <!-- Breadcrumbs -->
         <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.22em] uppercase">
             <a href="<?= url('/') ?>" class="text-stone-300 hover:text-white transition-colors">Home</a>
-            <span class="text-stone-500">&bull;</span>
+            <span class="text-amber-500/60">&bull;</span>
             <a href="<?= url('/projects') ?>" class="text-stone-300 hover:text-white transition-colors">Projects</a>
-            <span class="text-stone-500">&bull;</span>
-            <span class="text-amber-300 font-bold">Flats in Vrindavan</span>
+            <span class="text-amber-500/60">&bull;</span>
+            <span class="text-amber-400 font-bold">Flats in Vrindavan</span>
         </div>
 
         <!-- Eyebrow Pill -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-white/10 text-white border border-white/20 shadow-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Gleamrealty Private Office &bull; 2026 Apartment Buyer's Guide
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-stone-900/80 text-white border border-amber-500/30 shadow-md">
+            <span class="w-2 h-2 rounded-full bg-[#9A6B2F] animate-pulse"></span>
+            Gleamrealty Private Limited &bull; 2026 Apartment Buyer's Guide
         </div>
 
         <!-- Main H1 Title -->
-        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-xl leading-[1.1]">
-            Flats in Vrindavan
+        <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] leading-[1.1]">
+            <?= e($heroTitle) ?>
         </h1>
 
         <!-- Subheading Tagline -->
-        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-md">
-            Apartment in Vrindavan: 2026 Buyer's Guide for Flats &amp; Gated Societies
+        <h2 class="text-base sm:text-xl max-w-3xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            <?= e($heroSubtitle) ?>
         </h2>
 
         <!-- Trust Badges Strip -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-3">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
-                <svg class="w-3.5 h-3.5 text-emerald-400 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-2">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-white shadow-sm">
+                <svg class="w-3.5 h-3.5 text-[#9A6B2F] fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                 Studio, 1 BHK &amp; 2 BHK Trends
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 shadow-sm">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 shadow-sm">
                 ✦ Lock-and-Leave Security
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
                 UP-RERA Verification Guide
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-sm">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-sm">
                 Zero Brokerage Direct
             </span>
         </div>
@@ -74,19 +81,28 @@
         <!-- CTAs -->
         <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a href="#flats-localities"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] transition-all duration-300 shadow-lg hover:scale-105"
-               :style="{ backgroundColor: 'var(--theme-accent)', color: '#090d16' }">
-                Explore Flat Localities &darr;
+               class="btn-bronze inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] shadow-lg hover:shadow-xl transition-all">
+                <span>Explore Flat Localities</span>
+                <span class="text-sm">&darr;</span>
             </a>
-            <a href="#freesitevisit"
-               class="px-7 py-3 rounded-full text-xs uppercase font-bold tracking-[0.16em] bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 transition-all duration-300">
-                Book Flat Tour
-            </a>
+            <button type="button" @click="vipModalOpen = true"
+                    class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-[0.16em] bg-stone-900/90 hover:bg-stone-800 text-white border border-stone-700 shadow-lg hover:shadow-xl transition-all cursor-pointer">
+                <span>Book Flat Tour</span>
+                <span class="text-amber-400">&rarr;</span>
+            </button>
             <a href="tel:+919871731303"
-               class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 hover:border-white/50 transition-colors">
+               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs uppercase font-semibold tracking-wider text-white border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/50 transition-colors">
                 <svg class="w-3.5 h-3.5 fill-current text-amber-300" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
-                +91 9871731303
+                <span>+91 9871731303</span>
             </a>
+            <?php if (function_exists('auth_user') && auth_user()): ?>
+                <a href="<?= url('/admin/pages/' . ($page['id'] ?? 10) . '/edit') ?>"
+                   target="_blank"
+                   class="inline-flex items-center gap-1.5 px-4 py-3 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Edit Page in Admin</span>
+                </a>
+            <?php endif; ?>
         </div>
 
     </div>
@@ -157,15 +173,19 @@
 
             <div class="space-y-4 text-sm sm:text-base font-light leading-relaxed"
                  :style="{ color: 'var(--theme-text-secondary)' }">
-                <p>
-                    Most people would have been bewildered if they were told they could buy a flat in Vrindavan a few years ago. You traveled to this holy place on pilgrimage, stayed in an ashram, dharamshala, or basic guest house, and returned home. There was simply no formal category for owning an apartment in the town of Banke Bihari and ISKCON.
-                </p>
-                <p>
-                    That reality has transformed. Today, Vrindavan features contemporary mid-rise towers, gated apartment societies, and continuous weekend occupancy. Once you examine who the buyer is, the appeal is obvious: devotees and retirees who want to be near the temples with round-the-clock security, maintenance, and power backup, allowing them to lock up and leave for months without worry.
-                </p>
-                <p>
-                    However, buying a flat also carries trade-offs when contrasted with owning standalone freehold land. At GLEAMREALTY PRIVATE LIMITED, we help you evaluate both options with complete candor.
-                </p>
+                <?php if (!empty($page['content'])): ?>
+                    <?= $page['content'] ?>
+                <?php else: ?>
+                    <p>
+                        Most people would have been bewildered if they were told they could buy a flat in Vrindavan a few years ago. You traveled to this holy place on pilgrimage, stayed in an ashram, dharamshala, or basic guest house, and returned home. There was simply no formal category for owning an apartment in the town of Banke Bihari and ISKCON.
+                    </p>
+                    <p>
+                        That reality has transformed. Today, Vrindavan features contemporary mid-rise towers, gated apartment societies, and continuous weekend occupancy. Once you examine who the buyer is, the appeal is obvious: devotees and retirees who want to be near the temples with round-the-clock security, maintenance, and power backup, allowing them to lock up and leave for months without worry.
+                    </p>
+                    <p>
+                        However, buying a flat also carries trade-offs when contrasted with owning standalone freehold land. At GLEAMREALTY PRIVATE LIMITED, we help you evaluate both options with complete candor.
+                    </p>
+                <?php endif; ?>
             </div>
 
             <!-- 4 Quick Key Metrics -->
@@ -173,23 +193,23 @@
                  :style="{ borderColor: 'var(--theme-border-hairline)' }">
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">₹35L-95L</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Price Band</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }"><?= htmlspecialchars($faSections['metric_1_val'] ?? '₹35L-95L') ?></div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1"><?= htmlspecialchars($faSections['metric_1_lbl'] ?? 'Price Band') ?></div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">Studio-2BHK</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Primary Demand</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }"><?= htmlspecialchars($faSections['metric_2_val'] ?? 'Studio-2BHK') ?></div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1"><?= htmlspecialchars($faSections['metric_2_lbl'] ?? 'Primary Demand') ?></div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }">24×7</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">Gated Manned</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }"><?= htmlspecialchars($faSections['metric_3_val'] ?? '24×7') ?></div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1"><?= htmlspecialchars($faSections['metric_3_lbl'] ?? 'Gated Manned') ?></div>
                 </div>
                 <div class="p-4 rounded-xl border text-center"
                      :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                    <div class="text-2xl font-bold font-editorial text-emerald-400">100%</div>
-                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1">RERA Mandated</div>
+                    <div class="text-2xl font-bold font-editorial" :style="{ color: 'var(--theme-accent)' }"><?= htmlspecialchars($faSections['metric_4_val'] ?? '100%') ?></div>
+                    <div class="text-[11px] uppercase tracking-wider text-stone-400 mt-1"><?= htmlspecialchars($faSections['metric_4_lbl'] ?? 'RERA Mandated') ?></div>
                 </div>
             </div>
 
@@ -232,14 +252,14 @@
                         01
                     </div>
                     <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
-                        Chhatikara Road
+                        <?= htmlspecialchars($faSections['hub_1_badge'] ?? 'Chhatikara Road') ?>
                     </span>
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Chhatikara &amp; Temple Entry Hub
+                    <?= htmlspecialchars($faSections['hub_1_title'] ?? 'Chhatikara & Temple Entry Hub') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    The primary gateway into Vrindavan from NH-19. Wide approach roads, immediate proximity to Prem Mandir, ISKCON, and Chandrodaya Mandir. Features prominent high-rise towers with high weekend tourist occupancy and serviced apartment models.
+                    <?= htmlspecialchars($faSections['hub_1_desc'] ?? 'The primary gateway into Vrindavan from NH-19. Wide approach roads, immediate proximity to Prem Mandir, ISKCON, and Chandrodaya Mandir. Features prominent high-rise towers with high weekend tourist occupancy and serviced apartment models.') ?>
                 </p>
             </div>
 
@@ -251,15 +271,15 @@
                          :style="{ backgroundColor: 'var(--theme-badge-bg)', color: 'var(--theme-accent)', borderColor: 'var(--theme-badge-border)' }">
                         02
                     </div>
-                    <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-                        VIP Residential
+                    <span class="text-xs font-bold px-3 py-1 rounded-full bg-[#FDF3E3] text-[#9A6B2F] border border-[#9A6B2F]/30">
+                        <?= htmlspecialchars($faSections['hub_2_badge'] ?? 'VIP Residential') ?>
                     </span>
                 </div>
                 <h3 class="text-xl sm:text-2xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
-                    Rukmani Vihar Enclave
+                    <?= htmlspecialchars($faSections['hub_2_title'] ?? 'Rukmani Vihar Enclave') ?>
                 </h3>
                 <p class="text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                    A well-established master-planned district featuring a blend of mid-rise societies and premium residential townships like <strong>Shri Vrinda Orchids</strong>. Known for organized VIP neighborhoods, municipal park networks, and peaceful residential tranquility.
+                    <?= htmlspecialchars($faSections['hub_2_desc'] ?? 'A well-established master-planned district featuring a blend of mid-rise societies and premium residential townships like Shri Vrinda Orchids. Known for organized VIP neighborhoods, municipal park networks, and peaceful residential tranquility.') ?>
                 </p>
             </div>
 
@@ -345,11 +365,11 @@
                 </h3>
                 <ul class="space-y-3 text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
                     <li class="flex items-start gap-3">
-                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span class="text-amber-500 font-bold">✓</span>
                         <span><strong>Turnkey Convenience:</strong> Ready to move in immediately with zero construction hassle.</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span class="text-amber-500 font-bold">✓</span>
                         <span><strong>Lock-and-Leave:</strong> Manned security, common power backup, and building maintenance taken care of while you travel.</span>
                     </li>
                     <li class="flex items-start gap-3">
@@ -358,16 +378,16 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-rose-400 font-bold">✕</span>
-                        <span><strong>Building Depreciation:</strong> Concrete structures age over 25-30 years, whereas standalone land appreciates perpetually.</span>
+                        <span><strong>Building Depreciation:</strong> Concrete structures age over 25-12 years, whereas standalone land appreciates perpetually.</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Plots / Villas Side -->
-            <div class="p-8 sm:p-10 rounded-3xl border space-y-6 transition-all border-emerald-500/40"
+            <div class="p-8 sm:p-10 rounded-3xl border space-y-6 transition-all border-[#9A6B2F]/40"
                  :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs uppercase tracking-widest font-bold text-emerald-400">Freehold Sanctuary</span>
+                    <span class="text-xs uppercase tracking-widest font-bold text-[#9A6B2F]">Freehold Sanctuary</span>
                     <span class="text-xs px-3 py-1 rounded-full border" :style="{ borderColor: 'var(--theme-border-hairline)', color: 'var(--theme-title)' }">₹ 38,000 – ₹ 65,000 / sq. yd</span>
                 </div>
                 <h3 class="text-2xl sm:text-3xl font-editorial font-normal" :style="{ color: 'var(--theme-title)' }">
@@ -375,19 +395,19 @@
                 </h3>
                 <ul class="space-y-3 text-sm font-light leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
                     <li class="flex items-start gap-3">
-                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span class="text-amber-500 font-bold">✓</span>
                         <span><strong>100% Freehold Ownership:</strong> You own the earth beneath your feet and all rights to the roof and sky.</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span class="text-amber-500 font-bold">✓</span>
                         <span><strong>Private Courtyard (*Aangan*):</strong> Build a traditional sacred Tulsi altar and host private family kirtans without noise disputes.</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span class="text-amber-500 font-bold">✓</span>
                         <span><strong>Generational Wealth:</strong> Land in sacred Vrindavan is strictly scarce; standalone plots experience superior compounding valuation.</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-emerald-400 font-bold">✓</span>
+                        <span class="text-amber-500 font-bold">✓</span>
                         <span><strong>Gated Security:</strong> Townships like Shri Vrinda Aakruti Village and Shri Vrinda Orchids provide the same 24×7 security as flats.</span>
                     </li>
                 </ul>
@@ -481,7 +501,7 @@
             <div class="p-8 rounded-3xl border space-y-4 transition-all flex flex-col justify-between"
                  :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                 <div>
-                    <div class="text-2xl font-bold font-editorial text-emerald-400">Gleamrealty Advice</div>
+                    <div class="text-2xl font-bold font-editorial text-[#9A6B2F]">Gleamrealty Advice</div>
                     <h3 class="text-xl font-editorial font-normal mt-2" :style="{ color: 'var(--theme-title)' }">
                         Compare with Duplex Villas
                     </h3>
@@ -633,7 +653,7 @@
             </h2>
             <p class="text-sm sm:text-base font-light leading-relaxed max-w-2xl mx-auto"
                :style="{ color: 'var(--theme-section-alt-subtext)' }">
-                Review verified RERA apartment options and compare pricing against freehold villa alternatives with our senior Braj property advisors.
+                Review verified RERA apartment options and compare pricing against freehold villa alternatives with our senior property advisors.
             </p>
         </div>
 
@@ -687,7 +707,7 @@
              }">
             
             <form @submit.prevent="submitForm()" class="space-y-6">
-                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm font-medium text-center">
+                <div x-show="successMsg" x-cloak class="p-4 rounded-xl bg-[#FDF3E3] border border-[#9A6B2F]/30 text-[#9A6B2F] text-sm font-medium text-center">
                     <span x-text="successMsg"></span>
                 </div>
                 <div x-show="errorMsg" x-cloak class="p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-sm font-medium text-center">
@@ -707,7 +727,7 @@
                         <label class="block text-xs uppercase font-semibold tracking-wider" :style="{ color: 'var(--theme-title)' }">
                             Phone / WhatsApp *
                         </label>
-                        <input type="tel" x-model="phone" required placeholder="+91 98765 43210"
+                        <input type="tel" x-model="phone" required placeholder="+91 9871731303"
                                class="w-full px-4 py-3.5 rounded-xl border text-sm outline-none transition-all"
                                :style="{ backgroundColor: 'var(--theme-section-card-bg)', borderColor: 'var(--theme-border-hairline)', color: 'var(--theme-text-primary)' }">
                     </div>

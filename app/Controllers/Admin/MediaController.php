@@ -19,9 +19,9 @@ use Core\Uploader;
  */
 class MediaController extends Controller
 {
-    public function index(Request $request, string $projectId): Response
+    public function index(Request $request, string $id): Response
     {
-        $id = (int) $projectId;
+        $id = (int) $id;
         $project = Project::find($id);
         if (!$project) {
             $this->flash('error', 'Project not found.');
@@ -43,9 +43,9 @@ class MediaController extends Controller
         ]);
     }
 
-    public function upload(Request $request, string $projectId): Response
+    public function upload(Request $request, string $id): Response
     {
-        $id = (int) $projectId;
+        $id = (int) $id;
         $project = Project::find($id);
         if (!$project) {
             $this->flash('error', 'Project not found.');

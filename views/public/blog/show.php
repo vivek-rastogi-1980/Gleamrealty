@@ -116,7 +116,7 @@
                      :style="{ color: 'var(--theme-text-primary)' }">
                     <style>
                         .article-rich-body h2 {
-                            font-family: var(--font-editorial, 'Plus Jakarta Sans', serif);
+                            font-family: var(--font-editorial, 'Playfair Display', Georgia, serif);
                             font-size: 1.65rem;
                             line-height: 1.35;
                             margin-top: 2.2rem;
@@ -209,7 +209,9 @@
                             Authored by the private client acquisitions team at <strong>GLEAMREALTY PRIVATE LIMITED</strong>. Specializing in statutory MVDA master plan vetting, title due diligence, and plotted sanctuary development in Vrindavan and Mathura.
                         </p>
                         <div class="text-[11px] font-mono opacity-80 pt-1">
-                            Flat no 10, LIG 09, Suncity Anantam Kunj, Vrindavan-281406 &bull; +91 9871731303
+                            <a href="<?= e(company_map_directions_url()) ?>" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                                <?= e(company_address()) ?>
+                            </a> &bull; +91 9871731303
                         </div>
                     </div>
                 </div>
@@ -256,7 +258,7 @@
                                borderColor: 'var(--theme-border-subtle)',
                                color: 'var(--theme-title)'
                            }">
-                            <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                             <span>+91 9871731303</span>
                         </a>
                     </div>
@@ -285,7 +287,9 @@
                     <!-- Office Address Stamp -->
                     <div class="pt-3 border-t text-[11px] opacity-70 leading-relaxed" :style="{ borderColor: 'var(--theme-border-hairline)' }">
                         <strong class="block text-white">Headquarters:</strong>
-                        Flat no 10, LIG 09, Suncity Anantam Kunj, Vrindavan-281406
+                        <a href="<?= e(company_map_directions_url()) ?>" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                            <?= e(company_address()) ?>
+                        </a>
                     </div>
                 </div>
 

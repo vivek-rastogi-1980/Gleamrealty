@@ -19,7 +19,8 @@ class HomeController extends Controller
 {
     public function index(Request $request): Response
     {
-        $projects = Project::all();
+        $allProjects = Project::all();
+        $projects = array_values(array_filter($allProjects, fn($p) => (int) ($p['is_active'] ?? 1) === 1));
         $hero = Setting::getHero();
         $metrics = Setting::getMetrics();
         $activeTheme = Setting::getActiveTheme();

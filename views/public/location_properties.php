@@ -4,75 +4,114 @@
      ========================================================== -->
 
 <!-- Hero Showcase Banner for <?= $cityName ?> -->
-<section class="relative min-h-[50vh] lg:min-h-[58vh] flex items-center justify-center border-b pt-32 pb-20 px-6 sm:px-8 overflow-hidden transition-colors"
-         :style="{ backgroundColor: 'var(--theme-section-alt-bg)', borderColor: 'var(--theme-border-hairline)' }">
+<section class="relative min-h-[54vh] lg:min-h-[62vh] flex items-center justify-center border-b pt-32 pb-20 px-6 sm:px-8 overflow-hidden bg-stone-950 transition-colors"
+         :style="{ borderColor: 'var(--theme-border-hairline)' }">
     
     <!-- Background Atmospheric Photography -->
     <div class="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <img src="<?= $coverImage ?>"
              alt="Luxury Estates in <?= e($cityName) ?>"
-             class="w-full h-full object-cover object-center scale-105 filter blur-[1px] opacity-25 dark:opacity-35 transition-opacity duration-1000">
-        <div class="absolute inset-0 bg-gradient-to-t from-[var(--theme-section-alt-bg)] via-[var(--theme-section-alt-bg)]/80 to-black/50"></div>
+             class="w-full h-full object-cover object-center scale-105 filter brightness-[0.42] contrast-[1.08] transition-transform duration-1000">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/75 to-stone-950/40"></div>
+        <div class="absolute inset-0 bg-black/35"></div>
     </div>
 
     <!-- Directional Light Halos -->
     <div class="absolute -top-32 left-1/4 w-[600px] h-[500px] rounded-full blur-[140px] pointer-events-none -z-10 opacity-30"
          :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto text-center space-y-5">
+    <div class="relative z-10 max-w-5xl mx-auto text-center space-y-6">
         
         <!-- Breadcrumbs & Eyebrow Pill -->
-        <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase"
-             :style="{ color: 'var(--theme-section-alt-accent)' }">
-            <a href="<?= url('/') ?>" class="hover:underline opacity-80">Home</a>
-            <span class="opacity-40">&bull;</span>
-            <span class="opacity-80">Locations</span>
-            <span class="opacity-40">&bull;</span>
-            <span class="text-white font-bold"><?= e($cityName) ?></span>
+        <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase">
+            <a href="<?= url('/') ?>" class="text-stone-300 hover:text-white transition-colors">Home</a>
+            <span class="text-amber-500/60">&bull;</span>
+            <span class="text-stone-300">Communities</span>
+            <span class="text-amber-500/60">&bull;</span>
+            <span class="text-amber-400 font-bold"><?= e($cityName) ?></span>
         </div>
 
         <!-- Grand City Showcase Title -->
-        <h1 class="font-editorial text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.1] drop-shadow-lg">
+        <h1 class="font-editorial text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-white leading-[1.12] drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)]">
             <?= e($headline) ?>
         </h1>
 
         <!-- Subheading -->
-        <p class="text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed text-stone-300">
+        <p class="text-sm sm:text-base lg:text-lg max-w-3xl mx-auto font-light leading-relaxed text-stone-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
             <?= e($tagline) ?>
         </p>
 
         <!-- Trust Guarantees Bar -->
         <div class="flex flex-wrap items-center justify-center gap-2.5 pt-2">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/15 text-white shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-stone-900/80 backdrop-blur-md border border-white/20 text-white shadow-lg">
+                <span class="w-2 h-2 rounded-full bg-[#9A6B2F]"></span>
                 100% MVDA &amp; RERA Approved
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/15 text-amber-300 shadow-sm">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-stone-900/80 backdrop-blur-md border border-amber-500/40 text-amber-300 shadow-lg">
                 ✦ Immediate Freehold Registry
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-white/10 backdrop-blur-md border border-white/15 text-white/90 shadow-sm">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-stone-900/80 backdrop-blur-md border border-white/20 text-stone-200 shadow-lg">
                 Zero Brokerage Direct
             </span>
         </div>
 
+        <!-- Call to Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-3">
+            <a href="#properties-grid"
+               class="btn-bronze inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md text-xs font-bold uppercase tracking-[0.14em] shadow-lg hover:shadow-xl transition-all">
+                <span>Explore <?= e($cityName) ?> Estates</span>
+                <span class="text-sm">&darr;</span>
+            </a>
+            <button type="button" @click="vipModalOpen = true"
+                    class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md text-xs font-bold uppercase tracking-[0.14em] bg-stone-900/90 hover:bg-stone-800 text-white border border-stone-700 shadow-lg hover:shadow-xl transition-all cursor-pointer">
+                <span>Request Site Visit</span>
+                <span class="text-amber-400">&rarr;</span>
+            </button>
+            <?php if (function_exists('auth_user') && auth_user()): ?>
+                <a href="<?= url('/admin/pages/' . ($page['id'] ?? 11) . '/edit') ?>"
+                   target="_blank"
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold uppercase tracking-wider bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Edit Page in Admin</span>
+                </a>
+            <?php endif; ?>
+        </div>
+
     </div>
 </section>
+
+<!-- Editorial Narrative Section -->
+<?php if (!empty($editorial)): ?>
+<section class="py-12 sm:py-16 px-6 sm:px-8 border-b transition-colors"
+         :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-border-hairline)' }">
+    <div class="max-w-4xl mx-auto prose prose-sm sm:prose-base leading-relaxed text-center"
+         :style="{ color: 'var(--theme-text-secondary)' }">
+        <?= $editorial ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- 4 Key Location Highlights Matrix -->
 <section class="py-12 px-6 sm:px-8 border-b transition-colors"
          :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-border-hairline)' }">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <?php foreach ($highlights as $h): ?>
+            <?php 
+            $locSections = \App\Models\Setting::get('location_vrindavan_sections', []);
+            foreach ($highlights as $i => $h): 
+                $idx = $i + 1;
+                $displayTitle = ($city === 'vrindavan' && !empty($locSections["highlight_{$idx}_title"])) ? $locSections["highlight_{$idx}_title"] : $h['title'];
+                $displayDesc = ($city === 'vrindavan' && !empty($locSections["highlight_{$idx}_desc"])) ? $locSections["highlight_{$idx}_desc"] : $h['desc'];
+            ?>
                 <div class="p-5 rounded-2xl border backdrop-blur-md space-y-1.5 shadow-sm transition-all hover:-translate-y-0.5"
                      :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
                     <span class="text-xs font-bold uppercase tracking-wider flex items-center gap-2"
                           :style="{ color: 'var(--theme-accent)' }">
                         <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: 'var(--theme-accent)' }"></span>
-                        <?= e($h['title']) ?>
+                        <?= e($displayTitle) ?>
                     </span>
                     <p class="text-xs leading-relaxed" :style="{ color: 'var(--theme-text-secondary)' }">
-                        <?= e($h['desc']) ?>
+                        <?= e($displayDesc) ?>
                     </p>
                 </div>
             <?php endforeach; ?>
@@ -103,28 +142,7 @@
                 </p>
             </div>
 
-            <!-- Dynamic Category Filter Pills -->
-            <div class="flex flex-wrap items-center gap-2 p-1.5 rounded-full border shadow-xs"
-                 :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-border-hairline)' }">
-                <button @click="activeFilter = 'all'"
-                        :class="activeFilter === 'all' ? 'font-semibold shadow-xs' : 'opacity-70 hover:opacity-100'"
-                        :style="activeFilter === 'all' ? { backgroundColor: 'var(--theme-btn-pri-bg)', color: 'var(--theme-btn-pri-text)' } : { color: 'var(--theme-text-secondary)' }"
-                        class="px-4 py-2 rounded-full text-xs uppercase tracking-wider transition-all duration-200">
-                    All (<?= count($projects) ?>)
-                </button>
-                <button @click="activeFilter = 'Luxury Villas'"
-                        :class="activeFilter === 'Luxury Villas' ? 'font-semibold shadow-xs' : 'opacity-70 hover:opacity-100'"
-                        :style="activeFilter === 'Luxury Villas' ? { backgroundColor: 'var(--theme-btn-pri-bg)', color: 'var(--theme-btn-pri-text)' } : { color: 'var(--theme-text-secondary)' }"
-                        class="px-4 py-2 rounded-full text-xs uppercase tracking-wider transition-all duration-200">
-                    Villas &amp; Plots
-                </button>
-                <button @click="activeFilter = 'Commercial'"
-                        :class="activeFilter === 'Commercial' ? 'font-semibold shadow-xs' : 'opacity-70 hover:opacity-100'"
-                        :style="activeFilter === 'Commercial' ? { backgroundColor: 'var(--theme-btn-pri-bg)', color: 'var(--theme-btn-pri-text)' } : { color: 'var(--theme-text-secondary)' }"
-                        class="px-4 py-2 rounded-full text-xs uppercase tracking-wider transition-all duration-200">
-                    Commercial
-                </button>
-            </div>
+
         </div>
 
         <!-- Properties Grid Display -->
@@ -175,8 +193,8 @@
                             <!-- Top Badges -->
                             <div class="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
                                 <?php if (!empty($project['mvda_approved'])): ?>
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 shadow-md">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md bg-black/70 text-amber-300 border border-amber-400/30 shadow-md">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                                         MVDA Approved
                                     </span>
                                 <?php else: ?>
@@ -264,7 +282,7 @@
                                                class="py-1.5 px-1 rounded-lg border flex items-center justify-center gap-1 transition-all hover:scale-[1.02] shadow-2xs hover:shadow-xs group/btn"
                                                :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)', color: 'var(--theme-title)' }"
                                                title="Download Payment Plan">
-                                                <svg class="w-3.5 h-3.5 flex-shrink-0 text-emerald-500 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                                <svg class="w-3.5 h-3.5 flex-shrink-0 text-amber-600 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                                 <span class="truncate">Payment</span>
                                             </a>
                                         <?php endif; ?>

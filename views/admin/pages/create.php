@@ -39,19 +39,53 @@
                     class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Hero Media Type</label>
-                    <select name="hero_media_type" class="w-full bg-slate-950/70 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
-                        <option value="image">Image Banner</option>
-                        <option value="video">Video Embed</option>
-                    </select>
+            <!-- Hero Section Background Visual Box -->
+            <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-4 pt-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Hero Section Background Image
+                    </span>
+                    <span class="text-[11px] text-slate-500">Visible behind the hero title &amp; description</span>
                 </div>
 
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Upload Banner Image</label>
-                    <input type="file" name="hero_media_file" accept="image/*"
-                        class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-amber-400 hover:file:bg-slate-700">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+                    <!-- Preview Container -->
+                    <div class="md:col-span-4 aspect-[16/10] rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 relative shadow-inner">
+                        <img id="heroPreviewImg"
+                             src="<?= asset('uploads/hero/hero-braj-sanctuary.webp') ?>"
+                             alt="Hero Background Preview"
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-2">
+                            <span class="text-[10px] text-white/90 font-mono truncate">Preview</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload and Path Controls -->
+                    <div class="md:col-span-8 space-y-3">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                                Upload New Hero Image
+                            </label>
+                            <input type="file" name="hero_media_file" id="heroMediaFileInput" accept="image/*"
+                                   onchange="previewHeroFile(this)"
+                                   class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-300 hover:file:bg-amber-500/30 cursor-pointer">
+                            <span class="text-[11px] text-slate-500 mt-1 block">Upload a high quality JPG, PNG, or WebP.</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                                Or Image URL / Media Path
+                            </label>
+                            <input type="text" name="hero_media_url" id="heroMediaUrlInput"
+                                   placeholder="uploads/hero/hero-braj-sanctuary.webp or full URL"
+                                   oninput="updateHeroPreview(this.value)"
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono focus:border-amber-400 focus:outline-none">
+                            <span class="text-[11px] text-slate-500 mt-0.5 block">You can use uploaded photos or type an existing image path.</span>
+                        </div>
+
+                        <input type="hidden" name="hero_media_type" value="image">
+                    </div>
                 </div>
             </div>
 
@@ -138,4 +172,25 @@ document.getElementById('pageTitle').addEventListener('blur', function() {
         generateSlug();
     }
 });
+
+function previewHeroFile(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('heroPreviewImg').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function updateHeroPreview(val) {
+    val = val.trim();
+    if (!val) return;
+    const img = document.getElementById('heroPreviewImg');
+    if (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('/')) {
+        img.src = val;
+    } else {
+        img.src = '<?= asset('') ?>' + val.replace(/^\/+/, '');
+    }
+}
 </script>

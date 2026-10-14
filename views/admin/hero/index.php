@@ -1,14 +1,14 @@
-<div class="max-w-6xl mx-auto space-y-6 pb-16" x-data="{ currentSlideTab: 0, showNewSlide: false }">
+<div class="max-w-6xl mx-auto space-y-6 pb-20" x-data="{ activeTab: 'visual' }">
 
     <!-- Top Header & Live Site Link -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
             <div class="flex items-center gap-2.5">
                 <span class="w-3 h-3 rounded-full bg-amber-400 shadow-md shadow-amber-400/40 animate-pulse"></span>
-                <h2 class="text-xl font-bold font-heading text-white tracking-wide">Full-Screen Properties Slideshow Manager</h2>
+                <h2 class="text-xl font-bold font-heading text-white tracking-wide">Homepage Hero Showcase Manager</h2>
             </div>
             <p class="text-xs text-slate-400 mt-1">
-                Manage the full-viewport 3D page-rotation properties slideshow, autoplay timing, luxury estate slides, and trust verification.
+                Customize the Palatial Haveli hero presentation, grand headlines, dual CTAs, video tour, and 3 glassmorphic cards as per current home page design.
             </p>
         </div>
         <div class="flex items-center gap-3">
@@ -18,475 +18,431 @@
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             </a>
             <button type="submit" form="heroForm"
-                    class="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-1.5">
+                    class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span>Save All Changes</span>
+                <span>Save Hero Changes</span>
             </button>
         </div>
     </div>
 
-    <!-- Main Configuration Form -->
+    <!-- Quick Navigation Banner -->
+    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs text-slate-400">
+        <span>Managing the Homepage Hero section. Looking to edit trust metrics, About section, and property highlights?</span>
+        <a href="<?= url('/admin/home') ?>" class="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1">
+            <span>Go to Homepage Content CMS</span>
+            <span>&rarr;</span>
+        </a>
+    </div>
+
+    <!-- Navigation Pills / Tabs -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-800/80">
+        <button type="button" @click="activeTab = 'visual'"
+                :class="activeTab === 'visual' ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/10' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'"
+                class="px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>1. Hero Background Image &amp; Visuals</span>
+        </button>
+        <button type="button" @click="activeTab = 'typography'"
+                :class="activeTab === 'typography' ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/10' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'"
+                class="px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            <span>2. Headlines &amp; Typography</span>
+        </button>
+        <button type="button" @click="activeTab = 'ctas'"
+                :class="activeTab === 'ctas' ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/10' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'"
+                class="px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>3. Action Buttons &amp; Video Tour</span>
+        </button>
+        <button type="button" @click="activeTab = 'cards'"
+                :class="activeTab === 'cards' ? 'bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/10' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'"
+                class="px-4 py-2.5 rounded-lg text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span>4. Bottom 3 Feature Cards</span>
+        </button>
+    </div>
+
+    <!-- Flash Messages -->
+    <?php if ($flash = flash('success')): ?>
+        <div class="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-6">
+            <?= $flash ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($flash = flash('error')): ?>
+        <div class="p-4 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 mb-6">
+            <?= $flash ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Main Form -->
     <form id="heroForm" action="<?= url('/admin/hero') ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
         <?= csrf_field() ?>
 
-        <!-- SECTION 1: GLOBAL SLIDESHOW CONTROLS & ATMOSPHERE -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-6 shadow-xl space-y-5">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> 
-                    1. Slideshow Global Controls &amp; 3D Rotation Experience
-                </h3>
-                <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer">
-                    <input type="checkbox" name="is_enabled" value="1" <?= ($hero['is_enabled'] ?? true) ? 'checked' : '' ?>
-                           class="rounded bg-slate-950 border-slate-700 text-amber-400 focus:ring-0">
-                    <span>Hero Section Enabled</span>
-                </label>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Autoplay Interval -->
-                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <label class="block text-[11px] uppercase tracking-wider text-amber-400 font-semibold mb-1">
-                        Autoplay Timer (Seconds)
-                    </label>
-                    <input type="number" name="autoplay_interval" min="3" max="20"
-                           value="<?= (int) ($hero['autoplay_interval'] ?? 6) ?>"
-                           class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-amber-400">
-                    <span class="text-[10px] text-slate-500 mt-1 block">Recommended: 5 to 7 seconds.</span>
-                </div>
-
-                <!-- 3D Rotation Animation Style -->
-                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <label class="block text-[11px] uppercase tracking-wider text-amber-400 font-semibold mb-1">
-                        Slide Transition Manner
-                    </label>
-                    <select name="rotation_style"
-                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                        <option value="3d-page-turn" <?= (($hero['rotation_style'] ?? '3d-page-turn') === '3d-page-turn') ? 'selected' : '' ?>>
-                            ✦ 3D Luxury Folio Page Turn
-                        </option>
-                        <option value="3d-cube-rotate" <?= (($hero['rotation_style'] ?? '') === '3d-cube-rotate') ? 'selected' : '' ?>>
-                            ✦ 3D Architectural Cube Rotate
-                        </option>
-                    </select>
-                    <span class="text-[10px] text-slate-500 mt-1 block">Animated 3D perspective transition on each slide change.</span>
-                </div>
-
-                <!-- Overlay Scrim Darkness -->
-                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                        Background Scrim Opacity (%)
-                    </label>
-                    <input type="number" name="overlay_opacity" min="10" max="90" step="5"
-                           value="<?= (int) ($hero['overlay_opacity'] ?? 45) ?>"
-                           class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-amber-400">
-                    <span class="text-[10px] text-slate-500 mt-1 block">Guarantees crisp readability over high-res photos.</span>
-                </div>
-
-                <!-- Total Active Slides Counter -->
-                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 flex flex-col justify-between">
-                    <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Configured Slides</span>
-                    <div class="text-2xl font-bold font-mono text-white mt-1">
-                        <?= count($slides) ?> <span class="text-xs font-sans text-amber-400 font-normal">Properties</span>
-                    </div>
-                    <span class="text-[10px] text-slate-500">Each slide represents a premier property showcase.</span>
-                </div>
-            </div>
-
-            <!-- Global Eyebrow & Trust Seal -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                        Floating Eyebrow Pill Badge
-                    </label>
-                    <input type="text" name="badge_text" value="<?= e($hero['badge_text'] ?? '✦ BRAJ BHUMI PRIVATE ESTATES • VRINDAVAN & MATHURA') ?>"
-                           placeholder="e.g. ✦ BRAJ BHUMI PRIVATE ESTATES • VRINDAVAN & MATHURA"
-                           class="w-full bg-slate-950/80 border border-slate-700/80 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                    <span class="text-[10px] text-slate-500 mt-0.5 block">Visible in the luxury pill badge above the active property title.</span>
-                </div>
-
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                        Bottom Prestige Trust Seal Text
-                    </label>
-                    <input type="text" name="trust_seal_text" value="<?= e($hero['trust_seal_text'] ?? '100% MVDA & RERA Approved • Immediate Freehold Registry • 3,000+ Happy Families') ?>"
-                           placeholder="e.g. 100% MVDA & RERA Approved • Immediate Freehold Registry • 3,000+ Happy Families"
-                           class="w-full bg-slate-950/80 border border-slate-700/80 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                    <span class="text-[10px] text-slate-500 mt-0.5 block">Displayed with gold verification mark along the bottom anchor bar.</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECTION 2: FEATURED PROPERTIES SLIDESHOW MANAGER -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-6 shadow-xl space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-3">
-                <div>
-                    <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> 
-                        2. Full-Screen Property Slides Manager
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mt-0.5">
-                        Each slide represents an individual luxury property or sanctuary in the full-screen rotation.
-                    </p>
-                </div>
+        <!-- ============================================================
+             TAB 1: HERO BACKGROUND IMAGE & VISUALS (UPLOAD SECTION)
+             ============================================================ -->
+        <div x-show="activeTab === 'visual'" class="space-y-6">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 shadow-xl space-y-6">
                 
-                <!-- Slide switcher tabs -->
-                <div class="flex items-center gap-1.5 p-1 bg-slate-950 rounded-lg border border-slate-800 flex-wrap">
-                    <?php foreach ($slides as $idx => $s): ?>
-                        <button type="button" @click="currentSlideTab = <?= $idx ?>"
-                                :class="currentSlideTab === <?= $idx ?> ? 'bg-amber-400 text-slate-950 font-bold shadow-sm' : 'text-slate-400 hover:text-white'"
-                                class="px-3 py-1.5 rounded-md text-xs transition-all flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full <?= ($s['is_active'] ?? 1) ? 'bg-emerald-400' : 'bg-slate-600' ?>"></span>
-                            <span>Slide <?= $idx + 1 ?></span>
-                            <?php if (!empty($s['title'])): ?>
-                                <span class="opacity-70 text-[10px] hidden md:inline truncate max-w-[90px]">
-                                    (<?= e(explode(' ', $s['title'])[0]) ?>)
-                                </span>
-                            <?php endif; ?>
-                        </button>
-                    <?php endforeach; ?>
-                    <button type="button" @click="showNewSlide = !showNewSlide"
-                            class="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-semibold rounded-md text-xs transition-colors flex items-center gap-1 border border-emerald-500/30">
-                        <span>+ Add New Slide</span>
-                    </button>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div>
+                        <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> 
+                            Hero Background Visual &amp; Image Upload
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">
+                            Upload a high-resolution hero background image or pick from curated Braj architecture presets.
+                        </p>
+                    </div>
+                    <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                        <input type="checkbox" name="is_enabled" value="1" <?= ($hero['is_enabled'] ?? true) ? 'checked' : '' ?>
+                               class="rounded bg-slate-950 border-slate-700 text-amber-400 focus:ring-0">
+                        <span>Show Hero on Home Page</span>
+                    </label>
                 </div>
-            </div>
 
-            <!-- Existing Slides Editor Panels -->
-            <?php foreach ($slides as $idx => $s): ?>
-                <?php $sId = (int) $s['id']; ?>
-                <input type="hidden" name="slide_ids[]" value="<?= $sId ?>">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- Left Column: Current Image Preview -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <label class="block text-xs uppercase tracking-wider text-amber-400 font-semibold">
+                            Current Hero Background Image
+                        </label>
+                        <div class="aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 border border-slate-700/80 shadow-inner relative group">
+                            <?php 
+                                $currentBg = !empty($hero['bg_image']) ? $hero['bg_image'] : 'uploads/hero/hero_braj_haveli_hd.jpg';
+                            ?>
+                            <img id="heroBgPreviewImg"
+                                 src="<?= asset($currentBg) ?>"
+                                 alt="Current Hero Background"
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                                <span id="heroBgPreviewLabel" class="text-[11px] text-white/90 font-mono truncate">
+                                    <?= basename($currentBg) ?>
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-500">Live preview of the image placed behind the home hero headlines.</p>
+                    </div>
 
-                <div x-show="currentSlideTab === <?= $idx ?>" class="space-y-6">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Right Column: Upload Controls & Presets -->
+                    <div class="lg:col-span-7 space-y-5">
                         
-                        <!-- Col 1-5: High-Res Media & Visual Preview -->
-                        <div class="lg:col-span-5 space-y-4">
+                        <!-- Upload New Image File Input -->
+                        <div class="p-5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-3">
                             <div class="flex items-center justify-between">
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold">
-                                    Slide Media Asset
-                                </label>
-                                <span class="text-[10px] text-amber-400/80 font-mono">16:9 / Fullscreen Landscape</span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                    Upload New Background Photo
+                                </span>
+                                <span class="text-[10px] text-slate-400 font-mono">JPG, PNG, WebP</span>
                             </div>
-                            
-                            <!-- Image Frame -->
-                            <div class="aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group shadow-lg">
-                                <img src="<?= e($s['image_url'] ?? asset('uploads/hero/hero-braj-sanctuary.webp')) ?>"
-                                     alt="<?= e($s['title']) ?>"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-between p-4">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/60 text-white border border-white/20 backdrop-blur-md">
-                                            <?= e($s['badge_text'] ?? '100% MVDA Approved') ?>
-                                        </span>
-                                        <span class="text-[10px] text-amber-300 font-mono font-bold bg-black/60 px-2 py-0.5 rounded-full border border-amber-400/30">
-                                            <?= e($s['price_text'] ?? 'Starting ₹ 45 Lakhs*') ?>
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-serif font-bold text-sm leading-tight drop-shadow">
-                                            <?= e($s['title'] ?? 'Estate Showcase') ?>
-                                        </h4>
-                                        <p class="text-slate-300 text-[10px] drop-shadow mt-0.5">
-                                            <?= e($s['location_text'] ?? 'Vrindavan • Mathura') ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="file" name="bg_file" id="bgFileInput" accept="image/*"
+                                   onchange="previewHeroBgFile(this)"
+                                   class="w-full text-xs text-slate-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-300 hover:file:bg-amber-500/30 cursor-pointer">
+                            <p class="text-[11px] text-slate-500">Selecting a file instantly updates the preview on the left. Recommended: 1920&times;1080px or higher.</p>
+                        </div>
 
-                            <!-- Image Upload & Path -->
-                            <div class="space-y-2.5 p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                                <div>
-                                    <label class="block text-[11px] text-slate-300 font-medium mb-1">Upload New High-Res Image</label>
-                                    <input type="file" name="slide_file_<?= $sId ?>" accept="image/*"
-                                           class="w-full text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-amber-400 hover:file:bg-slate-700">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 font-medium mb-0.5">Or Direct Image Asset Path / URL</label>
-                                    <input type="text" name="slide_image_<?= $sId ?>" value="<?= e($s['image_url'] ?? '') ?>"
-                                           placeholder="e.g. /public/uploads/hero/hero-braj-sanctuary.webp"
-                                           class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 font-mono focus:outline-none focus:border-amber-400">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 font-medium mb-0.5">Optional Ambient Video Tour URL (MP4 / WebM)</label>
-                                    <input type="text" name="slide_video_<?= $sId ?>" value="<?= e($s['video_url'] ?? '') ?>"
-                                           placeholder="e.g. https://.../sanctuary-ambient.mp4"
-                                           class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 font-mono focus:outline-none focus:border-amber-400">
-                                </div>
-                            </div>
+                        <!-- Manual Image Path Input -->
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                                Or Image Asset Path / URL
+                            </label>
+                            <input type="text" name="bg_image" id="bgImageInput"
+                                   value="<?= e($currentBg) ?>"
+                                   oninput="updateHeroBgPreview(this.value)"
+                                   placeholder="uploads/hero/hero_braj_haveli_hd.jpg"
+                                   class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3.5 py-2.5 text-xs text-white font-mono focus:border-amber-400 focus:outline-none">
+                            <span class="text-[11px] text-slate-500 mt-1 block">Specify relative file path inside public/ or an absolute HTTPS URL.</span>
+                        </div>
 
-                            <!-- Delete Slide Action -->
-                            <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
-                                <span class="text-[11px] text-slate-500">Need to remove this estate slide?</span>
+                        <!-- Curated Architecture Presets -->
+                        <div class="space-y-2 pt-1">
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold">
+                                ✦ Or Choose From Preset Architectural Library
+                            </label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                 <button type="button"
-                                        onclick="if(confirm('Are you sure you want to remove this property slide from the homepage slideshow?')) { document.getElementById('deleteSlideForm_<?= $sId ?>').submit(); }"
-                                        class="text-xs text-red-400 hover:text-red-300 hover:underline flex items-center gap-1 font-medium">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    <span>Delete Slide</span>
+                                        onclick="applyHeroBgPreset('uploads/hero/hero_braj_haveli_hd.jpg', 'Palace Haveli HD')"
+                                        class="p-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-amber-400 transition-all text-left cursor-pointer group">
+                                    <div class="aspect-[16/10] rounded overflow-hidden bg-slate-900 mb-1">
+                                        <img src="<?= asset('uploads/hero/hero_braj_haveli_hd.jpg') ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <div class="text-[10px] font-semibold text-white truncate">Palace Haveli</div>
+                                </button>
+                                <button type="button"
+                                        onclick="applyHeroBgPreset('uploads/hero/hero-haveli-courtyard.webp', 'Courtyard Sanctuary')"
+                                        class="p-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-amber-400 transition-all text-left cursor-pointer group">
+                                    <div class="aspect-[16/10] rounded overflow-hidden bg-slate-900 mb-1">
+                                        <img src="<?= asset('uploads/hero/hero-haveli-courtyard.webp') ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <div class="text-[10px] font-semibold text-white truncate">Courtyard</div>
+                                </button>
+                                <button type="button"
+                                        onclick="applyHeroBgPreset('uploads/hero/hero-braj-sanctuary.webp', 'Braj Bhumi Lotus')"
+                                        class="p-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-amber-400 transition-all text-left cursor-pointer group">
+                                    <div class="aspect-[16/10] rounded overflow-hidden bg-slate-900 mb-1">
+                                        <img src="<?= asset('uploads/hero/hero-braj-sanctuary.webp') ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <div class="text-[10px] font-semibold text-white truncate">Braj Lotus</div>
+                                </button>
+                                <button type="button"
+                                        onclick="applyHeroBgPreset('uploads/hero/hero-vrinda-greens.webp', 'Vrinda Greens')"
+                                        class="p-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-amber-400 transition-all text-left cursor-pointer group">
+                                    <div class="aspect-[16/10] rounded overflow-hidden bg-slate-900 mb-1">
+                                        <img src="<?= asset('uploads/hero/hero-vrinda-greens.webp') ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <div class="text-[10px] font-semibold text-white truncate">Vrinda Greens</div>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Col 6-12: Property Details & Typography -->
-                        <div class="lg:col-span-7 space-y-4">
-                            
-                            <!-- Project Database Link -->
-                            <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                                <label class="block text-[11px] uppercase tracking-wider text-amber-300 font-bold mb-1 flex items-center gap-1.5">
-                                    <span>🔗 Link to Database Project Dossier</span>
-                                </label>
-                                <select name="slide_project_id_<?= $sId ?>"
-                                        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                                    <option value="">-- Custom Sanctuary Slide (No Project Link) --</option>
-                                    <?php foreach ($projects as $proj): ?>
-                                        <option value="<?= $proj['id'] ?>" <?= ((int)($s['project_id'] ?? 0) === (int)$proj['id']) ? 'selected' : '' ?>>
-                                            <?= e($proj['name']) ?> (<?= e($proj['location']) ?> • <?= e($proj['starting_price']) ?>)
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <span class="text-[10px] text-amber-200/70 mt-1 block">
-                                    When linked, visitors clicking "Explore Sanctuary" are routed directly to the full project dossier.
-                                </span>
-                            </div>
+                    </div>
+                </div>
 
-                            <!-- Estate Title & Category -->
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <div class="sm:col-span-2">
-                                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                                        Property / Slide Title *
-                                    </label>
-                                    <input type="text" name="slide_title_<?= $sId ?>" required
-                                           value="<?= e($s['title'] ?? '') ?>"
-                                           placeholder="e.g. Shri Vrinda Greens Enclave"
-                                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white font-serif font-medium focus:outline-none focus:border-amber-400">
-                                </div>
-                                <div>
-                                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                                        Category Tag
-                                    </label>
-                                    <input type="text" name="slide_featured_label_<?= $sId ?>"
-                                           value="<?= e($s['featured_label'] ?? 'Featured Sanctuary') ?>"
-                                           placeholder="e.g. Signature Sanctuary"
-                                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-amber-300 focus:outline-none focus:border-amber-400">
-                                </div>
-                            </div>
+            </div>
+        </div>
 
-                            <!-- Status Badge, Location & Price -->
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <div>
-                                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                                        Status Badge (Top Left)
-                                    </label>
-                                    <input type="text" name="slide_badge_<?= $sId ?>"
-                                           value="<?= e($s['badge_text'] ?? '100% MVDA Approved') ?>"
-                                           placeholder="e.g. 100% MVDA Approved"
-                                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                                </div>
-                                <div>
-                                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                                        Location Text
-                                    </label>
-                                    <input type="text" name="slide_location_<?= $sId ?>"
-                                           value="<?= e($s['location_text'] ?? '') ?>"
-                                           placeholder="e.g. Chhatikara–Vrindavan Corridor • NH-19"
-                                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                                </div>
-                                <div>
-                                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                                        Starting Price Callout
-                                    </label>
-                                    <input type="text" name="slide_price_<?= $sId ?>"
-                                           value="<?= e($s['price_text'] ?? '') ?>"
-                                           placeholder="e.g. Starting ₹ 45 Lakhs*"
-                                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-amber-300 font-mono font-semibold focus:outline-none focus:border-amber-400">
-                                </div>
-                            </div>
+        <!-- ============================================================
+             TAB 2: HEADLINES & TYPOGRAPHY
+             ============================================================ -->
+        <div x-show="activeTab === 'typography'" class="space-y-6">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 shadow-xl space-y-5">
+                <div class="border-b border-slate-800 pb-3">
+                    <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> 
+                        Hero Headlines, Eyebrow &amp; Typography
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5">
+                        Matches the typography of the live home page: Eyebrow badge, Grand Title, serif italic accent, and narrative subtitle.
+                    </p>
+                </div>
 
-                            <!-- Key Specifications / Highlights Description -->
-                            <div>
-                                <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                                    Key Specifications &amp; Architectural Highlights
-                                </label>
-                                <textarea name="slide_description_<?= $sId ?>" rows="2"
-                                          placeholder="e.g. Freehold Plots • 250 – 1,200 Sq. Yds. • Immediate Registry • 40ft Wide Roads"
-                                          class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-400 leading-relaxed"><?= e($s['description'] ?? '') ?></textarea>
-                                <span class="text-[10px] text-slate-500 mt-0.5 block">Displayed in high-elegance specs badge strip beneath the main estate title.</span>
-                            </div>
+                <!-- Eyebrow Pill -->
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-amber-400 font-semibold mb-1">
+                        Eyebrow Pill Badge (Golden Accent)
+                    </label>
+                    <input type="text" name="eyebrow"
+                           value="<?= e($hero['eyebrow'] ?? 'TIMELESS HERITAGE. MODERN LIVING.') ?>"
+                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white font-medium focus:border-amber-400 focus:outline-none">
+                    <span class="text-[11px] text-slate-500 mt-1 block">Displayed in bronze-gold capital letters directly above the grand headline.</span>
+                </div>
 
-                            <!-- CTA Actions -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-                                <div>
-                                    <label class="block text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-1">
-                                        Primary Button Label
-                                    </label>
-                                    <input type="text" name="slide_cta_text_<?= $sId ?>"
-                                           value="<?= e($s['cta_text'] ?? 'Explore Sanctuary') ?>"
-                                           placeholder="e.g. Explore Sanctuary"
-                                           class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                                </div>
-                                <div>
-                                    <label class="block text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-1">
-                                        Primary Button Target URL
-                                    </label>
-                                    <input type="text" name="slide_cta_url_<?= $sId ?>"
-                                           value="<?= e($s['cta_url'] ?? '#residences') ?>"
-                                           placeholder="e.g. /projects/shri-vrinda-greens or #residences"
-                                           class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-400">
-                                </div>
-                            </div>
+                <!-- Grand Title (Main + Accent) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                            Grand Headline (Line 1)
+                        </label>
+                        <input type="text" name="title_main"
+                               value="<?= e($hero['title_main'] ?? 'Royal Braj Haveli') ?>"
+                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white font-medium focus:border-amber-400 focus:outline-none">
+                        <span class="text-[11px] text-slate-500 mt-1 block">e.g. Royal Braj Haveli</span>
+                    </div>
 
-                            <!-- Sort Order & Active Status -->
-                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950/40 border border-slate-800">
-                                <div class="flex items-center gap-3">
-                                    <label class="text-xs text-slate-400 font-semibold">Display Sort Order:</label>
-                                    <input type="number" name="slide_sort_<?= $sId ?>"
-                                           value="<?= (int) ($s['sort_order'] ?? 0) ?>"
-                                           class="w-20 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white font-mono text-center focus:outline-none focus:border-amber-400">
-                                </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-amber-400 font-semibold mb-1">
+                            Headline Highlight (Italic Serif Word)
+                        </label>
+                        <input type="text" name="title_accent"
+                               value="<?= e($hero['title_accent'] ?? 'Residences') ?>"
+                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-amber-400 font-serif italic text-base focus:border-amber-400 focus:outline-none">
+                        <span class="text-[11px] text-slate-500 mt-1 block">Styled with editorial italic serif typography (e.g. Residences).</span>
+                    </div>
+                </div>
 
-                                <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer">
-                                    <input type="checkbox" name="slide_active_<?= $sId ?>" value="1"
-                                           <?= ($s['is_active'] ?? 1) ? 'checked' : '' ?>
-                                           class="rounded bg-slate-950 border-slate-700 text-emerald-400 focus:ring-0">
-                                    <span>Slide Active in Hero</span>
-                                </label>
-                            </div>
+                <!-- Subtitle Paragraph -->
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">
+                        Hero Narrative Subtitle
+                    </label>
+                    <textarea name="subtitle" rows="3"
+                              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white focus:border-amber-400 focus:outline-none"><?= e($hero['subtitle'] ?? 'A rare blend of tradition, tranquility and modern comfort in the divine land of Braj.') ?></textarea>
+                    <span class="text-[11px] text-slate-500 mt-1 block">Editorial introduction describing the project beneath the main headline.</span>
+                </div>
 
+            </div>
+        </div>
+
+        <!-- ============================================================
+             TAB 3: ACTION BUTTONS & VIDEO TOUR
+             ============================================================ -->
+        <div x-show="activeTab === 'ctas'" class="space-y-6">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 shadow-xl space-y-6">
+                
+                <div class="border-b border-slate-800 pb-3">
+                    <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> 
+                        Dual Action Buttons &amp; YouTube Virtual Tour
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5">
+                        Configure the primary Explore button and the Watch Video modal popup on the home hero.
+                    </p>
+                </div>
+
+                <!-- Primary Explore CTA -->
+                <div class="p-5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-4">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block">
+                        ✦ Primary Action Button (Bronze Accent #9A6B2F)
+                    </span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Button Text</label>
+                            <input type="text" name="cta_text"
+                                   value="<?= e($hero['cta_text'] ?? 'EXPLORE PROJECT') ?>"
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-semibold focus:border-amber-400 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Target URL / Anchor</label>
+                            <input type="text" name="cta_link"
+                                   value="<?= e($hero['cta_link'] ?? '#sanctuaries') ?>"
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono focus:border-amber-400 focus:outline-none">
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
 
-            <!-- Add New Slide Drawer / Accordion -->
-            <div x-show="showNewSlide" x-cloak class="p-5 rounded-xl border border-emerald-500/30 bg-emerald-950/10 space-y-4">
-                <div class="flex items-center justify-between border-b border-emerald-500/20 pb-2">
-                    <h4 class="text-sm font-bold text-emerald-400 flex items-center gap-2">
-                        <span>+ Add New Property Slide to Full-Screen Hero</span>
-                    </h4>
-                    <button type="button" @click="showNewSlide = false" class="text-xs text-slate-400 hover:text-white">✕ Close</button>
+                <!-- Watch Video Button & YouTube Modal -->
+                <div class="p-5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-4">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block">
+                        ✦ Watch Video Button &amp; Virtual Tour Modal Embed
+                    </span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Button Text</label>
+                            <input type="text" name="video_text"
+                                   value="<?= e($hero['video_text'] ?? 'WATCH VIDEO') ?>"
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-semibold focus:border-amber-400 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">YouTube Video Link</label>
+                            <input type="text" name="video_url"
+                                   value="<?= e($hero['video_url'] ?? 'https://www.youtube.com/embed/6_3m6j9f1L0?autoplay=1&mute=0') ?>"
+                                   placeholder="https://youtu.be/... or https://www.youtube.com/watch?v=..."
+                                   class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono focus:border-amber-400 focus:outline-none">
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-500">Supports standard YouTube URLs (`https://youtu.be/ID` or `https://www.youtube.com/watch?v=ID`). The system automatically converts it to an autoplaying modal embed.</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Link to Project (Optional)
-                        </label>
-                        <select name="new_slide_project_id"
-                                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                            <option value="">-- Custom Sanctuary Slide --</option>
-                            <?php foreach ($projects as $proj): ?>
-                                <option value="<?= $proj['id'] ?>"><?= e($proj['name']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Slide Title *
-                        </label>
-                        <input type="text" name="new_slide_title" placeholder="e.g. Shri Vrinda Vihaar Residential Plots"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Location Text
-                        </label>
-                        <input type="text" name="new_slide_location" placeholder="e.g. Raman Reti • Vrindavan"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Status Badge
-                        </label>
-                        <input type="text" name="new_slide_badge" value="Phase II Launch"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Category Label
-                        </label>
-                        <input type="text" name="new_slide_featured_label" value="Featured Sanctuary"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-amber-300 focus:outline-none focus:border-emerald-400">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Price Callout
-                        </label>
-                        <input type="text" name="new_slide_price" placeholder="e.g. Starting ₹ 55 Lakhs*"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-amber-300 font-mono focus:outline-none focus:border-emerald-400">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Upload High-Res Slide Image
-                        </label>
-                        <input type="file" name="new_slide_file" accept="image/*"
-                               class="w-full text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-emerald-400 hover:file:bg-slate-700">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Or Direct Image Asset Path
-                        </label>
-                        <input type="text" name="new_slide_image" placeholder="e.g. /public/uploads/hero/hero-braj-sanctuary.webp"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-400">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                        Specifications / Architectural Highlights
-                    </label>
-                    <input type="text" name="new_slide_description" placeholder="e.g. Freehold Sanctuaries • 250 – 1,200 Sq. Yds. • 40ft Wide Roads"
-                           class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Button Label
-                        </label>
-                        <input type="text" name="new_slide_cta_text" value="Explore Sanctuary"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">
-                            Button Target Link
-                        </label>
-                        <input type="text" name="new_slide_cta_url" value="#residences"
-                               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-300 font-mono focus:outline-none focus:border-emerald-400">
-                    </div>
-                </div>
             </div>
+        </div>
 
+        <!-- ============================================================
+             TAB 4: BOTTOM 3 FEATURE CARDS
+             ============================================================ -->
+        <div x-show="activeTab === 'cards'" class="space-y-6">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-6 shadow-xl space-y-6">
+                
+                <div class="border-b border-slate-800 pb-3">
+                    <h3 class="font-heading font-semibold text-white text-sm flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> 
+                        3 Bottom Glassmorphic Feature Cards
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">
+                        These 3 cards appear along the bottom of the hero section with thumbnail photos, bold titles, and subheadings.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <?php 
+                        $cards = $hero['cards'] ?? [
+                            ['title' => 'Heritage Inspired Architecture', 'sub' => 'Modern Amenities', 'image' => 'uploads/hero/mini_thumb_1.jpg'],
+                            ['title' => 'Serene Green Surroundings', 'sub' => 'Peaceful Living', 'image' => 'uploads/hero/mini_thumb_2.jpg'],
+                            ['title' => 'A Spiritual Lifestyle', 'sub' => 'Closer to Divinity', 'image' => 'uploads/hero/mini_thumb_3.jpg'],
+                        ];
+                    ?>
+                    <?php for ($i = 0; $i < 3; $i++): ?>
+                        <?php $c = $cards[$i] ?? ['title' => '', 'sub' => '', 'image' => '']; ?>
+                        <div class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Card <?= $i + 1 ?></span>
+                            </div>
+
+                            <!-- Image Preview -->
+                            <div class="aspect-[16/10] rounded-lg overflow-hidden bg-slate-900 border border-slate-800 relative">
+                                <img id="card_<?= $i ?>_preview" src="<?= asset($c['image']) ?>" alt="Card Preview" class="w-full h-full object-cover">
+                            </div>
+
+                            <!-- File Upload -->
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Upload Photo</label>
+                                <input type="file" name="card_<?= $i ?>_file" accept="image/*"
+                                       onchange="if(this.files && this.files[0]){ const r = new FileReader(); r.onload = (e) => document.getElementById('card_<?= $i ?>_preview').src = e.target.result; r.readAsDataURL(this.files[0]); }"
+                                       class="w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:text-[11px] file:font-semibold file:bg-amber-500/20 file:text-amber-300 hover:file:bg-amber-500/30 cursor-pointer">
+                            </div>
+
+                            <!-- Path -->
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Image Path</label>
+                                <input type="text" name="card_<?= $i ?>_image" value="<?= e($c['image']) ?>"
+                                       class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:border-amber-400 focus:outline-none">
+                            </div>
+
+                            <!-- Title -->
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Card Title</label>
+                                <input type="text" name="card_<?= $i ?>_title" value="<?= e($c['title']) ?>"
+                                       class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-bold focus:border-amber-400 focus:outline-none">
+                            </div>
+
+                            <!-- Subtitle -->
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">Subtitle</label>
+                                <input type="text" name="card_<?= $i ?>_sub" value="<?= e($c['sub']) ?>"
+                                       class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-300 focus:border-amber-400 focus:outline-none">
+                            </div>
+                        </div>
+                    <?php endfor; ?>
+                </div>
+
+            </div>
         </div>
 
         <!-- Sticky Save Floating Bar -->
-        <div class="sticky bottom-4 z-20 flex items-center justify-between p-4 rounded-xl bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl">
-            <div class="flex items-center gap-2 text-xs text-slate-300">
-                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                <span>Changes will be immediately reflected in the live full-screen 3D rotation hero.</span>
-            </div>
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+            <a href="<?= url('/') ?>" target="_blank"
+               class="px-5 py-2.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 text-xs font-semibold uppercase tracking-wider transition-colors">
+                Cancel
+            </a>
             <button type="submit"
-                    class="px-6 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-widest transition-all shadow-lg hover:shadow-amber-400/20 active:scale-98 flex items-center gap-2">
+                    class="px-6 py-2.5 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-950 font-heading font-bold uppercase tracking-wider text-xs shadow-lg transition-all flex items-center gap-2 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span>Save All Changes</span>
+                <span>Save All Hero Settings</span>
             </button>
         </div>
+
     </form>
-
-    <!-- Hidden Individual Slide Deletion Forms -->
-    <?php foreach ($slides as $s): ?>
-        <?php $delId = (int) $s['id']; ?>
-        <form id="deleteSlideForm_<?= $delId ?>"
-              action="<?= url("/admin/hero/slides/{$delId}/delete") ?>"
-              method="POST" style="display: none;">
-            <?= csrf_field() ?>
-        </form>
-    <?php endforeach; ?>
-
 </div>
+
+<script>
+function previewHeroBgFile(input) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('heroBgPreviewImg').src = e.target.result;
+            document.getElementById('heroBgPreviewLabel').textContent = file.name;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function updateHeroBgPreview(path) {
+    path = path.trim();
+    if (!path) return;
+    const img = document.getElementById('heroBgPreviewImg');
+    const label = document.getElementById('heroBgPreviewLabel');
+    if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+        img.src = path;
+    } else {
+        img.src = '<?= asset('') ?>' + path.replace(/^\/+/, '');
+    }
+    label.textContent = path.split('/').pop() || path;
+}
+
+function applyHeroBgPreset(path, label) {
+    document.getElementById('bgImageInput').value = path;
+    updateHeroBgPreview(path);
+}
+</script>

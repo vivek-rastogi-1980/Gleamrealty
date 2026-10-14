@@ -69,6 +69,60 @@ $router->post('/admin/hero/slides/{id}/delete', 'Admin\HeroController@deleteSlid
 $router->get('/admin/home', 'Admin\HomeController@index');
 $router->post('/admin/home', 'Admin\HomeController@update');
 
+// About Us Page Content Manager
+$router->get('/admin/about', 'Admin\AboutController@index');
+$router->post('/admin/about', 'Admin\AboutController@update');
+
+// Contact Us Page Content Manager
+$router->get('/admin/contact', 'Admin\ContactController@index');
+$router->post('/admin/contact', 'Admin\ContactController@update');
+$router->post('/admin/contact/upload-image', 'Admin\ContactController@uploadImage');
+
+// Footer Content Manager
+$router->get('/admin/footer', 'Admin\FooterController@index');
+$router->post('/admin/footer', 'Admin\FooterController@update');
+
+// Flats in Vrindavan CMS
+$router->get('/admin/flats-apartments', 'Admin\FlatsApartmentsController@index');
+$router->post('/admin/flats-apartments', 'Admin\FlatsApartmentsController@update');
+
+// Vrindavan Communities CMS
+$router->get('/admin/location-vrindavan', 'Admin\LocationVrindavanController@index');
+$router->post('/admin/location-vrindavan', 'Admin\LocationVrindavanController@update');
+
+// Property in Vrindavan Page Content Manager
+$router->get('/admin/property-vrindavan', 'Admin\PropertyVrindavanController@index');
+$router->post('/admin/property-vrindavan', 'Admin\PropertyVrindavanController@update');
+$router->post('/admin/property-vrindavan/upload-image', 'Admin\PropertyVrindavanController@uploadImage');
+
+// Residential Plots in Vrindavan Page Content Manager
+$router->get('/admin/residential-plots', 'Admin\ResidentialPlotsController@index');
+$router->post('/admin/residential-plots', 'Admin\ResidentialPlotsController@update');
+$router->post('/admin/residential-plots/upload-image', 'Admin\ResidentialPlotsController@uploadImage');
+
+// Mathura Plot Rate Page Content Manager
+$router->get('/admin/plot-rate-mathura', 'Admin\PlotRateMathuraController@index');
+$router->post('/admin/plot-rate-mathura', 'Admin\PlotRateMathuraController@update');
+
+// Vrindavan Plot Rate Page Content Manager
+$router->get('/admin/plot-rate-vrindavan', 'Admin\PlotRateVrindavanController@index');
+$router->post('/admin/plot-rate-vrindavan', 'Admin\PlotRateVrindavanController@store');
+
+// Commercial Property in Vrindavan Page Content Manager
+$router->get('/admin/commercial-property', 'Admin\CommercialPropertyController@index');
+$router->post('/admin/commercial-property', 'Admin\CommercialPropertyController@update');
+$router->post('/admin/commercial-property/upload-image', 'Admin\CommercialPropertyController@uploadImage');
+
+// Luxury Villas in Vrindavan Page Content Manager
+$router->get('/admin/luxury-villas', 'Admin\LuxuryVillasController@index');
+$router->post('/admin/luxury-villas', 'Admin\LuxuryVillasController@update');
+$router->post('/admin/luxury-villas/upload-image', 'Admin\LuxuryVillasController@uploadImage');
+
+// Property in Mathura Page Content Manager
+$router->get('/admin/property-mathura', 'Admin\PropertyMathuraController@index');
+$router->post('/admin/property-mathura', 'Admin\PropertyMathuraController@store');
+$router->post('/admin/property-mathura/upload-image', 'Admin\PropertyMathuraController@uploadImage');
+
 // Projects CRUD
 $router->get('/admin/projects', 'Admin\ProjectController@index');
 $router->get('/admin/projects/create', 'Admin\ProjectController@create');
@@ -76,6 +130,7 @@ $router->post('/admin/projects', 'Admin\ProjectController@store');
 $router->get('/admin/projects/{id}/edit', 'Admin\ProjectController@edit');
 $router->post('/admin/projects/{id}', 'Admin\ProjectController@update');
 $router->post('/admin/projects/{id}/delete', 'Admin\ProjectController@delete');
+$router->post('/admin/projects/{id}/toggle', 'Admin\ProjectController@toggleStatus');
 
 // Project Media Manager
 $router->get('/admin/projects/{id}/media', 'Admin\MediaController@index');
@@ -86,9 +141,11 @@ $router->post('/admin/media/{id}/delete', 'Admin\MediaController@delete');
 $router->get('/admin/pages', 'Admin\PageController@index');
 $router->get('/admin/pages/create', 'Admin\PageController@create');
 $router->post('/admin/pages', 'Admin\PageController@store');
+$router->post('/admin/pages/upload-image', 'Admin\PageController@uploadImage');
 $router->get('/admin/pages/{id}/edit', 'Admin\PageController@edit');
 $router->post('/admin/pages/{id}', 'Admin\PageController@update');
 $router->post('/admin/pages/{id}/delete', 'Admin\PageController@delete');
+$router->post('/admin/pages/{id}/toggle', 'Admin\PageController@toggleStatus');
 
 // Blog & Editorial Articles CRUD
 $router->get('/admin/blogs', 'Admin\BlogController@index');

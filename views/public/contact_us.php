@@ -5,34 +5,52 @@
  */
 ?>
 
+<?php
+    $c = $contact ?? \App\Models\Setting::getContactSections();
+    $heroCover = !empty($c['hero']['image']) ? media_url($c['hero']['image']) : (!empty($page['hero_media_url']) ? media_url($page['hero_media_url']) : asset('uploads/hero/hero-braj-sanctuary.webp'));
+    $heroHeading = !empty($c['hero']['heading']) ? $c['hero']['heading'] : (!empty($page['hero_heading']) ? $page['hero_heading'] : ($page['title'] ?? 'Contact us'));
+    $heroSubheading = !empty($c['hero']['subheading']) ? $c['hero']['subheading'] : (!empty($page['hero_subheading']) ? $page['hero_subheading'] : 'Contact us for details about plots and luxury villas in Vrindavan and Mathura. Our specialized advisory team is here to assist your sacred journey.');
+    $heroBadge = !empty($c['hero']['badge']) ? $c['hero']['badge'] : 'Gleamrealty Private Limited • Vrindavan & Mathura';
+?>
+
 <!-- Inner Header / Banner -->
-<section class="relative min-h-[35vh] sm:min-h-[40vh] flex items-center justify-center border-b py-20 lg:py-28 overflow-hidden transition-colors"
-         :style="{ backgroundColor: 'var(--theme-hero-from)', borderColor: 'var(--theme-border-hairline)' }">
+<section class="relative min-h-[35vh] sm:min-h-[42vh] flex items-center justify-center border-b border-stone-800 bg-stone-950 py-20 lg:py-28 overflow-hidden transition-colors">
     <!-- Subtle Background Media & Cinematic Scrim -->
     <div class="absolute inset-0 z-0">
-        <img src="<?= asset('uploads/hero/hero-braj-sanctuary.webp') ?>"
-             alt="Vrindavan Heritage Sanctuary"
+        <img src="<?= $heroCover ?>"
+             alt="<?= e($heroHeading) ?>"
              class="w-full h-full object-cover filter brightness-[0.35] blur-[1px] scale-105">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
     </div>
 
     <!-- Ambient Heritage Glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] rounded-full blur-3xl pointer-events-none -z-0 opacity-25"
          :style="{ backgroundColor: 'var(--theme-hero-glow)' }"></div>
 
-    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-3">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 text-center space-y-3" style="margin-top:15px;">
         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] uppercase tracking-[0.24em] font-semibold backdrop-blur-md bg-white/10 text-white border border-white/20 shadow-sm">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-            Private Office &bull; Braj Bhumi
+            <span class="w-1.5 h-1.5 rounded-full bg-[#9A6B2F] animate-ping"></span>
+            <?= e($heroBadge) ?>
         </div>
 
         <h1 class="font-editorial text-4xl sm:text-6xl font-normal tracking-tight text-white drop-shadow-md">
-            Contact us
+            <?= e($heroHeading) ?>
         </h1>
 
         <p class="text-xs sm:text-sm max-w-xl mx-auto font-light text-stone-200 leading-relaxed drop-shadow">
-            Contact us for details about plots and luxury villas in Vrindavan and Mathura. Our specialized advisory team is here to assist your sacred journey.
+            <?= e($heroSubheading) ?>
         </p>
+
+        <?php if (\Core\Auth::check()): ?>
+            <div class="pt-2 flex items-center justify-center gap-3">
+                <a href="<?= url('/admin/contact') ?>"
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Edit Contact Page in Admin CMS
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -92,15 +110,15 @@
                         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16">
                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
                         </svg>
-                        Contact us
+                        <?= e($c['form']['eyebrow'] ?? '✦ Instant Response Guarantee') ?>
                     </span>
                     <h2 class="font-editorial text-3xl sm:text-4xl font-normal tracking-tight transition-colors"
                         :style="{ color: 'var(--theme-title)' }">
-                        Find your Dream Property
+                        <?= e($c['form']['title'] ?? 'Find your Dream Property') ?>
                     </h2>
                     <p class="text-xs sm:text-sm font-light mt-2 transition-colors"
                        :style="{ color: 'var(--theme-subtitle)' }">
-                        Fill in your details below and our senior Braj property advisor will connect with you within 30 minutes.
+                        <?= e($c['form']['subtitle'] ?? 'Fill in your details below and our senior property advisor will connect with you within 30 minutes.') ?>
                     </p>
                 </div>
 
@@ -109,16 +127,16 @@
                      x-transition:enter="transition ease-out duration-300"
                      x-transition:enter-start="opacity-0 -translate-y-2"
                      x-transition:enter-end="opacity-100 translate-y-0"
-                     class="mb-6 p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 dark:text-emerald-200 text-xs sm:text-sm flex items-start justify-between gap-3">
+                     class="mb-6 p-4 rounded-xl bg-[#FDF3E3] border border-[#9A6B2F]/30 text-[#9A6B2F] text-xs sm:text-sm flex items-start justify-between gap-3">
                     <div class="flex items-center gap-2.5">
-                        <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-5 h-5 text-[#9A6B2F] shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
                         <div>
                             <strong>Success!</strong> Your enquiry submitted successfully! Our team will contact you shortly.
                         </div>
                     </div>
-                    <button @click="submitted = false" class="text-emerald-600 hover:text-emerald-800">&times;</button>
+                    <button @click="submitted = false" class="text-[#9A6B2F] hover:text-[#835722]">&times;</button>
                 </div>
 
                 <!-- Error Alert -->
@@ -268,7 +286,7 @@
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                 </svg>
                             </template>
-                            <span x-text="submitting ? 'Submitting Enquiry...' : 'Submit'">Submit</span>
+                            <span x-text="submitting ? 'Submitting Enquiry...' : '<?= e(addslashes($c['form']['button_text'] ?? 'Submit Enquiry')) ?>'">Submit Enquiry</span>
                         </button>
                     </div>
                 </form>
@@ -284,11 +302,11 @@
                 
                 <span class="text-[10px] uppercase tracking-[0.24em] font-semibold block mb-2"
                       :style="{ color: 'var(--theme-accent)' }">
-                    ✦ Registered &amp; Site Presence
+                    <?= e($c['office']['badge'] ?? '✦ Registered & Site Presence') ?>
                 </span>
                 <h3 class="font-editorial text-2xl sm:text-3xl font-normal mb-6"
                     :style="{ color: 'var(--theme-title)' }">
-                    Vrindavan Private Office
+                    <?= e($c['office']['title'] ?? 'Vrindavan Gleamrealty Private Limited') ?>
                 </h3>
 
                 <div class="space-y-6 text-xs sm:text-sm font-light">
@@ -303,7 +321,9 @@
                         <div>
                             <div class="font-semibold text-xs uppercase tracking-wider mb-0.5" :style="{ color: 'var(--theme-title)' }">Office Address</div>
                             <p class="leading-relaxed" :style="{ color: 'var(--theme-subtitle)' }">
-                                Flat no 10, LIG 09, Suncity Anantam Kunj, Vrindavan-281406
+                                <a href="<?= e(company_map_directions_url()) ?>" target="_blank" rel="noopener noreferrer" class="hover:underline hover:opacity-90">
+                                    <?= e(company_address()) ?>
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -319,30 +339,35 @@
                         <div>
                             <div class="font-semibold text-xs uppercase tracking-wider mb-0.5" :style="{ color: 'var(--theme-title)' }">Advisory Hotline</div>
                             <div class="space-y-1">
-                                <a href="tel:+919871731303" class="font-medium hover:underline text-sm sm:text-base block" :style="{ color: 'var(--theme-title)' }">
-                                    +91 9871731303
-                                </a>
-                                <a href="tel:+917409767452" class="font-medium hover:underline text-sm sm:text-base block" :style="{ color: 'var(--theme-title)' }">
-                                    +91 7409767452
-                                </a>
+                                <?php if (!empty($c['office']['phone_1'])): ?>
+                                    <a href="tel:<?= preg_replace('/\s+/', '', $c['office']['phone_1']) ?>" class="font-medium hover:underline text-sm sm:text-base block" :style="{ color: 'var(--theme-title)' }">
+                                        <?= e($c['office']['phone_1']) ?>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if (!empty($c['office']['phone_2'])): ?>
+                                    <a href="tel:<?= preg_replace('/\s+/', '', $c['office']['phone_2']) ?>" class="font-medium hover:underline text-sm sm:text-base block" :style="{ color: 'var(--theme-title)' }">
+                                        <?= e($c['office']['phone_2']) ?>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
 
                     <!-- WhatsApp -->
                     <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border bg-emerald-500/15 border-emerald-500/30 text-emerald-600">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border bg-[#FAF7F2] border-[#9A6B2F]/20 text-[#9A6B2F]">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.23c-.25-.13-1.47-.72-1.7-.81-.23-.08-.4-.13-.57.13-.17.25-.65.81-.8 1-.15.17-.3.19-.55.07-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.12-.15.17-.25.25-.42.08-.17.04-.32-.02-.44-.06-.13-.57-1.37-.78-1.88-.2-.5-.42-.43-.57-.44h-.49c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.45 1.03 2.62.13.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.54.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"/>
                             </svg>
                         </div>
                         <div>
                             <div class="font-semibold text-xs uppercase tracking-wider mb-0.5" :style="{ color: 'var(--theme-title)' }">WhatsApp Concierge</div>
-                            <a href="https://wa.me/919871731303?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20plots%20and%20villas%20in%20Vrindavan."
+                            <?php $waNum = preg_replace('/[^0-9]/', '', $c['office']['whatsapp'] ?? '919871731303'); ?>
+                            <a href="https://wa.me/<?= $waNum ?>?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20plots%20and%20villas%20in%20Vrindavan."
                                target="_blank"
                                rel="noopener"
-                               class="font-medium hover:underline text-sm sm:text-base text-emerald-600 block">
-                                +91 9871731303
+                               class="font-medium hover:underline text-sm sm:text-base text-[#9A6B2F] block">
+                                <?= e($c['office']['whatsapp'] ?? '+91 9871731303') ?>
                             </a>
                         </div>
                     </div>
@@ -357,8 +382,8 @@
                         </div>
                         <div>
                             <div class="font-semibold text-xs uppercase tracking-wider mb-0.5" :style="{ color: 'var(--theme-title)' }">Email Address</div>
-                            <a href="mailto:concierge@gleamrealty.com" class="font-medium hover:underline text-xs sm:text-sm block" :style="{ color: 'var(--theme-title)' }">
-                                concierge@gleamrealty.com
+                            <a href="mailto:<?= e($c['office']['email'] ?? 'contact@gleamrealty.com') ?>" class="font-medium hover:underline text-xs sm:text-sm block" :style="{ color: 'var(--theme-title)' }">
+                                <?= e($c['office']['email'] ?? 'contact@gleamrealty.com') ?>
                             </a>
                         </div>
                     </div>
@@ -367,7 +392,7 @@
                     <div class="pt-4 border-t" :style="{ borderColor: 'var(--theme-card-border)' }">
                         <div class="flex items-center justify-between text-xs">
                             <span class="font-semibold uppercase tracking-wider" :style="{ color: 'var(--theme-title)' }">Hours:</span>
-                            <span :style="{ color: 'var(--theme-subtitle)' }">Mon – Sun: 9:30 AM – 7:30 PM</span>
+                            <span :style="{ color: 'var(--theme-subtitle)' }"><?= e($c['office']['hours'] ?? 'Mon – Sun: 9:30 AM – 7:30 PM') ?></span>
                         </div>
                     </div>
                 </div>
@@ -377,27 +402,52 @@
             <!-- Trust Banner -->
             <div class="p-6 rounded-2xl border flex items-center justify-around text-center"
                  :style="{ backgroundColor: 'var(--theme-badge-bg)', borderColor: 'var(--theme-badge-border)' }">
-                <div>
-                    <span class="block font-serif text-xl font-bold" :style="{ color: 'var(--theme-title)' }">100%</span>
-                    <span class="text-[10px] uppercase tracking-wider font-semibold opacity-80" :style="{ color: 'var(--theme-subtitle)' }">MVDA Approved</span>
-                </div>
-                <div class="w-px h-8 bg-black/10 dark:bg-white/10"></div>
-                <div>
-                    <span class="block font-serif text-xl font-bold" :style="{ color: 'var(--theme-title)' }">Freehold</span>
-                    <span class="text-[10px] uppercase tracking-wider font-semibold opacity-80" :style="{ color: 'var(--theme-subtitle)' }">Direct Registry</span>
-                </div>
-                <div class="w-px h-8 bg-black/10 dark:bg-white/10"></div>
-                <div>
-                    <span class="block font-serif text-xl font-bold" :style="{ color: 'var(--theme-title)' }">0%</span>
-                    <span class="text-[10px] uppercase tracking-wider font-semibold opacity-80" :style="{ color: 'var(--theme-subtitle)' }">Brokerage</span>
-                </div>
+                <?php 
+                    $badges = $c['trust_badges'] ?? [
+                        ['val' => '100%', 'label' => 'MVDA Approved'],
+                        ['val' => 'Freehold', 'label' => 'Direct Registry'],
+                        ['val' => '0%', 'label' => 'Brokerage'],
+                    ];
+                ?>
+                <?php foreach ($badges as $idx => $b): ?>
+                    <?php if ($idx > 0): ?>
+                        <div class="w-px h-8 bg-black/10 dark:bg-white/10"></div>
+                    <?php endif; ?>
+                    <div>
+                        <span class="block font-serif text-xl font-bold" :style="{ color: 'var(--theme-title)' }"><?= e($b['val'] ?? '') ?></span>
+                        <span class="text-[10px] uppercase tracking-wider font-semibold opacity-80" :style="{ color: 'var(--theme-subtitle)' }"><?= e($b['label'] ?? '') ?></span>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
     </div>
 </section>
 
-<!-- Full-Width Interactive Google Maps Embed (Exact Match to Suncity Anantam Kunj Location) -->
+<?php 
+    $editorialContent = !empty($c['editorial']['content']) ? $c['editorial']['content'] : (!empty($page['content']) && !str_contains($page['content'], 'Earthousing') ? $page['content'] : '');
+    $editorialTitle = !empty($c['editorial']['title']) ? $c['editorial']['title'] : 'About Our Advisory';
+?>
+<?php if (!empty($editorialContent)): ?>
+<!-- Dynamic Editorial Content (Managed from Admin -> Contact Us Content CMS) -->
+<section class="py-14 px-6 sm:px-8 border-t transition-colors"
+         :style="{ backgroundColor: 'var(--theme-bg-canvas)', borderColor: 'var(--theme-border-hairline)' }">
+    <div class="max-w-5xl mx-auto">
+        <div class="p-8 sm:p-12 rounded-3xl border shadow-xl transition-all"
+             :style="{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-card-border)' }">
+            <span class="text-xs uppercase tracking-widest font-semibold block mb-3" :style="{ color: 'var(--theme-accent)' }">
+                <?= e($editorialTitle) ?>
+            </span>
+            <div class="prose prose-stone dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed"
+                 :style="{ color: 'var(--theme-text-primary)' }">
+                <?= $editorialContent ?>
+            </div>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<!-- Full-Width Interactive Google Maps Embed -->
 <section class="relative w-full border-t border-b overflow-hidden"
          :style="{ borderColor: 'var(--theme-border-hairline)' }">
     <div class="w-full h-[460px] relative bg-stone-100 dark:bg-stone-900">
@@ -408,16 +458,16 @@
                  borderColor: 'var(--theme-card-border)',
                  boxShadow: 'var(--theme-card-shadow)'
              }">
-            <div class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></div>
+            <div class="w-3 h-3 rounded-full bg-[#9A6B2F] animate-ping"></div>
             <div>
                 <span class="block text-xs font-semibold uppercase tracking-wider" :style="{ color: 'var(--theme-title)' }">
-                    GLEAMREALTY PRIVATE LIMITED &bull; Suncity Anantam Kunj
+                    <?= e($c['map']['title'] ?? 'GLEAMREALTY PRIVATE LIMITED • Suncity Anantam Kunj') ?>
                 </span>
                 <span class="block text-[11px]" :style="{ color: 'var(--theme-subtitle)' }">
-                    Flat no 10, LIG 09, Suncity Anantam Kunj, Vrindavan-281406
+                    <?= e($c['office']['address'] ?? company_address()) ?>
                 </span>
             </div>
-            <a href="https://maps.google.com/?q=Suncity+Anantam+Vrindavan"
+            <a href="<?= e($c['map']['directions_url'] ?? company_map_directions_url()) ?>"
                target="_blank"
                rel="noopener noreferrer"
                class="ml-3 px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide border transition-all hover:scale-105 inline-flex items-center gap-1.5"
@@ -434,14 +484,14 @@
         </div>
 
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d752066.797759775!2d76.67433074191739!3d28.091234025919512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39736f8aebc5aafb%3A0x22637777df135e43!2sSuncity%20Anantam%20Vrindavan!5e1!3m2!1sen!2sin!4v1759745864995!5m2!1sen!2sin"
+            src="<?= e($c['map']['embed_url'] ?? company_map_embed_url()) ?>"
             width="100%"
             height="100%"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="GLEAMREALTY PRIVATE LIMITED Vrindavan Location">
+            title="<?= e($c['map']['title'] ?? 'GLEAMREALTY PRIVATE LIMITED Location') ?> - <?= e($c['office']['address'] ?? company_address()) ?>">
         </iframe>
     </div>
 </section>

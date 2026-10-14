@@ -275,7 +275,7 @@
                         Connect directly with our senior acquisition partners for MVDA registry verification, circle rate audits, and priority site showing of premier plotted sanctuaries across Vrindavan &amp; Mathura.
                     </p>
                     <div class="pt-2 text-xs font-mono opacity-80" :style="{ color: 'var(--theme-accent)' }">
-                        Office: Flat no 10, LIG 09, Suncity Anantam Kunj, Vrindavan-281406
+                        Office: <a href="<?= e(company_map_directions_url()) ?>" target="_blank" rel="noopener noreferrer" class="hover:underline"><?= e(company_address()) ?></a>
                     </div>
                 </div>
 
