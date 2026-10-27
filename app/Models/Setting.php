@@ -404,6 +404,88 @@ class Setting
                 'card4_title' => 'World-Class Healthcare',
                 'card4_desc' => 'Immediate proximity to Ramakrishna Mission Hospital, Niyati Medicity, and top-tier medical facilities for complete peace of mind.',
             ],
+            'matrix' => [
+                'eyebrow' => 'Market Analytics',
+                'title' => 'Vrindavan Land Valuation Matrix',
+                'subtitle' => 'A comparative study of approved plotted corridors, 5-year growth trajectory, and projected valuations heading into 2028-2030:',
+                'rows' => [
+                    [
+                        'location' => 'NH-19 Akbarpur / Chaumuha Corridor',
+                        'price_2021' => '₹ 14,000 - ₹ 18,000 / sq. yd',
+                        'price_2026' => '₹ 38,000 - ₹ 45,000 / sq. yd',
+                        'forecast' => '₹ 65,000 - ₹ 80,000 / sq. yd',
+                        'suitability' => 'High capital appreciation, expressway connectivity, best entry value.',
+                    ],
+                    [
+                        'location' => 'Rukmani Vihar / Sunrakh Road',
+                        'price_2021' => '₹ 22,000 - ₹ 28,000 / sq. yd',
+                        'price_2026' => '₹ 55,000 - ₹ 75,000 / sq. yd',
+                        'forecast' => '₹ 95,000 - ₹ 1,20,000 / sq. yd',
+                        'suitability' => 'VIP luxury plotted residential living, private villas, established enclave.',
+                    ],
+                    [
+                        'location' => 'Chhatikara - Radha Kund Road',
+                        'price_2021' => '₹ 20,000 - ₹ 25,000 / sq. yd',
+                        'price_2026' => '₹ 50,000 - ₹ 68,000 / sq. yd',
+                        'forecast' => '₹ 85,000 - ₹ 1,10,000 / sq. yd',
+                        'suitability' => 'Close to Prem Mandir and ISKCON, high rental yields for boutique stays.',
+                    ],
+                    [
+                        'location' => 'Mathura - Govardhan Road',
+                        'price_2021' => '₹ 12,000 - ₹ 16,000 / sq. yd',
+                        'price_2026' => '₹ 32,000 - ₹ 40,000 / sq. yd',
+                        'forecast' => '₹ 55,000 - ₹ 70,000 / sq. yd',
+                        'suitability' => 'Planned township living, gateway to Govardhan Parikrama, duplex villas.',
+                    ],
+                ],
+            ],
+            'faqs' => [
+                'eyebrow' => 'Clarity & Transparency',
+                'title' => 'Frequently Asked Questions',
+                'subtitle' => 'Everything you need to know about buying MVDA approved plots, pricing benchmarks, legal risks, and construction guidelines in Vrindavan.',
+                'list' => [
+                    [
+                        'q' => '1. Which are the top residential plots in Vrindavan that are approved by MVDA?',
+                        'a' => 'MVDA approved residential plots in Vrindavan are typically gated plots on clean corridors, not cheap unapproved colony plots and confined old town plots. One such prime corridor is the NH-19 near Akbarpur and Chhatikara which has direct highway frontage and is close to landmark destinations such as Prem Mandir and GLA University. There is also an MVDA approved gated project – Shri Vrinda Naivedyam at Gleamrealty, which is priced from ₹ 42,500 per sq. yard, alongside Shri Vasudhara Vaishaly starting at ₹ 39,990 per sq. yard. Before booking any plot, always verify its official MVDA sanction letter and layout map to ensure you are securing a genuine asset.'
+                    ],
+                    [
+                        'q' => '2. How many plots are there in Vrindavan today in the year 2026 and what are the price ranges?',
+                        'a' => 'The price of residential plots in Vrindavan varies significantly in 2026. Outlying agricultural colonies begin at about ₹ 25,000 per square yard (though often lacking proper municipal approvals), while sanctioned plots near major temples reach as high as ₹ 1 Lakh per square yard with extremely scarce supply. Approved, buildable inventory on primary development corridors ranges between ₹ 35,000 and ₹ 65,000 per square yard. Residential plots at Gleamrealty on the NH-19 approach are priced from ₹ 39,990 (Vasudhara Vaishaly) to ₹ 42,500 (Shri Vrinda Naivedyam) and ₹ 65,000 (Shri Vrinda Orchids) per sq. yard depending on road width, approval status, and proximity to landmarks.'
+                    ],
+                    [
+                        'q' => '3. In Vrindavan, near to Prem Mandir, is there any plot available for sale?',
+                        'a' => "Yes. Gleamrealty's Shri Vrinda Naivedyam near Akbarpur on the approach to NH-19 is a gated project approved by MVDA and situated within easy driving distance to Prem Mandir. In addition, Shri Vrinda Greens sits directly on the Chhatikara-Radha Kund Road corridor near Prem Mandir. While plots in the dense inner town are constrained by narrow lanes and command up to ₹ 1 Lakh/sq. yd, projects on the connecting corridors provide wider 30-40 ft roads, modern utilities, and peaceful green surroundings at much more attractive valuations."
+                    ],
+                    [
+                        'q' => '4. Which government approved plots are available at affordable price in Vrindavan?',
+                        'a' => "Plots claiming 'government approval' at unusually low rates in outlying colonies are often mislabeled; many only hold an agricultural Section 143 conversion or a pending application rather than a sanctioned MVDA residential layout. Genuine government-approved plots require formal MVDA layout sanctions with completed civil infrastructure. On the NH-19 approach, Gleamrealty offers verified gated developments starting from ₹ 39,990 per square yard. We always invite buyers to inspect the sanction order number and layout drawing before taking any financial steps."
+                    ],
+                    [
+                        'q' => '5. What are the legal risks associated with purchasing a plot in Vrindavan and how to avoid them?',
+                        'a' => 'To avoid legal complications, always verify title claims against government revenue records rather than verbal developer promises. Conduct a comprehensive 12-year title search through a local advocate, verify that your specific plot number is demarcated in the approved MVDA layout map, and secure a Non-Encumbrance Certificate (NEC). Having a nationalized bank (SBI, HDFC, ICICI) approve loans for the project provides independent legal validation. Always insist on a registered Sale Deed at the Sub-Registrar Office followed by timely revenue mutation (Dakhil Kharij) in the Jamabandi.'
+                    ],
+                    [
+                        'q' => '6. How much land is being sold in Vrindavan and what are the standard plot sizes?',
+                        'a' => 'Plotted land in Vrindavan is available across multiple configurations. In organized gated layouts, typical plot cuts range from 100 to 250 square yards (approx. 900 to 2,250 sq. ft), with larger custom villa parcels exceeding 350 sq. yards. In our developments, Shri Vasudhara Vaishaly offers cuts from 111 to 240 sq. yards, while Shri Vrinda Naivedyam provides cuts from 119 to 177 sq. yards. Pricing is transparently computed on a per-square-yard basis.'
+                    ],
+                    [
+                        'q' => '7. In which gated community are there residential plots in Vrindavan near Mathura?',
+                        'a' => "Gleamrealty’s Shri Vrinda Naivedyam and Shri Vasudhara Vaishaly are gated communities strategically located on the NH-19 approach near Akbarpur, seamlessly positioned between Mathura City and Vrindavan's temples. Both communities feature gated perimeters, 24/7 manned security, wide paved roads, underground electrification, and landscaped parks. Naivedyam carries MVDA approval No. MTDA/Z2/ANI/2025/0000578. In addition, Shri Vrinda Aakruti Village on Mathura-Govardhan Road offers residential plots and duplex villas with easy access to both cities."
+                    ],
+                    [
+                        'q' => '8. May I construct my own house on a residential plot for sale in Vrindavan?',
+                        'a' => 'Yes, full architectural freedom is the principal advantage of buying a freehold plot over an apartment. On an MVDA approved, sanctioned plot, you are entitled to construct your custom villa or cottage according to your architectural preferences, subject to local municipal building bye-laws (setbacks, height limits, ground coverage). A plot in a gated layout with ready utilities (water, power, paved roads) simplifies construction substantially compared to raw unserviced land.'
+                    ],
+                    [
+                        'q' => '9. What are the MVDA approved plots for those who want to buy in Vrindavan on Raal Road and NH-19?',
+                        'a' => 'Both NH-19 and Raal Road are premier growth corridors in Vrindavan. The NH-19 belt near Akbarpur provides high-speed, direct 4-lane access to Delhi-NCR, Jewar Airport, Mathura, and the inner temple circuits. Gleamrealty offers verified MVDA approved plotted inventory along this corridor at Shri Vrinda Naivedyam (₹ 42,500/sq. yd) and Shri Vasudhara Vaishaly (₹ 39,990/sq. yd). Always ask for the official sanction letter number and verify that it matches your specific plot demarcation.'
+                    ],
+                    [
+                        'q' => '10. Should you rather purchase land in Vrindavan for sale than a flat / apartment?',
+                        'a' => 'Both asset classes serve distinct goals. A freehold residential plot gives you 100% land ownership with undivided sovereign title, total architectural freedom to build your dream sanctuary at your own pace, and significantly higher long-term capital appreciation. An apartment offers immediate lock-and-leave convenience but comes with shared land interest, recurring monthly maintenance fees, and depreciating building structure over 30-40 years. For buyers seeking a generational family asset, wealth protection, and spiritual retreat, a sanctioned plot in Vrindavan is universally the superior choice.'
+                    ],
+                ],
+            ],
             'consultation' => [
                 'badge' => 'Expert Guidance',
                 'title' => 'Navigate the Market with Confidence',
@@ -424,7 +506,14 @@ class Setting
             return $defaults;
         }
 
-        return array_replace_recursive($defaults, $stored);
+        $merged = array_replace_recursive($defaults, $stored);
+        if (isset($stored['matrix']['rows'])) {
+            $merged['matrix']['rows'] = $stored['matrix']['rows'];
+        }
+        if (isset($stored['faqs']['list'])) {
+            $merged['faqs']['list'] = $stored['faqs']['list'];
+        }
+        return $merged;
     }
 
     /**
@@ -434,6 +523,12 @@ class Setting
     {
         $current = self::getResidentialPlotsSections();
         $merged = array_replace_recursive($current, $data);
+        if (isset($data['matrix']['rows'])) {
+            $merged['matrix']['rows'] = $data['matrix']['rows'];
+        }
+        if (isset($data['faqs']['list'])) {
+            $merged['faqs']['list'] = $data['faqs']['list'];
+        }
         self::set('residential_plots_sections', $merged);
 
         $page = Page::findBySlug('residential-plots-in-vrindavan');

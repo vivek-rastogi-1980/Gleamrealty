@@ -152,7 +152,68 @@ class ResidentialPlotsController extends Controller
             'card4_desc' => trim((string) $request->input('lifestyle_card4_desc', $current['lifestyle']['card4_desc'] ?? '')),
         ];
 
-        // 6. VIP Consultation & Hotline Form
+        // 6. Vrindavan Land Valuation Matrix
+        $matrixRows = [];
+        $rawRows = $request->post('matrix_rows');
+        if (is_array($rawRows)) {
+            foreach ($rawRows as $row) {
+                if (!is_array($row)) {
+                    continue;
+                }
+                $location = trim((string) ($row['location'] ?? ''));
+                $price2021 = trim((string) ($row['price_2021'] ?? ''));
+                $price2026 = trim((string) ($row['price_2026'] ?? ''));
+                $forecast = trim((string) ($row['forecast'] ?? ''));
+                $suitability = trim((string) ($row['suitability'] ?? ''));
+
+                if ($location !== '' || $price2021 !== '' || $price2026 !== '' || $forecast !== '' || $suitability !== '') {
+                    $matrixRows[] = [
+                        'location' => $location,
+                        'price_2021' => $price2021,
+                        'price_2026' => $price2026,
+                        'forecast' => $forecast,
+                        'suitability' => $suitability,
+                    ];
+                }
+            }
+        } elseif (!isset($_POST['matrix_title']) && !empty($current['matrix']['rows'])) {
+            $matrixRows = $current['matrix']['rows'];
+        }
+
+        $matrix = [
+            'eyebrow' => trim((string) $request->input('matrix_eyebrow', $current['matrix']['eyebrow'] ?? 'Market Analytics')),
+            'title' => trim((string) $request->input('matrix_title', $current['matrix']['title'] ?? 'Vrindavan Land Valuation Matrix')),
+            'subtitle' => trim((string) $request->input('matrix_subtitle', $current['matrix']['subtitle'] ?? 'A comparative study of approved plotted corridors, 5-year growth trajectory, and projected valuations heading into 2028-2030:')),
+            'rows' => $matrixRows,
+        ];
+
+        // 7. Frequently Asked Questions
+        $faqList = [];
+        $rawQuestions = $request->post('faq_q');
+        $rawAnswers = $request->post('faq_a');
+        if (is_array($rawQuestions)) {
+            foreach ($rawQuestions as $index => $q) {
+                $qText = trim((string) $q);
+                $aText = isset($rawAnswers[$index]) ? trim((string) $rawAnswers[$index]) : '';
+                if ($qText !== '' || $aText !== '') {
+                    $faqList[] = [
+                        'q' => $qText,
+                        'a' => $aText,
+                    ];
+                }
+            }
+        } elseif (!isset($_POST['faqs_title']) && !empty($current['faqs']['list'])) {
+            $faqList = $current['faqs']['list'];
+        }
+
+        $faqs = [
+            'eyebrow' => trim((string) $request->input('faqs_eyebrow', $current['faqs']['eyebrow'] ?? 'Clarity & Transparency')),
+            'title' => trim((string) $request->input('faqs_title', $current['faqs']['title'] ?? 'Frequently Asked Questions')),
+            'subtitle' => trim((string) $request->input('faqs_subtitle', $current['faqs']['subtitle'] ?? 'Everything you need to know about buying MVDA approved plots, pricing benchmarks, legal risks, and construction guidelines in Vrindavan.')),
+            'list' => $faqList,
+        ];
+
+        // 8. VIP Consultation & Hotline Form
         $consultation = [
             'badge' => trim((string) $request->input('consultation_badge', $current['consultation']['badge'] ?? '')),
             'title' => trim((string) $request->input('consultation_title', $current['consultation']['title'] ?? '')),
@@ -162,7 +223,7 @@ class ResidentialPlotsController extends Controller
             'whatsapp' => trim((string) $request->input('consultation_whatsapp', $current['consultation']['whatsapp'] ?? '+91 9871731303')),
         ];
 
-        // 7. SEO Metadata
+        // 9. SEO Metadata
         $seo = [
             'meta_title' => trim((string) $request->input('meta_title', $current['seo']['meta_title'] ?? '')),
             'meta_description' => trim((string) $request->input('meta_description', $current['seo']['meta_description'] ?? '')),
@@ -175,6 +236,8 @@ class ResidentialPlotsController extends Controller
             'legalities' => $legalities,
             'megaprojects' => $megaprojects,
             'lifestyle' => $lifestyle,
+            'matrix' => $matrix,
+            'faqs' => $faqs,
             'consultation' => $consultation,
             'seo' => $seo,
         ];
